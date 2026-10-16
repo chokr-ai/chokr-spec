@@ -1,0 +1,23 @@
+# environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.import_linter_cache/
+
+# local tool settings
+.claude/
+.vs/
+
+# build and test output
+dist/
+build/
+*.egg-info/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+conformance-report.json
+requirements.audit.txt
