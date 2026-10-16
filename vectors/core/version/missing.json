@@ -1,0 +1,12 @@
+{
+  "expected": {
+    "accepted": false,
+    "code": "SCHEMA_INVALID"
+  },
+  "id": "version/missing",
+  "input": {
+    "supported": "1.0",
+    "version": null
+  },
+  "level": "core"
+}

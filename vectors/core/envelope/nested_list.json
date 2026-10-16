@@ -1,0 +1,21 @@
+{
+  "id": "envelope/nested_list",
+  "level": "core",
+  "input": {
+    "arguments": {
+      "items": [
+        {
+          "id": 1
+        },
+        {
+          "id": 2
+        }
+      ],
+      "flag": true
+    }
+  },
+  "expected": {
+    "canonical": "{\"flag\":true,\"items\":[{\"id\":1},{\"id\":2}]}",
+    "arguments_digest": "sha256:977272d6f0dbd89f5969334a858efab5fdb6843d478a61c7723322cef5502d04"
+  }
+}

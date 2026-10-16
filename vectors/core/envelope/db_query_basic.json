@@ -1,0 +1,13 @@
+{
+  "id": "envelope/db_query_basic",
+  "level": "core",
+  "input": {
+    "arguments": {
+      "sql": "SELECT 1"
+    }
+  },
+  "expected": {
+    "canonical": "{\"sql\":\"SELECT 1\"}",
+    "arguments_digest": "sha256:f25189374bfbf48658282bc196f4f8b6d09c7e4aa745f5b2351c827a8ef5aad9"
+  }
+}

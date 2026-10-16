@@ -1,0 +1,22 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/ledger_record_hash_ends_with_a_newline",
+  "input": {
+    "document": {
+      "body": {},
+      "body_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "body_mode": "full",
+      "chain_id": "sdk:c1",
+      "hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000\n",
+      "prev_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "record_type": "genesis",
+      "schema_version": "1.0",
+      "seq": 0,
+      "ts": "2026-01-01T00:00:00.000000Z"
+    },
+    "schema": "ledger_record"
+  },
+  "level": "core"
+}

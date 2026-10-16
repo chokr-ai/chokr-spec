@@ -1,0 +1,42 @@
+# Names that CHOKR defines. The language's own names (outcomes, standard reason codes and authoring error codes)
+# live in the language registry. This file is edited by hand and kept sorted by tools/check_spec.py.
+schema_version: '1.0'
+entries:
+- code: APPROVAL_DENIED
+- code: APPROVAL_EXPIRED
+- code: AUDIENCE_OUT_OF_SCOPE
+- code: AUTHORITY_EPOCH_ROLLBACK
+- code: AUTHORITY_EPOCH_STALE
+- code: BOUNDARY_EXCEEDED
+- code: BUDGET_EXCEEDED
+- code: CAPABILITY_SEQUENCE_FORBIDDEN
+- code: CONSTRAINT_VIOLATED
+- code: CONTAINMENT_DEGRADED
+- code: CONTAINMENT_REQUIRED
+- code: CONTRACT_VIOLATION
+- code: ENFORCEMENT_FAILURE
+- code: EVIDENCE_EXPIRED
+- code: EVIDENCE_MISSING
+- code: EVIDENCE_REJECTED
+- code: GRANT_MISMATCH
+- code: GUARD_ERROR
+- code: GUARD_TIMEOUT
+- code: HONEYTOKEN_TRIGGERED
+- code: HOOK_UNAVAILABLE
+- code: ISSUER_NOT_ALLOWED
+- code: KILL_SWITCH
+- code: LEDGER_UNAVAILABLE
+- code: LOOP_DETECTED
+- code: MODEL_PROVIDER_NOT_ALLOWED
+- code: NO_AUTHORITY
+- code: NO_VERIFIED_IDENTITY
+- code: PLUGIN_ERROR
+- code: PROOF_OF_POSSESSION_REQUIRED
+- code: SCOPE_VIOLATION
+- code: SECRET_DETECTED
+- code: SIGNAL_CRITICAL
+- code: SPONSOR_REQUIRED
+- code: SUBJECT_REVOKED
+- code: TOOL_BLOCKED
+- code: TOOL_DRIFT
+- code: VERDICT_SIGNATURE_INVALID

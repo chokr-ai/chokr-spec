@@ -1,0 +1,106 @@
+{
+  "$id": "https://spec.chokr.dev/schemas/approval/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "action_uri": {
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9._:/*-]+$(?!\\n)",
+      "type": "string"
+    },
+    "approval_id": {
+      "pattern": "^apr_",
+      "type": "string"
+    },
+    "arguments_digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+      "type": "string"
+    },
+    "created_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+      "type": "string"
+    },
+    "decided_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+      "type": "string"
+    },
+    "decided_by": {
+      "type": "object"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "envelope_id": {
+      "type": "string"
+    },
+    "expires_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+      "type": "string"
+    },
+    "ext": {
+      "type": "object"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "on_timeout": {
+      "enum": [
+        "deny",
+        "allow"
+      ]
+    },
+    "owner_pid": {
+      "type": "integer"
+    },
+    "policy_fingerprint": {
+      "type": "string"
+    },
+    "reason_code": {
+      "type": "string"
+    },
+    "schema_version": {
+      "description": "MAJOR.MINOR of the contract",
+      "pattern": "^1\\.[0-9]+$(?!\\n)",
+      "type": "string"
+    },
+    "stage": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "status": {
+      "enum": [
+        "pending",
+        "approved",
+        "denied",
+        "expired"
+      ]
+    },
+    "summary": {
+      "type": "object"
+    },
+    "target_digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+      "type": "string"
+    },
+    "verdict_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "action_uri",
+    "approval_id",
+    "arguments_digest",
+    "created_at",
+    "envelope_id",
+    "expires_at",
+    "kind",
+    "policy_fingerprint",
+    "schema_version",
+    "status",
+    "summary",
+    "target_digest",
+    "verdict_id"
+  ],
+  "title": "Approval",
+  "type": "object"
+}

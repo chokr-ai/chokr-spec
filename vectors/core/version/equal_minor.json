@@ -1,0 +1,11 @@
+{
+  "expected": {
+    "accepted": true
+  },
+  "id": "version/equal_minor",
+  "input": {
+    "supported": "1.2",
+    "version": "1.2"
+  },
+  "level": "core"
+}

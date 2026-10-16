@@ -1,0 +1,38 @@
+{
+  "expected": {
+    "accepted": false,
+    "code": "UNSUPPORTED_ALGORITHM"
+  },
+  "id": "verdict/key_with_other_algorithm",
+  "input": {
+    "document": {
+      "decided_by": "engine",
+      "envelope_id": "env_1",
+      "n": 1,
+      "outcome": "allow",
+      "reason_codes": [
+        "POLICY_SATISFIED"
+      ],
+      "schema_version": "1.0",
+      "signature": {
+        "alg": "ES256",
+        "kid": "k1",
+        "value": "mK4fXkcpY1EpDDvxdNuWbM6nbSTxyRG8RLHUAFkT42TXZeo-yr1Jg8NLWp68mZ0ZZ1jhwGfcjPeyUMVs4cIiCg"
+      },
+      "unicode": "café",
+      "verdict_id": "ver_1"
+    },
+    "jwks": {
+      "keys": [
+        {
+          "alg": "ES256",
+          "crv": "Ed25519",
+          "kid": "k1",
+          "kty": "OKP",
+          "x": "A6EHv_POEL4dcN0Y50vAmWfk1jCbpQ1fHdyGZBJVMbg"
+        }
+      ]
+    }
+  },
+  "level": "connect"
+}

@@ -1,0 +1,12 @@
+{
+  "expected": {
+    "accepted": false,
+    "code": "SCHEMA_INVALID"
+  },
+  "id": "version/three_parts",
+  "input": {
+    "supported": "1.0",
+    "version": "1.0.0"
+  },
+  "level": "core"
+}

@@ -1,0 +1,27 @@
+# Names that CHOKR defines. The language's own names (outcomes, standard reason codes and authoring error codes)
+# live in the language registry. This file is edited by hand and kept sorted by tools/check_spec.py.
+schema_version: '1.0'
+entries:
+- code: CONNECT_API_KEY_MISSING
+- code: CONNECT_URL_MISSING
+- code: ENFORCEMENT_FAILURE
+- code: EXPORTER_UNAVAILABLE
+- code: GRANT_MISMATCH
+- code: KID_NOT_ALLOWED
+- code: LEDGER_UNAVAILABLE
+- code: PACK_DEPENDENCY_CONFLICT
+- code: PACK_DEPENDENCY_CYCLE
+- code: PACK_INVALID
+- code: PACK_IN_USE
+- code: PACK_NAMESPACE_VIOLATION
+- code: PACK_NOT_FOUND
+- code: PACK_REQUIRES_UNSATISFIED
+- code: PACK_SIGNATURE_INVALID
+- code: PACK_SIGNER_UNTRUSTED
+- code: PACK_TEST_FAILED
+- code: PACK_UNSIGNED
+- code: PLUGIN_NAMESPACE_VIOLATION
+- code: SIGNATURE_INVALID
+- code: UNKNOWN_KID
+- code: UNSUPPORTED_ALGORITHM
+- code: VERDICT_UNSIGNED

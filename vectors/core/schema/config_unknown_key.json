@@ -1,0 +1,14 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/config_unknown_key",
+  "input": {
+    "document": {
+      "schema_version": "1.0",
+      "unknown_section": {}
+    },
+    "schema": "config"
+  },
+  "level": "core"
+}

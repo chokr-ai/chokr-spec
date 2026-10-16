@@ -1,0 +1,61 @@
+{
+  "$id": "https://spec.chokr.dev/schemas/budget_event/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "ext": {
+      "type": "object"
+    },
+    "limit_id": {
+      "type": "string"
+    },
+    "max": {
+      "minimum": 0,
+      "type": "number"
+    },
+    "metric": {
+      "type": "string"
+    },
+    "reserved": {
+      "minimum": 0,
+      "type": "number"
+    },
+    "schema": {
+      "const": "chokr.budget_event/1.0"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "scope_key": {
+      "type": "string"
+    },
+    "state": {
+      "enum": [
+        "ok",
+        "warning",
+        "tripped"
+      ]
+    },
+    "used": {
+      "minimum": 0,
+      "type": "number"
+    },
+    "window": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "limit_id",
+    "max",
+    "metric",
+    "schema",
+    "scope",
+    "state",
+    "used"
+  ],
+  "title": "Budget event",
+  "type": "object"
+}

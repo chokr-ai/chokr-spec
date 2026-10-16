@@ -1,0 +1,58 @@
+{
+  "id": "tamper/field_missing",
+  "level": "core",
+  "records": [
+    {
+      "chain_id": "sdk:01J0000000000000000000000A",
+      "seq": 0,
+      "record_type": "genesis",
+      "ts": "2026-01-01T00:00:00.000000Z",
+      "body_mode": "full",
+      "body_digest": "sha256:edc785721256ef74d29d8f405d09e4c8561139ef26952e29d2a96d1fe79f3291",
+      "prev_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "hash": "sha256:4496281026eabbabe5a51afee0ac78178ec2d51959ae43866f0edca4574f043a",
+      "body": {
+        "note": "start"
+      }
+    },
+    {
+      "chain_id": "sdk:01J0000000000000000000000A",
+      "seq": 1,
+      "record_type": "decision",
+      "ts": "2026-01-01T00:00:01.000000Z",
+      "body_mode": "full",
+      "prev_hash": "sha256:4496281026eabbabe5a51afee0ac78178ec2d51959ae43866f0edca4574f043a",
+      "hash": "sha256:19b6f939feac70230d728385d36f9a224af2800dcaa1eb5cb748e1cbb75ce596",
+      "body": {
+        "outcome": "allow",
+        "n": 1
+      }
+    },
+    {
+      "chain_id": "sdk:01J0000000000000000000000A",
+      "seq": 2,
+      "record_type": "decision",
+      "ts": "2026-01-01T00:00:02.000000Z",
+      "body_mode": "full",
+      "body_digest": "sha256:e405989429f58c1f1769f1c3ecbdd399a93453450410bf5efc8b67d2faa4b992",
+      "prev_hash": "sha256:19b6f939feac70230d728385d36f9a224af2800dcaa1eb5cb748e1cbb75ce596",
+      "hash": "sha256:62466621d1a92c91be5a956806cdcc54510918d70028b3ea6ede41f359a66a69",
+      "body": {
+        "outcome": "deny",
+        "n": 2
+      }
+    },
+    {
+      "chain_id": "sdk:01J0000000000000000000000A",
+      "seq": 3,
+      "record_type": "outcome",
+      "ts": "2026-01-01T00:00:03.000000Z",
+      "body_mode": "hash_only",
+      "body_digest": "sha256:4062edaf750fb8074e7e83e0c9028c94e32468a8b6f1614774328ef045150f93",
+      "prev_hash": "sha256:62466621d1a92c91be5a956806cdcc54510918d70028b3ea6ede41f359a66a69",
+      "hash": "sha256:e2ad7a10b01e112508e216c25762f2fc4c8856bf28b7e7b279e5ceb88312564a"
+    }
+  ],
+  "expected_error": "malformed",
+  "expected_seq": 1
+}

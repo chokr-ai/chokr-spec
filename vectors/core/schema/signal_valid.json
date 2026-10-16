@@ -1,0 +1,20 @@
+{
+  "expected": {
+    "valid": true
+  },
+  "id": "schema/signal_valid",
+  "input": {
+    "document": {
+      "code": "sql.drop_table",
+      "confidence": 1.0,
+      "envelope_id": "env_01KDVDNA00000G40R40M30E209",
+      "guard": "sandbox",
+      "schema_version": "1.0",
+      "severity": "high",
+      "signal_id": "sig_1",
+      "source": "guard"
+    },
+    "schema": "signal"
+  },
+  "level": "core"
+}

@@ -1,0 +1,24 @@
+# Names that CHOKR defines. The language's own names (outcomes, standard reason codes and authoring error codes)
+# live in the language registry. This file is edited by hand and kept sorted by tools/check_spec.py.
+schema_version: '1.0'
+entries:
+- name: agent_message
+- name: context_compaction
+- name: db_query
+- name: file_op
+- name: http_call
+- name: mcp_call
+- name: mcp_result
+- name: memory_write
+- name: model_call
+- name: model_result
+- name: retrieval
+- name: session_end
+- name: session_start
+- name: shell_exec
+- name: skill_load
+- name: skill_register
+- name: subagent_spawn
+- name: subagent_stop
+- name: tool_call
+- name: tool_result

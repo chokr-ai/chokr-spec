@@ -1,0 +1,44 @@
+{
+  "expected": {
+    "accepted": true
+  },
+  "id": "verdict/valid_other_key",
+  "input": {
+    "document": {
+      "decided_by": "engine",
+      "envelope_id": "env_1",
+      "n": 1,
+      "outcome": "allow",
+      "reason_codes": [
+        "POLICY_SATISFIED"
+      ],
+      "schema_version": "1.0",
+      "signature": {
+        "alg": "EdDSA",
+        "kid": "k2",
+        "value": "PtIbsAvFmZpjspvNli4gJIz80NPUPWYkxqbXiHCxDzkILRVxUt7KHaFhJU_gmRd2-7V3lTPNUdrZ01LyeuuJDw"
+      },
+      "unicode": "café",
+      "verdict_id": "ver_1"
+    },
+    "jwks": {
+      "keys": [
+        {
+          "alg": "EdDSA",
+          "crv": "Ed25519",
+          "kid": "k1",
+          "kty": "OKP",
+          "x": "A6EHv_POEL4dcN0Y50vAmWfk1jCbpQ1fHdyGZBJVMbg"
+        },
+        {
+          "alg": "EdDSA",
+          "crv": "Ed25519",
+          "kid": "k2",
+          "kty": "OKP",
+          "x": "ebVWLo_mVPlAeLES6KmLp5AfhTrmlb7X4OORC60ElmQ"
+        }
+      ]
+    }
+  },
+  "level": "connect"
+}

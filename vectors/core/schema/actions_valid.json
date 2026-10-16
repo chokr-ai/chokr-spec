@@ -1,0 +1,19 @@
+{
+  "expected": {
+    "valid": true
+  },
+  "id": "schema/actions_valid",
+  "input": {
+    "document": {
+      "actions": [
+        {
+          "action_uri": "app:read",
+          "tool": "read_*"
+        }
+      ],
+      "schema_version": "1.0"
+    },
+    "schema": "actions"
+  },
+  "level": "core"
+}

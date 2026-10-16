@@ -1,0 +1,22 @@
+{
+  "id": "envelope/key_order",
+  "level": "core",
+  "input": {
+    "arguments": {
+      "b": 2,
+      "a": 1,
+      "c": {
+        "z": [
+          1,
+          2,
+          3
+        ],
+        "y": null
+      }
+    }
+  },
+  "expected": {
+    "canonical": "{\"a\":1,\"b\":2,\"c\":{\"y\":null,\"z\":[1,2,3]}}",
+    "arguments_digest": "sha256:3bf768da20f9ea994680cb62356f42944c2a1afc48ea93786ac12905922e6357"
+  }
+}

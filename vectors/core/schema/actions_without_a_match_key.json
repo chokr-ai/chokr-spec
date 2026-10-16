@@ -1,0 +1,18 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/actions_without_a_match_key",
+  "input": {
+    "document": {
+      "actions": [
+        {
+          "action_uri": "app:read"
+        }
+      ],
+      "schema_version": "1.0"
+    },
+    "schema": "actions"
+  },
+  "level": "core"
+}

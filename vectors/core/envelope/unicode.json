@@ -1,0 +1,14 @@
+{
+  "id": "envelope/unicode",
+  "level": "core",
+  "input": {
+    "arguments": {
+      "name": "café",
+      "emoji_free": "üñî"
+    }
+  },
+  "expected": {
+    "canonical": "{\"emoji_free\":\"üñî\",\"name\":\"café\"}",
+    "arguments_digest": "sha256:0b185887513b6327158b831bb7bd49a7a20eba2643534cf198c456de37326896"
+  }
+}
