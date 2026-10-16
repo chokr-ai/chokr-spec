@@ -1,0 +1,16 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/pack_bad_name",
+  "input": {
+    "document": {
+      "name": "Bad_Name",
+      "namespace": "demo",
+      "schema": "chokr.pack/1.0",
+      "version": "1.0.0"
+    },
+    "schema": "pack"
+  },
+  "level": "core"
+}

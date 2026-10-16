@@ -1,0 +1,1864 @@
+{
+  "$defs": {
+    "AllowRule": {
+      "additionalProperties": false,
+      "description": "One allowlist row. `tool` limits it to tools whose name matches the glob (default every tool).",
+      "properties": {
+        "tool": {
+          "default": "*",
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Tool",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "exact",
+            "suffix",
+            "origin"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "title": "AllowRule",
+      "type": "object"
+    },
+    "CanonicalSection": {
+      "additionalProperties": false,
+      "properties": {
+        "max_depth": {
+          "default": 200,
+          "maximum": 200,
+          "minimum": 1,
+          "title": "Max Depth",
+          "type": "integer"
+        }
+      },
+      "title": "CanonicalSection",
+      "type": "object"
+    },
+    "ConnectSection": {
+      "additionalProperties": false,
+      "description": "`connect:` The API key is read from the environment variable named by `api_key_env`; it is never\nwritten to `chokr.yaml` or to the caches.",
+      "properties": {
+        "allow_insecure_loopback": {
+          "default": false,
+          "title": "Allow Insecure Loopback",
+          "type": "boolean"
+        },
+        "api_key_env": {
+          "default": "CHOKR_API_KEY",
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Api Key Env",
+          "type": "string"
+        },
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "environment_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Environment Id"
+        },
+        "expected_kids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 64,
+          "title": "Expected Kids",
+          "type": "array"
+        },
+        "forward_batch": {
+          "default": 500,
+          "maximum": 10000,
+          "minimum": 1,
+          "title": "Forward Batch",
+          "type": "integer"
+        },
+        "jwks_cache_seconds": {
+          "default": 300,
+          "maximum": 86400,
+          "minimum": 1,
+          "title": "Jwks Cache Seconds",
+          "type": "integer"
+        },
+        "retries": {
+          "default": 1,
+          "maximum": 5,
+          "minimum": 0,
+          "title": "Retries",
+          "type": "integer"
+        },
+        "timeout_ms": {
+          "default": 2000,
+          "maximum": 60000,
+          "minimum": 100,
+          "title": "Timeout Ms",
+          "type": "integer"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        },
+        "workspace_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Workspace Id"
+        }
+      },
+      "title": "ConnectSection",
+      "type": "object"
+    },
+    "CoreSection": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical": {
+          "$ref": "#/$defs/CanonicalSection",
+          "default": {
+            "max_depth": 200
+          }
+        }
+      },
+      "title": "CoreSection",
+      "type": "object"
+    },
+    "CplSection": {
+      "additionalProperties": false,
+      "properties": {
+        "max_call_depth": {
+          "default": 8,
+          "minimum": 1,
+          "title": "Max Call Depth",
+          "type": "integer"
+        },
+        "max_eval_steps": {
+          "default": 10000,
+          "minimum": 1,
+          "title": "Max Eval Steps",
+          "type": "integer"
+        },
+        "max_expression_nodes": {
+          "default": 256,
+          "minimum": 1,
+          "title": "Max Expression Nodes",
+          "type": "integer"
+        },
+        "max_regex_pattern_len": {
+          "default": 1024,
+          "minimum": 1,
+          "title": "Max Regex Pattern Len",
+          "type": "integer"
+        },
+        "max_table_rows": {
+          "default": 100000,
+          "minimum": 1,
+          "title": "Max Table Rows",
+          "type": "integer"
+        },
+        "max_type_depth": {
+          "default": 8,
+          "minimum": 1,
+          "title": "Max Type Depth",
+          "type": "integer"
+        },
+        "max_value_chars": {
+          "default": 1048576,
+          "minimum": 1,
+          "title": "Max Value Chars",
+          "type": "integer"
+        }
+      },
+      "title": "CplSection",
+      "type": "object"
+    },
+    "DeclarationsSection": {
+      "additionalProperties": false,
+      "properties": {
+        "imports": {
+          "default": [],
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Imports",
+          "type": "array"
+        },
+        "max_import_depth": {
+          "default": 16,
+          "maximum": 64,
+          "minimum": 1,
+          "title": "Max Import Depth",
+          "type": "integer"
+        },
+        "require_lock": {
+          "default": false,
+          "title": "Require Lock",
+          "type": "boolean"
+        },
+        "roots": {
+          "default": [
+            "declarations/"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Roots",
+          "type": "array"
+        }
+      },
+      "title": "DeclarationsSection",
+      "type": "object"
+    },
+    "EgressSection": {
+      "additionalProperties": false,
+      "description": "`gate.egress`: when this block is present the egress guard is on and an empty allowlist allows nothing.",
+      "properties": {
+        "allow_redirects": {
+          "default": false,
+          "title": "Allow Redirects",
+          "type": "boolean"
+        },
+        "allowlist": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/AllowRule"
+          },
+          "maxItems": 10000,
+          "title": "Allowlist",
+          "type": "array"
+        },
+        "block_cgnat": {
+          "default": true,
+          "title": "Block Cgnat",
+          "type": "boolean"
+        },
+        "dlp_before_dns": {
+          "default": true,
+          "title": "Dlp Before Dns",
+          "type": "boolean"
+        },
+        "instrument": {
+          "default": false,
+          "title": "Instrument",
+          "type": "boolean"
+        },
+        "max_url_bytes": {
+          "default": 8192,
+          "maximum": 1048576,
+          "minimum": 1,
+          "title": "Max Url Bytes",
+          "type": "integer"
+        },
+        "resolve_then_check": {
+          "default": true,
+          "title": "Resolve Then Check",
+          "type": "boolean"
+        },
+        "schemes": {
+          "default": [
+            "https",
+            "wss"
+          ],
+          "items": {
+            "enum": [
+              "https",
+              "wss",
+              "http",
+              "ws"
+            ],
+            "type": "string"
+          },
+          "title": "Schemes",
+          "type": "array"
+        },
+        "ssrf_pinning": {
+          "$ref": "#/$defs/SsrfPinning",
+          "default": {
+            "enabled": true
+          }
+        }
+      },
+      "title": "EgressSection",
+      "type": "object"
+    },
+    "ExportersSection": {
+      "additionalProperties": false,
+      "description": "`exporters:` `queue_size` bounds the JSONL queue; overflow drops the oldest record.",
+      "properties": {
+        "jsonl": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JsonlExporterSection"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "otel": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OtelExporterSection"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "queue_size": {
+          "default": 2048,
+          "maximum": 1000000,
+          "minimum": 1,
+          "title": "Queue Size",
+          "type": "integer"
+        }
+      },
+      "title": "ExportersSection",
+      "type": "object"
+    },
+    "FetchProxySection": {
+      "additionalProperties": false,
+      "description": "`gate.fetch_proxy`: limits of `chokr proxy fetch`.",
+      "properties": {
+        "max_concurrency": {
+          "default": 16,
+          "maximum": 1024,
+          "minimum": 1,
+          "title": "Max Concurrency",
+          "type": "integer"
+        },
+        "timeout_seconds": {
+          "default": 30.0,
+          "exclusiveMinimum": 0,
+          "maximum": 600,
+          "title": "Timeout Seconds",
+          "type": "number"
+        }
+      },
+      "title": "FetchProxySection",
+      "type": "object"
+    },
+    "GateSection": {
+      "additionalProperties": false,
+      "description": "`gate:` block. Each gate feature adds its own sub-section here.",
+      "properties": {
+        "egress": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EgressSection"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "fetch_proxy": {
+          "$ref": "#/$defs/FetchProxySection",
+          "default": {
+            "max_concurrency": 16,
+            "timeout_seconds": 30.0
+          }
+        },
+        "hooks": {
+          "$ref": "#/$defs/HooksSection",
+          "default": {
+            "enabled": [
+              "session_start",
+              "session_end",
+              "before_model",
+              "after_model",
+              "before_tool",
+              "after_tool",
+              "agent_message",
+              "memory_write",
+              "retrieval",
+              "subagent_spawn",
+              "subagent_stop",
+              "context_compaction",
+              "skill_register",
+              "skill_load",
+              "mcp_call",
+              "mcp_result"
+            ]
+          }
+        },
+        "list_filter": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ListFilterSection"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "proxy": {
+          "$ref": "#/$defs/ProxySection",
+          "default": {
+            "pins": [],
+            "require_pin": false
+          }
+        },
+        "result_path": {
+          "$ref": "#/$defs/ResultPathSection",
+          "default": {
+            "untrusted_marker": true
+          }
+        },
+        "stream": {
+          "$ref": "#/$defs/StreamSection",
+          "default": {
+            "reassembly": {
+              "holdback_bytes": 256,
+              "max_body_bytes": 5242880,
+              "max_filename_len": 255,
+              "max_parts": 100,
+              "window_bytes": 65536,
+              "window_seconds": 300
+            }
+          }
+        },
+        "wrap": {
+          "$ref": "#/$defs/WrapSection",
+          "default": {
+            "structured_refusal": true
+          }
+        }
+      },
+      "title": "GateSection",
+      "type": "object"
+    },
+    "GuardEntry": {
+      "additionalProperties": true,
+      "description": "Per-guard settings. `mode` is validated here; the guard's own `config_schema` validates the rest.",
+      "properties": {
+        "mode": {
+          "default": "enforce",
+          "enum": [
+            "off",
+            "monitor",
+            "enforce"
+          ],
+          "title": "Mode",
+          "type": "string"
+        }
+      },
+      "title": "GuardEntry",
+      "type": "object"
+    },
+    "HoldSection": {
+      "additionalProperties": false,
+      "description": "`hold:` block (HR-9, HR-11). `callback` needs a function registered in code, checked when the SDK is built.",
+      "properties": {
+        "decision_key_path": {
+          "default": ".chokr/holds/.decision_key",
+          "title": "Decision Key Path",
+          "type": "string"
+        },
+        "display_max_chars": {
+          "default": 2000,
+          "maximum": 20000,
+          "minimum": 200,
+          "title": "Display Max Chars",
+          "type": "integer"
+        },
+        "fatigue_threshold": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fatigue Threshold"
+        },
+        "fatigue_window_seconds": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fatigue Window Seconds"
+        },
+        "handler": {
+          "default": "terminal",
+          "enum": [
+            "terminal",
+            "callback",
+            "webhook"
+          ],
+          "title": "Handler",
+          "type": "string"
+        },
+        "max_inline_wait": {
+          "default": 30,
+          "minimum": 0,
+          "title": "Max Inline Wait",
+          "type": "integer"
+        },
+        "max_pending": {
+          "default": 100,
+          "maximum": 10000,
+          "minimum": 1,
+          "title": "Max Pending",
+          "type": "integer"
+        },
+        "on_timeout": {
+          "default": "deny",
+          "enum": [
+            "deny",
+            "escalate"
+          ],
+          "title": "On Timeout",
+          "type": "string"
+        },
+        "require_authenticated_decisions": {
+          "default": true,
+          "title": "Require Authenticated Decisions",
+          "type": "boolean"
+        },
+        "retention_days": {
+          "default": 7,
+          "maximum": 365,
+          "minimum": 1,
+          "title": "Retention Days",
+          "type": "integer"
+        },
+        "timeout_seconds": {
+          "default": 300,
+          "maximum": 86400,
+          "minimum": 1,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        },
+        "webhook": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/HoldWebhook"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "HoldSection",
+      "type": "object"
+    },
+    "HoldWebhook": {
+      "additionalProperties": false,
+      "properties": {
+        "request_timeout_seconds": {
+          "default": 10,
+          "maximum": 60,
+          "minimum": 1,
+          "title": "Request Timeout Seconds",
+          "type": "integer"
+        },
+        "secret": {
+          "minLength": 16,
+          "title": "Secret",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "secret"
+      ],
+      "title": "HoldWebhook",
+      "type": "object"
+    },
+    "HooksSection": {
+      "additionalProperties": false,
+      "description": "An enforcement hook cannot be disabled: that would be a silent bypass.",
+      "properties": {
+        "enabled": {
+          "default": [
+            "session_start",
+            "session_end",
+            "before_model",
+            "after_model",
+            "before_tool",
+            "after_tool",
+            "agent_message",
+            "memory_write",
+            "retrieval",
+            "subagent_spawn",
+            "subagent_stop",
+            "context_compaction",
+            "skill_register",
+            "skill_load",
+            "mcp_call",
+            "mcp_result"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Enabled",
+          "type": "array"
+        }
+      },
+      "title": "HooksSection",
+      "type": "object"
+    },
+    "JsonlExporterSection": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "maxLength": 1024,
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "title": "JsonlExporterSection",
+      "type": "object"
+    },
+    "LedgerSection": {
+      "additionalProperties": false,
+      "properties": {
+        "content_mode": {
+          "default": "full",
+          "enum": [
+            "full",
+            "hash_only",
+            "metadata"
+          ],
+          "title": "Content Mode",
+          "type": "string"
+        },
+        "content_mode_overrides": {
+          "additionalProperties": {
+            "enum": [
+              "full",
+              "hash_only",
+              "metadata"
+            ],
+            "type": "string"
+          },
+          "default": {},
+          "title": "Content Mode Overrides",
+          "type": "object"
+        },
+        "fsync": {
+          "default": "always",
+          "enum": [
+            "always",
+            "interval"
+          ],
+          "title": "Fsync",
+          "type": "string"
+        },
+        "fsync_interval_ms": {
+          "default": 100,
+          "maximum": 5000,
+          "minimum": 10,
+          "title": "Fsync Interval Ms",
+          "type": "integer"
+        },
+        "genesis_form": {
+          "default": "zeros",
+          "enum": [
+            "zeros",
+            "pubkey_hash"
+          ],
+          "title": "Genesis Form",
+          "type": "string"
+        },
+        "lock_timeout_ms": {
+          "default": 5000,
+          "maximum": 60000,
+          "minimum": 100,
+          "title": "Lock Timeout Ms",
+          "type": "integer"
+        },
+        "max_record_bytes": {
+          "default": 1048576,
+          "maximum": 16777216,
+          "minimum": 4096,
+          "title": "Max Record Bytes",
+          "type": "integer"
+        },
+        "offline_buffer": {
+          "$ref": "#/$defs/OfflineBufferSection",
+          "default": {
+            "max_bytes": 67108864
+          }
+        },
+        "redact_paths": {
+          "default": [
+            "/arguments"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Redact Paths",
+          "type": "array"
+        },
+        "rotation": {
+          "default": "daily",
+          "enum": [
+            "daily",
+            "size"
+          ],
+          "title": "Rotation",
+          "type": "string"
+        },
+        "rotation_max_bytes": {
+          "default": 134217728,
+          "maximum": 4294967296,
+          "minimum": 1048576,
+          "title": "Rotation Max Bytes",
+          "type": "integer"
+        },
+        "selective_logging": {
+          "default": "all",
+          "enum": [
+            "all",
+            "deny_ask_quarantine_only"
+          ],
+          "title": "Selective Logging",
+          "type": "string"
+        },
+        "signing": {
+          "$ref": "#/$defs/SigningSection",
+          "default": {
+            "checkpoint_every_n": 100,
+            "key_file": null,
+            "mode": "none",
+            "passphrase_env": null
+          }
+        },
+        "sinks": {
+          "default": [
+            "local"
+          ],
+          "items": {
+            "enum": [
+              "local",
+              "stdout",
+              "webhook",
+              "otel"
+            ],
+            "type": "string"
+          },
+          "title": "Sinks",
+          "type": "array"
+        },
+        "webhook": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/WebhookSection"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "LedgerSection",
+      "type": "object"
+    },
+    "LimitsSection": {
+      "additionalProperties": false,
+      "properties": {
+        "ext_max_bytes": {
+          "default": 16384,
+          "maximum": 1048576,
+          "minimum": 1,
+          "title": "Ext Max Bytes",
+          "type": "integer"
+        },
+        "max_argument_bytes": {
+          "default": 1048576,
+          "maximum": 1073741824,
+          "minimum": 1,
+          "title": "Max Argument Bytes",
+          "type": "integer"
+        },
+        "max_session_tool_calls": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Max Session Tool Calls",
+          "type": "integer"
+        }
+      },
+      "title": "LimitsSection",
+      "type": "object"
+    },
+    "ListFilterSection": {
+      "additionalProperties": false,
+      "description": "`gate.list_filter`: when this block is present the list filter is on. No row matching = `default_stance`.",
+      "properties": {
+        "default_stance": {
+          "default": "block",
+          "enum": [
+            "allow",
+            "ask",
+            "block"
+          ],
+          "title": "Default Stance",
+          "type": "string"
+        },
+        "rules": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/StanceRule"
+          },
+          "maxItems": 1000,
+          "title": "Rules",
+          "type": "array"
+        },
+        "visibility": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/VisibilityRule"
+          },
+          "maxItems": 1000,
+          "title": "Visibility",
+          "type": "array"
+        }
+      },
+      "title": "ListFilterSection",
+      "type": "object"
+    },
+    "OfflineBufferSection": {
+      "additionalProperties": false,
+      "properties": {
+        "max_bytes": {
+          "default": 67108864,
+          "maximum": 68719476736,
+          "minimum": 1,
+          "title": "Max Bytes",
+          "type": "integer"
+        }
+      },
+      "title": "OfflineBufferSection",
+      "type": "object"
+    },
+    "OtelExporterSection": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "endpoint": {
+          "anyOf": [
+            {
+              "maxLength": 1024,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Endpoint"
+        }
+      },
+      "title": "OtelExporterSection",
+      "type": "object"
+    },
+    "PacksSection": {
+      "additionalProperties": true,
+      "description": "`packs:` Keys other than the settings below are pack names with a `PackEntry` value.",
+      "properties": {
+        "index_url": {
+          "default": "https://packs.chokr.dev/index.json",
+          "title": "Index Url",
+          "type": "string"
+        },
+        "require_signed": {
+          "default": true,
+          "title": "Require Signed",
+          "type": "boolean"
+        },
+        "require_signed_local": {
+          "default": false,
+          "title": "Require Signed Local",
+          "type": "boolean"
+        },
+        "trust_root_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Trust Root Path"
+        },
+        "trusted_identities": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/TrustedIdentityEntry"
+          },
+          "maxItems": 256,
+          "title": "Trusted Identities",
+          "type": "array"
+        }
+      },
+      "title": "PacksSection",
+      "type": "object"
+    },
+    "PinRule": {
+      "additionalProperties": false,
+      "description": "One pinned destination: the named tool, peer or MCP server may reach exactly this URL or origin.",
+      "properties": {
+        "exact": {
+          "default": false,
+          "title": "Exact",
+          "type": "boolean"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "url": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "url"
+      ],
+      "title": "PinRule",
+      "type": "object"
+    },
+    "PipelineSection": {
+      "additionalProperties": false,
+      "properties": {
+        "max_workers": {
+          "default": 8,
+          "maximum": 256,
+          "minimum": 1,
+          "title": "Max Workers",
+          "type": "integer"
+        },
+        "nonce_lru_size": {
+          "default": 100000,
+          "maximum": 10000000,
+          "minimum": 1,
+          "title": "Nonce Lru Size",
+          "type": "integer"
+        },
+        "parallel_guards": {
+          "default": true,
+          "title": "Parallel Guards",
+          "type": "boolean"
+        },
+        "short_circuit_on_critical": {
+          "default": true,
+          "title": "Short Circuit On Critical",
+          "type": "boolean"
+        },
+        "stage_timeout_ms": {
+          "default": 50,
+          "maximum": 60000,
+          "minimum": 1,
+          "title": "Stage Timeout Ms",
+          "type": "integer"
+        }
+      },
+      "title": "PipelineSection",
+      "type": "object"
+    },
+    "PluginsSection": {
+      "additionalProperties": false,
+      "properties": {
+        "allow": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Allow",
+          "type": "array"
+        },
+        "deny": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Deny",
+          "type": "array"
+        },
+        "on_load_error": {
+          "additionalProperties": {
+            "enum": [
+              "fail",
+              "skip"
+            ],
+            "type": "string"
+          },
+          "default": {},
+          "title": "On Load Error",
+          "type": "object"
+        },
+        "require_signed": {
+          "default": false,
+          "title": "Require Signed",
+          "type": "boolean"
+        },
+        "service": {
+          "additionalProperties": true,
+          "default": {},
+          "title": "Service",
+          "type": "object"
+        },
+        "services": {
+          "default": [],
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Services",
+          "type": "array"
+        },
+        "timeout_ms": {
+          "default": 50,
+          "maximum": 60000,
+          "minimum": 1,
+          "title": "Timeout Ms",
+          "type": "integer"
+        },
+        "trusted_signers": {
+          "default": [],
+          "items": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "title": "Trusted Signers",
+          "type": "array"
+        }
+      },
+      "title": "PluginsSection",
+      "type": "object"
+    },
+    "ProxySection": {
+      "additionalProperties": false,
+      "description": "`gate.proxy`: pinned destinations shared by every proxy mode.",
+      "properties": {
+        "pins": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/PinRule"
+          },
+          "maxItems": 10000,
+          "title": "Pins",
+          "type": "array"
+        },
+        "require_pin": {
+          "default": false,
+          "title": "Require Pin",
+          "type": "boolean"
+        }
+      },
+      "title": "ProxySection",
+      "type": "object"
+    },
+    "ReassemblySection": {
+      "additionalProperties": false,
+      "properties": {
+        "holdback_bytes": {
+          "default": 256,
+          "minimum": 0,
+          "title": "Holdback Bytes",
+          "type": "integer"
+        },
+        "max_body_bytes": {
+          "default": 5242880,
+          "minimum": 1,
+          "title": "Max Body Bytes",
+          "type": "integer"
+        },
+        "max_filename_len": {
+          "default": 255,
+          "minimum": 1,
+          "title": "Max Filename Len",
+          "type": "integer"
+        },
+        "max_parts": {
+          "default": 100,
+          "minimum": 1,
+          "title": "Max Parts",
+          "type": "integer"
+        },
+        "window_bytes": {
+          "default": 65536,
+          "minimum": 1,
+          "title": "Window Bytes",
+          "type": "integer"
+        },
+        "window_seconds": {
+          "default": 300,
+          "minimum": 1,
+          "title": "Window Seconds",
+          "type": "integer"
+        }
+      },
+      "title": "ReassemblySection",
+      "type": "object"
+    },
+    "ResultPathSection": {
+      "additionalProperties": false,
+      "properties": {
+        "untrusted_marker": {
+          "default": true,
+          "title": "Untrusted Marker",
+          "type": "boolean"
+        }
+      },
+      "title": "ResultPathSection",
+      "type": "object"
+    },
+    "RulesSection": {
+      "additionalProperties": false,
+      "properties": {
+        "hot_reload": {
+          "default": true,
+          "title": "Hot Reload",
+          "type": "boolean"
+        },
+        "mode": {
+          "default": "enforce",
+          "enum": [
+            "enforce",
+            "monitor"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "paths": {
+          "default": [
+            "policies/*.yaml"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Paths",
+          "type": "array"
+        },
+        "reason_language": {
+          "default": "en",
+          "title": "Reason Language",
+          "type": "string"
+        },
+        "strategy": {
+          "anyOf": [
+            {
+              "enum": [
+                "first_match",
+                "deny_overrides",
+                "priority"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Strategy"
+        },
+        "would_block_log": {
+          "default": ".chokr/reports/would_block.jsonl",
+          "title": "Would Block Log",
+          "type": "string"
+        }
+      },
+      "title": "RulesSection",
+      "type": "object"
+    },
+    "SessionSection": {
+      "additionalProperties": false,
+      "properties": {
+        "actor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Actor"
+        },
+        "env": {
+          "default": "dev",
+          "title": "Env",
+          "type": "string"
+        },
+        "on_behalf_of": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "On Behalf Of"
+        },
+        "roles": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Roles",
+          "type": "array"
+        },
+        "tags": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Tags",
+          "type": "object"
+        }
+      },
+      "title": "SessionSection",
+      "type": "object"
+    },
+    "SigningSection": {
+      "additionalProperties": false,
+      "properties": {
+        "checkpoint_every_n": {
+          "default": 100,
+          "maximum": 100000,
+          "minimum": 1,
+          "title": "Checkpoint Every N",
+          "type": "integer"
+        },
+        "key_file": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Key File"
+        },
+        "mode": {
+          "default": "none",
+          "enum": [
+            "none",
+            "per_record",
+            "checkpoint"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "passphrase_env": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Passphrase Env"
+        }
+      },
+      "title": "SigningSection",
+      "type": "object"
+    },
+    "SsrfPinning": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        }
+      },
+      "title": "SsrfPinning",
+      "type": "object"
+    },
+    "StanceRule": {
+      "additionalProperties": false,
+      "properties": {
+        "pattern": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Pattern",
+          "type": "string"
+        },
+        "stance": {
+          "enum": [
+            "allow",
+            "ask",
+            "block"
+          ],
+          "title": "Stance",
+          "type": "string"
+        }
+      },
+      "required": [
+        "pattern",
+        "stance"
+      ],
+      "title": "StanceRule",
+      "type": "object"
+    },
+    "StreamSection": {
+      "additionalProperties": false,
+      "properties": {
+        "reassembly": {
+          "$ref": "#/$defs/ReassemblySection",
+          "default": {
+            "holdback_bytes": 256,
+            "max_body_bytes": 5242880,
+            "max_filename_len": 255,
+            "max_parts": 100,
+            "window_bytes": 65536,
+            "window_seconds": 300
+          }
+        }
+      },
+      "title": "StreamSection",
+      "type": "object"
+    },
+    "TrustSection": {
+      "additionalProperties": false,
+      "properties": {
+        "clock_skew_seconds": {
+          "default": 30,
+          "maximum": 300,
+          "minimum": 0,
+          "title": "Clock Skew Seconds",
+          "type": "integer"
+        }
+      },
+      "title": "TrustSection",
+      "type": "object"
+    },
+    "TrustedIdentityEntry": {
+      "additionalProperties": false,
+      "description": "`{issuer, identity}` (exact certificate identity) or `{issuer, repository}` (any workflow of that repository).",
+      "properties": {
+        "identity": {
+          "anyOf": [
+            {
+              "maxLength": 1024,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Identity"
+        },
+        "issuer": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Issuer",
+          "type": "string"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Repository"
+        }
+      },
+      "required": [
+        "issuer"
+      ],
+      "title": "TrustedIdentityEntry",
+      "type": "object"
+    },
+    "VisibilityRule": {
+      "additionalProperties": false,
+      "properties": {
+        "grants": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Grants",
+          "type": "array"
+        },
+        "owner": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Owner",
+          "type": "string"
+        },
+        "pattern": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Pattern",
+          "type": "string"
+        }
+      },
+      "required": [
+        "pattern",
+        "owner"
+      ],
+      "title": "VisibilityRule",
+      "type": "object"
+    },
+    "VocabularySection": {
+      "additionalProperties": false,
+      "properties": {
+        "extends": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Extends",
+          "type": "array"
+        },
+        "strict": {
+          "default": false,
+          "title": "Strict",
+          "type": "boolean"
+        }
+      },
+      "title": "VocabularySection",
+      "type": "object"
+    },
+    "WebhookSection": {
+      "additionalProperties": false,
+      "properties": {
+        "batch_max_records": {
+          "default": 100,
+          "maximum": 1000,
+          "minimum": 1,
+          "title": "Batch Max Records",
+          "type": "integer"
+        },
+        "request_timeout_seconds": {
+          "default": 5,
+          "maximum": 60,
+          "minimum": 1,
+          "title": "Request Timeout Seconds",
+          "type": "integer"
+        },
+        "secret_env": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Secret Env"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "title": "WebhookSection",
+      "type": "object"
+    },
+    "WrapSection": {
+      "additionalProperties": false,
+      "properties": {
+        "structured_refusal": {
+          "default": true,
+          "title": "Structured Refusal",
+          "type": "boolean"
+        }
+      },
+      "title": "WrapSection",
+      "type": "object"
+    }
+  },
+  "$id": "https://spec.chokr.dev/schemas/config/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "actions": {
+      "default": [],
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Actions",
+      "type": "array"
+    },
+    "connect": {
+      "$ref": "#/$defs/ConnectSection",
+      "default": {
+        "allow_insecure_loopback": false,
+        "api_key_env": "CHOKR_API_KEY",
+        "enabled": false,
+        "environment_id": null,
+        "expected_kids": [],
+        "forward_batch": 500,
+        "jwks_cache_seconds": 300,
+        "retries": 1,
+        "timeout_ms": 2000,
+        "url": null,
+        "workspace_id": null
+      }
+    },
+    "core": {
+      "$ref": "#/$defs/CoreSection",
+      "default": {
+        "canonical": {
+          "max_depth": 200
+        }
+      }
+    },
+    "cpl": {
+      "$ref": "#/$defs/CplSection",
+      "default": {
+        "max_call_depth": 8,
+        "max_eval_steps": 10000,
+        "max_expression_nodes": 256,
+        "max_regex_pattern_len": 1024,
+        "max_table_rows": 100000,
+        "max_type_depth": 8,
+        "max_value_chars": 1048576
+      }
+    },
+    "declarations": {
+      "$ref": "#/$defs/DeclarationsSection",
+      "default": {
+        "imports": [],
+        "max_import_depth": 16,
+        "require_lock": false,
+        "roots": [
+          "declarations/"
+        ]
+      }
+    },
+    "exporters": {
+      "$ref": "#/$defs/ExportersSection",
+      "default": {
+        "jsonl": null,
+        "otel": null,
+        "queue_size": 2048
+      }
+    },
+    "ext": {
+      "additionalProperties": true,
+      "default": {},
+      "title": "Ext",
+      "type": "object"
+    },
+    "gate": {
+      "$ref": "#/$defs/GateSection",
+      "default": {
+        "egress": null,
+        "fetch_proxy": {
+          "max_concurrency": 16,
+          "timeout_seconds": 30.0
+        },
+        "hooks": {
+          "enabled": [
+            "session_start",
+            "session_end",
+            "before_model",
+            "after_model",
+            "before_tool",
+            "after_tool",
+            "agent_message",
+            "memory_write",
+            "retrieval",
+            "subagent_spawn",
+            "subagent_stop",
+            "context_compaction",
+            "skill_register",
+            "skill_load",
+            "mcp_call",
+            "mcp_result"
+          ]
+        },
+        "list_filter": null,
+        "proxy": {
+          "pins": [],
+          "require_pin": false
+        },
+        "result_path": {
+          "untrusted_marker": true
+        },
+        "stream": {
+          "reassembly": {
+            "holdback_bytes": 256,
+            "max_body_bytes": 5242880,
+            "max_filename_len": 255,
+            "max_parts": 100,
+            "window_bytes": 65536,
+            "window_seconds": 300
+          }
+        },
+        "wrap": {
+          "structured_refusal": true
+        }
+      }
+    },
+    "guards": {
+      "additionalProperties": {
+        "$ref": "#/$defs/GuardEntry"
+      },
+      "default": {},
+      "title": "Guards",
+      "type": "object"
+    },
+    "hold": {
+      "$ref": "#/$defs/HoldSection",
+      "default": {
+        "decision_key_path": ".chokr/holds/.decision_key",
+        "display_max_chars": 2000,
+        "fatigue_threshold": null,
+        "fatigue_window_seconds": null,
+        "handler": "terminal",
+        "max_inline_wait": 30,
+        "max_pending": 100,
+        "on_timeout": "deny",
+        "require_authenticated_decisions": true,
+        "retention_days": 7,
+        "timeout_seconds": 300,
+        "webhook": null
+      }
+    },
+    "hot_reload": {
+      "default": false,
+      "title": "Hot Reload",
+      "type": "boolean"
+    },
+    "hot_reload_interval_ms": {
+      "default": 1000,
+      "maximum": 60000,
+      "minimum": 100,
+      "title": "Hot Reload Interval Ms",
+      "type": "integer"
+    },
+    "ledger": {
+      "$ref": "#/$defs/LedgerSection",
+      "default": {
+        "content_mode": "full",
+        "content_mode_overrides": {},
+        "fsync": "always",
+        "fsync_interval_ms": 100,
+        "genesis_form": "zeros",
+        "lock_timeout_ms": 5000,
+        "max_record_bytes": 1048576,
+        "offline_buffer": {
+          "max_bytes": 67108864
+        },
+        "redact_paths": [
+          "/arguments"
+        ],
+        "rotation": "daily",
+        "rotation_max_bytes": 134217728,
+        "selective_logging": "all",
+        "signing": {
+          "checkpoint_every_n": 100,
+          "key_file": null,
+          "mode": "none",
+          "passphrase_env": null
+        },
+        "sinks": [
+          "local"
+        ],
+        "webhook": null
+      }
+    },
+    "limits": {
+      "$ref": "#/$defs/LimitsSection",
+      "default": {
+        "ext_max_bytes": 16384,
+        "max_argument_bytes": 1048576,
+        "max_session_tool_calls": 0
+      }
+    },
+    "packs": {
+      "$ref": "#/$defs/PacksSection",
+      "default": {
+        "index_url": "https://packs.chokr.dev/index.json",
+        "require_signed": true,
+        "require_signed_local": false,
+        "trust_root_path": null,
+        "trusted_identities": []
+      }
+    },
+    "params": {
+      "additionalProperties": true,
+      "default": {},
+      "title": "Params",
+      "type": "object"
+    },
+    "pipeline": {
+      "$ref": "#/$defs/PipelineSection",
+      "default": {
+        "max_workers": 8,
+        "nonce_lru_size": 100000,
+        "parallel_guards": true,
+        "short_circuit_on_critical": true,
+        "stage_timeout_ms": 50
+      }
+    },
+    "plugins": {
+      "$ref": "#/$defs/PluginsSection",
+      "default": {
+        "allow": [],
+        "deny": [],
+        "on_load_error": {},
+        "require_signed": false,
+        "service": {},
+        "services": [],
+        "timeout_ms": 50,
+        "trusted_signers": []
+      }
+    },
+    "posture": {
+      "additionalProperties": true,
+      "default": {},
+      "title": "Posture",
+      "type": "object"
+    },
+    "profile": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Profile"
+    },
+    "rules": {
+      "$ref": "#/$defs/RulesSection",
+      "default": {
+        "hot_reload": true,
+        "mode": "enforce",
+        "paths": [
+          "policies/*.yaml"
+        ],
+        "reason_language": "en",
+        "strategy": null,
+        "would_block_log": ".chokr/reports/would_block.jsonl"
+      }
+    },
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "session": {
+      "$ref": "#/$defs/SessionSection",
+      "default": {
+        "actor": null,
+        "env": "dev",
+        "on_behalf_of": null,
+        "roles": [],
+        "tags": {}
+      }
+    },
+    "trust": {
+      "$ref": "#/$defs/TrustSection",
+      "default": {
+        "clock_skew_seconds": 30
+      }
+    },
+    "vocabulary": {
+      "$ref": "#/$defs/VocabularySection",
+      "default": {
+        "extends": [],
+        "strict": false
+      }
+    }
+  },
+  "required": [
+    "schema_version"
+  ],
+  "title": "Configuration",
+  "type": "object"
+}

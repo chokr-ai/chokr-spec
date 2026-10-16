@@ -1,0 +1,107 @@
+{
+  "$defs": {
+    "Requires": {
+      "additionalProperties": false,
+      "properties": {
+        "chokr": {
+          "default": ">=0.0.1",
+          "title": "Chokr",
+          "type": "string"
+        }
+      },
+      "title": "Requires",
+      "type": "object"
+    },
+    "Signature": {
+      "additionalProperties": false,
+      "properties": {
+        "bundle": {
+          "default": "pack.sigstore.json",
+          "title": "Bundle",
+          "type": "string"
+        },
+        "digest": {
+          "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+          "title": "Digest",
+          "type": "string"
+        },
+        "manifest": {
+          "default": "pack.files.json",
+          "title": "Manifest",
+          "type": "string"
+        }
+      },
+      "required": [
+        "digest"
+      ],
+      "title": "Signature",
+      "type": "object"
+    }
+  },
+  "$id": "https://spec.chokr.dev/schemas/pack/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "depends": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 64,
+      "title": "Depends",
+      "type": "array"
+    },
+    "description": {
+      "default": "",
+      "maxLength": 2000,
+      "title": "Description",
+      "type": "string"
+    },
+    "name": {
+      "pattern": "^[a-z][a-z0-9-]{1,63}$(?!\\n)",
+      "title": "Name",
+      "type": "string"
+    },
+    "namespace": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Namespace",
+      "type": "string"
+    },
+    "requires": {
+      "$ref": "#/$defs/Requires",
+      "default": {
+        "chokr": ">=0.0.1"
+      }
+    },
+    "schema": {
+      "default": "chokr.pack/1.0",
+      "title": "Schema",
+      "type": "string"
+    },
+    "signature": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Signature"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "version": {
+      "pattern": "^[0-9]+(\\.[0-9]+)*([abc]|rc)?[0-9]*(\\.post[0-9]+)?(\\.dev[0-9]+)?$(?!\\n)",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "namespace",
+    "schema",
+    "version"
+  ],
+  "title": "Pack manifest (pack.yaml)",
+  "type": "object"
+}

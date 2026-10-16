@@ -1,0 +1,31 @@
+{
+  "expected": {
+    "valid": true
+  },
+  "id": "schema/verdict_valid",
+  "input": {
+    "document": {
+      "decided_by": "sdk-local",
+      "enforcement": {
+        "action": "execute"
+      },
+      "envelope_id": "env_01KDVDNA00000G40R40M30E209",
+      "matched_rules": [],
+      "obligations": [],
+      "outcome": "allow",
+      "policy": {
+        "fingerprint": "sha256:x",
+        "id": "p",
+        "version": 1
+      },
+      "reason_codes": [],
+      "reasons": [],
+      "request_digest": "sha256:4707bb2cf086d9a5d4386de78325aec90227b22131d277ccb818a9138f60da88",
+      "schema_version": "1.0",
+      "verdict_id": "ver_1",
+      "would_block": false
+    },
+    "schema": "verdict"
+  },
+  "level": "core"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "ledger/redacted_body",
+  "level": "core",
+  "chain_id": "sdk:01J0000000000000000000000B",
+  "records": [
+    {
+      "record_type": "genesis",
+      "body": {
+        "note": "start"
+      },
+      "ts": "2026-01-01T00:00:00.000000Z"
+    },
+    {
+      "record_type": "decision",
+      "body": {
+        "outcome": "deny",
+        "card": "4111111111111111"
+      },
+      "stored_body": {
+        "outcome": "deny",
+        "card": "[removed]"
+      },
+      "ts": "2026-01-01T00:00:01.000000Z",
+      "body_mode": "redacted"
+    }
+  ],
+  "expected": {
+    "hashes": [
+      "sha256:562bf04970b8532f9b1fba1e8cfb8e3dc4250f6a75a8fe944b9eed3d11e855c5",
+      "sha256:2312d1681a4bf341451abd5a80fbd64914f6e74ebbf20e1009abedaa2044f3e5"
+    ],
+    "chain_verifies": true
+  }
+}

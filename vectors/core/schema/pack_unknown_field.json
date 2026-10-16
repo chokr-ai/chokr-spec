@@ -1,0 +1,17 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/pack_unknown_field",
+  "input": {
+    "document": {
+      "extra": 1,
+      "name": "demo",
+      "namespace": "demo",
+      "schema": "chokr.pack/1.0",
+      "version": "1.0.0"
+    },
+    "schema": "pack"
+  },
+  "level": "core"
+}

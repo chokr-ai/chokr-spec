@@ -1,0 +1,29 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/plugin_manifest_unknown_field",
+  "input": {
+    "document": {
+      "api_version": "1.0",
+      "deterministic": true,
+      "emits": {
+        "signal_codes": [
+          "demo/found"
+        ]
+      },
+      "kind": "guard",
+      "name": "demo-guard",
+      "namespace": [
+        "demo"
+      ],
+      "stages": [
+        "inspect"
+      ],
+      "surprise": true,
+      "version": "1.0.0"
+    },
+    "schema": "plugin_manifest"
+  },
+  "level": "core"
+}

@@ -1,0 +1,27 @@
+{
+  "expected": {
+    "valid": true
+  },
+  "id": "schema/approval_valid",
+  "input": {
+    "document": {
+      "action_uri": "app:act",
+      "approval_id": "apr_1",
+      "arguments_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "created_at": "2026-01-01T00:00:00Z",
+      "envelope_id": "env_1",
+      "expires_at": "2026-01-01T00:05:00Z",
+      "kind": "tool_call",
+      "policy_fingerprint": "sha256:x",
+      "schema_version": "1.0",
+      "status": "pending",
+      "summary": {
+        "text": "x"
+      },
+      "target_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "verdict_id": "ver_1"
+    },
+    "schema": "approval"
+  },
+  "level": "core"
+}

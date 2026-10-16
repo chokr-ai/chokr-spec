@@ -1,0 +1,20 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/budget_event_bad_state",
+  "input": {
+    "document": {
+      "limit_id": "l1",
+      "max": 10,
+      "metric": "steps",
+      "schema": "chokr.budget_event/1.0",
+      "scope": "run",
+      "scope_key": "r1",
+      "state": "weird",
+      "used": 8
+    },
+    "schema": "budget_event"
+  },
+  "level": "core"
+}

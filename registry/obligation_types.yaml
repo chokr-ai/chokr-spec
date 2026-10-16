@@ -1,0 +1,12 @@
+# Names that CHOKR defines. The language's own names (outcomes, standard reason codes and authoring error codes)
+# live in the language registry. This file is edited by hand and kept sorted by tools/check_spec.py.
+schema_version: '1.0'
+entries:
+- name: human_approval
+  params: approval
+- name: provide_evidence
+  params: evidence type
+- name: refresh_evidence
+  params: evidence type
+- name: security_alert
+  params: signal, severity

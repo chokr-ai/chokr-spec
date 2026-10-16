@@ -1,0 +1,17 @@
+# Names that CHOKR defines. The language's own names (outcomes, standard reason codes and authoring error codes)
+# live in the language registry. This file is edited by hand and kept sorted by tools/check_spec.py.
+schema_version: '1.0'
+entries:
+- name: BEHAVIORAL_TEST
+- name: BUILD_PROVENANCE
+- name: COMPLIANCE
+- name: HUMAN_APPROVAL
+- name: IDENTITY
+- name: MANIFEST_PIN
+- name: MODEL_PROFILE
+- name: MODEL_RUNTIME
+- name: OWNERSHIP
+- name: RUNTIME
+- name: SANDBOX_ATTESTATION
+- name: SECURITY_ASSESSMENT
+- name: SOFTWARE_ARTIFACT

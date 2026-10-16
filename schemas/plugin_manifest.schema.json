@@ -1,0 +1,163 @@
+{
+  "$defs": {
+    "Emits": {
+      "additionalProperties": false,
+      "properties": {
+        "obligation_types": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Obligation Types",
+          "type": "array"
+        },
+        "reason_codes": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Reason Codes",
+          "type": "array"
+        },
+        "record_types": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Record Types",
+          "type": "array"
+        },
+        "signal_codes": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Signal Codes",
+          "type": "array"
+        }
+      },
+      "title": "Emits",
+      "type": "object"
+    }
+  },
+  "$id": "https://spec.chokr.dev/schemas/plugin_manifest/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "`chokr.plugin_manifest/1.0`.",
+  "properties": {
+    "api_version": {
+      "pattern": "^\\d+\\.\\d+$(?!\\n)",
+      "title": "Api Version",
+      "type": "string"
+    },
+    "code_digest": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Code Digest"
+    },
+    "config_schema": {
+      "additionalProperties": true,
+      "default": {},
+      "title": "Config Schema",
+      "type": "object"
+    },
+    "deterministic": {
+      "title": "Deterministic",
+      "type": "boolean"
+    },
+    "emits": {
+      "$ref": "#/$defs/Emits",
+      "default": {
+        "obligation_types": [],
+        "reason_codes": [],
+        "record_types": [],
+        "signal_codes": []
+      }
+    },
+    "kind": {
+      "title": "Kind",
+      "type": "string"
+    },
+    "latency_budget_us": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Latency Budget Us"
+    },
+    "name": {
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,62}$(?!\\n)",
+      "title": "Name",
+      "type": "string"
+    },
+    "namespace": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Namespace",
+      "type": "array"
+    },
+    "requires_network": {
+      "default": false,
+      "title": "Requires Network",
+      "type": "boolean"
+    },
+    "signature": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Signature"
+    },
+    "stages": {
+      "default": [],
+      "items": {
+        "enum": [
+          "capture",
+          "verify",
+          "inspect",
+          "decide",
+          "enforce",
+          "record",
+          "control"
+        ],
+        "type": "string"
+      },
+      "title": "Stages",
+      "type": "array"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "version",
+    "api_version",
+    "kind",
+    "deterministic"
+  ],
+  "title": "Plugin manifest",
+  "type": "object"
+}

@@ -1,0 +1,12 @@
+{
+  "expected": {
+    "accepted": false,
+    "code": "SCHEMA_INVALID"
+  },
+  "id": "version/leading_zero",
+  "input": {
+    "supported": "1.0",
+    "version": "1.00"
+  },
+  "level": "core"
+}

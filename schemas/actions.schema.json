@@ -1,0 +1,104 @@
+{
+  "$id": "https://spec.chokr.dev/schemas/actions/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "actions": {
+      "items": {
+        "additionalProperties": false,
+        "anyOf": [
+          {
+            "required": [
+              "tool"
+            ]
+          },
+          {
+            "required": [
+              "protocol"
+            ]
+          },
+          {
+            "required": [
+              "server"
+            ]
+          },
+          {
+            "required": [
+              "method"
+            ]
+          },
+          {
+            "required": [
+              "path"
+            ]
+          }
+        ],
+        "properties": {
+          "action_uri": {
+            "maxLength": 128,
+            "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9._:/*-]+$(?!\\n)",
+            "type": "string"
+          },
+          "attributes_from": {
+            "additionalProperties": {
+              "pattern": "^/",
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "method": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "path": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "protocol": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "resource": {
+            "additionalProperties": true,
+            "properties": {
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "type": "object"
+          },
+          "server": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tool": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "action_uri"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "ext": {
+      "type": "object"
+    },
+    "schema_version": {
+      "description": "MAJOR.MINOR of the contract",
+      "pattern": "^1\\.[0-9]+$(?!\\n)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "actions",
+    "schema_version"
+  ],
+  "title": "Action mappings",
+  "type": "object"
+}

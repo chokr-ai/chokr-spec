@@ -1,0 +1,28 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/plugin_manifest_bad_stage",
+  "input": {
+    "document": {
+      "api_version": "1.0",
+      "deterministic": true,
+      "emits": {
+        "signal_codes": [
+          "demo/found"
+        ]
+      },
+      "kind": "guard",
+      "name": "demo-guard",
+      "namespace": [
+        "demo"
+      ],
+      "stages": [
+        "everything"
+      ],
+      "version": "1.0.0"
+    },
+    "schema": "plugin_manifest"
+  },
+  "level": "core"
+}

@@ -1,0 +1,13 @@
+{
+  "expected": {
+    "valid": true
+  },
+  "id": "schema/config_valid",
+  "input": {
+    "document": {
+      "schema_version": "1.0"
+    },
+    "schema": "config"
+  },
+  "level": "core"
+}

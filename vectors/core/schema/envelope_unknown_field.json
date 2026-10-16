@@ -1,0 +1,45 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/envelope_unknown_field",
+  "input": {
+    "document": {
+      "action_uri": "app:act",
+      "actor": {
+        "agent_id": "agent-1",
+        "roles": [],
+        "scopes": [],
+        "subject": "agent-1",
+        "type": "agent"
+      },
+      "arguments": {
+        "q": 1
+      },
+      "arguments_digest": "sha256:6ae0f660046dadcf5fe8462c0e00a062db4c8d67be82f4098c5ea4208d19b076",
+      "envelope_id": "env_01KDVDNA00000G40R40M30E209",
+      "environment": {
+        "env": "dev",
+        "tags": {}
+      },
+      "kind": "tool_call",
+      "nonce": "00010203-0405-4607-8809-0a0b0c0d0e0f",
+      "run_id": "run_01KDVDNA00000G40R40M30E20A",
+      "schema_version": "1.0",
+      "session_id": "ses_fixed",
+      "span_id": "0001020304054607",
+      "surprise": 1,
+      "target": {
+        "name": "t",
+        "protocol": "native"
+      },
+      "timestamps": {
+        "captured_at": "2026-01-01T00:00:00.000000Z",
+        "source": "sdk"
+      },
+      "trace_id": "000102030405460788090a0b0c0d0e0f"
+    },
+    "schema": "envelope"
+  },
+  "level": "core"
+}

@@ -1,0 +1,92 @@
+{
+  "$id": "https://spec.chokr.dev/schemas/ledger_record/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "body": {
+      "type": "object"
+    },
+    "body_digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+      "type": "string"
+    },
+    "body_mode": {
+      "enum": [
+        "full",
+        "redacted",
+        "hash_only"
+      ]
+    },
+    "chain_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "correlation_id": {
+      "type": "string"
+    },
+    "ext": {
+      "type": "object"
+    },
+    "hash": {
+      "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+      "type": "string"
+    },
+    "key_id": {
+      "type": "string"
+    },
+    "mission_id": {
+      "type": "string"
+    },
+    "prev_hash": {
+      "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+      "type": "string"
+    },
+    "record_type": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "schema_version": {
+      "description": "MAJOR.MINOR of the contract",
+      "pattern": "^1\\.[0-9]+$(?!\\n)",
+      "type": "string"
+    },
+    "seq": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "signature": {
+      "type": "string"
+    },
+    "tags": {
+      "items": {
+        "enum": [
+          "governance",
+          "execution",
+          "identity",
+          "compliance"
+        ]
+      },
+      "type": "array"
+    },
+    "trace_id": {
+      "type": "string"
+    },
+    "ts": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "body_digest",
+    "body_mode",
+    "chain_id",
+    "hash",
+    "prev_hash",
+    "record_type",
+    "schema_version",
+    "seq",
+    "ts"
+  ],
+  "title": "Ledger record",
+  "type": "object"
+}

@@ -1,0 +1,13 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/config_wrong_version_format",
+  "input": {
+    "document": {
+      "schema_version": "one"
+    },
+    "schema": "config"
+  },
+  "level": "core"
+}

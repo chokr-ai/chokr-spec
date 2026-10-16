@@ -1,0 +1,259 @@
+{
+  "$id": "https://spec.chokr.dev/schemas/verdict/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "agent_hint": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Agent Hint"
+    },
+    "decided_by": {
+      "default": "sdk-local",
+      "enum": [
+        "sdk-local",
+        "engine",
+        "external-evaluator",
+        "human"
+      ],
+      "title": "Decided By",
+      "type": "string"
+    },
+    "enforcement": {
+      "additionalProperties": true,
+      "title": "Enforcement",
+      "type": "object"
+    },
+    "envelope_id": {
+      "title": "Envelope Id",
+      "type": "string"
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expires At"
+    },
+    "explanation": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Explanation"
+    },
+    "ext": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ext"
+    },
+    "latency_ms": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Latency Ms"
+    },
+    "matched_rules": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Matched Rules",
+      "type": "array"
+    },
+    "modifications": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Modifications"
+    },
+    "obligations": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Obligations",
+      "type": "array"
+    },
+    "outcome": {
+      "enum": [
+        "allow",
+        "deny",
+        "ask",
+        "modify",
+        "watch",
+        "require_evidence",
+        "defer"
+      ],
+      "title": "Outcome",
+      "type": "string"
+    },
+    "policy": {
+      "additionalProperties": true,
+      "title": "Policy",
+      "type": "object"
+    },
+    "posture": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Posture"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "reasons": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Reasons",
+      "type": "array"
+    },
+    "request_digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+      "title": "Request Digest",
+      "type": "string"
+    },
+    "risk_score": {
+      "anyOf": [
+        {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Risk Score"
+    },
+    "risk_tier": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Risk Tier"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "signature": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Signature"
+    },
+    "verdict_id": {
+      "title": "Verdict Id",
+      "type": "string"
+    },
+    "would_block": {
+      "default": false,
+      "title": "Would Block",
+      "type": "boolean"
+    },
+    "would_have_been": {
+      "anyOf": [
+        {
+          "enum": [
+            "allow",
+            "deny",
+            "ask",
+            "modify",
+            "watch",
+            "require_evidence",
+            "defer"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Would Have Been"
+    }
+  },
+  "required": [
+    "enforcement",
+    "envelope_id",
+    "outcome",
+    "policy",
+    "request_digest",
+    "schema_version",
+    "verdict_id"
+  ],
+  "title": "Verdict",
+  "type": "object"
+}
