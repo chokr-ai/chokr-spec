@@ -14,7 +14,7 @@ error codes are defined there and are not repeated here.
 pip install chokr-spec
 ```
 
-Python 3.12 or newer. Import name: `chokr_spec`.
+Python 3.14 or newer. Import name: `chokr_spec`.
 
 ## Check the vectors
 

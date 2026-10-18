@@ -7,7 +7,7 @@ name = "chokr-spec"
 dynamic = ["version"]
 readme = "README.md"
 description = "CHOKR protocol for AI agent governance: JSON Schemas, registries and conformance vectors, with a reference checker."
-requires-python = ">=3.12"
+requires-python = ">=3.14"
 authors = [{ name = "chokr-ai" }]
 keywords = [
   "chokr", "ai-governance", "agent-governance", "ai-agents", "agentic-ai", "agent-security", "llm-guardrails",
@@ -19,8 +19,6 @@ classifiers = [
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
   "Topic :: Software Development :: Libraries",
   "Typing :: Typed",
@@ -67,7 +65,7 @@ include = ["/src", "/tests", "/schemas", "/registry", "/vectors", "/tools", "/RE
 
 [tool.ruff]
 line-length = 120
-target-version = "py312"
+target-version = "py314"
 src = ["src", "tests"]
 
 [tool.ruff.lint]
@@ -80,7 +78,7 @@ ignore = ["RUF012", "B905"]
 "src/chokr_spec/cli.py" = ["T201"]
 
 [tool.mypy]
-python_version = "3.12"
+python_version = "3.14"
 strict = true
 warn_unreachable = true
 files = ["src/chokr_spec"]

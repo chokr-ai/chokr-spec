@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
       - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884  # v10.3.0
         with:
-          python-version: "3.12"
+          python-version: "3.14"
           enable-cache: true
       - run: uv sync --all-groups
       - name: Lint
@@ -53,12 +53,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Every Python on Linux; one Python on the platforms that bill at a higher rate.
-        os: [ubuntu-latest]
-        python: ["3.12", "3.13", "3.14"]
-        include:
-          - {os: windows-latest, python: "3.12"}
-          - {os: macos-latest, python: "3.12"}
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.14"]
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
       - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884  # v10.3.0
@@ -71,7 +67,7 @@ jobs:
       - name: Conformance vectors
         run: uv run chokr-spec check --report conformance-report.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4
-        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
+        if: matrix.os == 'ubuntu-latest'
         with:
           name: conformance-report
           path: conformance-report.json
@@ -85,7 +81,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
       - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884  # v10.3.0
         with:
-          python-version: "3.12"
+          python-version: "3.14"
       - run: uv build
       - name: Distribution metadata is valid
         run: uvx twine@7.0.0 check dist/*
