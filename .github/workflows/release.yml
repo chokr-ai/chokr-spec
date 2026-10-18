@@ -1,4 +1,5 @@
 name: release
+run-name: release ${{ github.ref_name }}
 
 on:
   push:
@@ -22,7 +23,7 @@ jobs:
         run: git merge-base --is-ancestor "${GITHUB_SHA}" origin/main
       - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884  # v10.3.0
         with:
-          python-version: "3.12"
+          python-version: "3.14"
       - run: uv sync --all-groups
       - name: The tag matches the package version
         run: |
@@ -37,12 +38,13 @@ jobs:
       - name: Distribution metadata is valid
         run: uvx twine@7.0.0 check dist/*
       - name: Checksums
-        run: cd dist && sha256sum * > SHA256SUMS
+        run: cd dist && sha256sum * > ../SHA256SUMS
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4
         with:
           name: release
           path: |
             dist/*
+            SHA256SUMS
             conformance-report.json
 
   publish:
@@ -66,6 +68,7 @@ jobs:
         with:
           files: |
             dist/*
+            SHA256SUMS
             conformance-report.json
           generate_release_notes: true
 
