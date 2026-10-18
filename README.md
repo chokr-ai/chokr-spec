@@ -1,5 +1,10 @@
 # chokr-spec: the CHOKR protocol for AI agent governance (JSON Schemas, registries, conformance vectors)
 
+[![PyPI](https://img.shields.io/pypi/v/chokr-spec)](https://pypi.org/project/chokr-spec/)
+[![Python](https://img.shields.io/pypi/pyversions/chokr-spec)](https://pypi.org/project/chokr-spec/)
+[![CI](https://github.com/chokr-ai/chokr-spec/actions/workflows/ci.yml/badge.svg)](https://github.com/chokr-ai/chokr-spec/actions/workflows/ci.yml)
+[![License](https://img.shields.io/pypi/l/chokr-spec)](https://github.com/chokr-ai/chokr-spec/blob/main/LICENSE)
+
 The CHOKR protocol as data: JSON Schemas for the documents that govern AI agents (envelope, signed verdict, tamper-evident
 audit ledger, approval, pack, plugin manifest and config), registries of standard names, and conformance vectors. The
 package also holds a reference checker that runs the vectors, so any implementation, in any language, can compare its
@@ -77,3 +82,11 @@ of the vectors, not a second source of truth. When they disagree, the vectors wi
 - A consumer accepts any minor version of its major version and ignores unknown `ext` names.
 - Optional fields are omitted, never `null`, so digests stay stable.
 - A published code never changes meaning.
+
+## Contributing and security
+
+See [CONTRIBUTING.md](https://github.com/chokr-ai/chokr-spec/blob/main/CONTRIBUTING.md). Report vulnerabilities privately as described in [SECURITY.md](https://github.com/chokr-ai/chokr-spec/blob/main/SECURITY.md), not in public issues.
+
+## License
+
+Apache License 2.0. Copyright 2026 chokr-ai. See [LICENSE](https://github.com/chokr-ai/chokr-spec/blob/main/LICENSE) and [NOTICE](https://github.com/chokr-ai/chokr-spec/blob/main/NOTICE).

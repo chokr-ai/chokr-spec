@@ -8,7 +8,10 @@ dynamic = ["version"]
 readme = "README.md"
 description = "CHOKR protocol for AI agent governance: JSON Schemas, registries and conformance vectors, with a reference checker."
 requires-python = ">=3.14"
-authors = [{ name = "chokr-ai" }]
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Nitin Saxena" }]
+maintainers = [{ name = "chokr-ai" }]
 keywords = [
   "chokr", "ai-governance", "agent-governance", "ai-agents", "agentic-ai", "agent-security", "llm-guardrails",
   "protocol", "specification", "json-schema", "conformance-tests", "audit-trail", "audit-ledger", "tamper-evident",
