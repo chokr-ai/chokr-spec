@@ -11,7 +11,7 @@
         "constraints": {
           "items": {
             "additionalProperties": false,
-            "description": "A CPL condition on one standard path (A6.6).",
+            "description": "A CPL condition on one standard path.",
             "properties": {
               "op": {
                 "enum": [
@@ -180,7 +180,7 @@
       ]
     }
   ],
-  "description": "`Delegation` (A6.6): authority passed from a delegator to a delegatee, attenuated at every link.",
+  "description": "`Delegation`: authority passed from a delegator to a delegatee, attenuated at every link.",
   "properties": {
     "delegatee": {
       "maxLength": 2048,
@@ -212,7 +212,7 @@
           "constraints": {
             "items": {
               "additionalProperties": false,
-              "description": "A CPL condition on one standard path (A6.6).",
+              "description": "A CPL condition on one standard path.",
               "properties": {
                 "op": {
                   "enum": [

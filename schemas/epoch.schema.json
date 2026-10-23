@@ -49,7 +49,7 @@
       ]
     }
   ],
-  "description": "`AuthorityEpoch` (A6.6): a signed, increasing counter that lets a verifier reject rolled-back authority.",
+  "description": "`AuthorityEpoch`: a signed, increasing counter that lets a verifier reject rolled-back authority.",
   "properties": {
     "authority": {
       "maxLength": 2048,

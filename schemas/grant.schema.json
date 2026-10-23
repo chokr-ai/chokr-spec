@@ -18,7 +18,7 @@
   "$id": "https://spec.chokr.dev/schemas/grant/1.0",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
-  "description": "`chokr.grant/1.0` (A6.7): the claims of an Execution Grant, a compact JWS (EdDSA) that lets one call run once.",
+  "description": "`chokr.grant/1.0`: the claims of an Execution Grant, a compact JWS (EdDSA) that lets one call run once.",
   "properties": {
     "act": {
       "maxLength": 2048,

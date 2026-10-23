@@ -1,5 +1,5 @@
-"""The formats trust borrows from others: compact JWS (CHK-TRU-02), W3C Data Integrity proofs (CHK-ADP-09) and SD-JWT
-disclosures (CHK-ADP-10). Each function raises `Rejected(code)` for input it refuses and returns the verified facts."""
+"""The formats trust borrows from others: compact JWS, W3C Data Integrity proofs and SD-JWT
+disclosures. Each function raises `Rejected(code)` for input it refuses and returns the verified facts."""
 
 from __future__ import annotations
 

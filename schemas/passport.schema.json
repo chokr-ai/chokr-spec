@@ -11,7 +11,7 @@
         "constraints": {
           "items": {
             "additionalProperties": false,
-            "description": "A CPL condition on one standard path (A6.6).",
+            "description": "A CPL condition on one standard path.",
             "properties": {
               "op": {
                 "enum": [
@@ -110,7 +110,7 @@
       ]
     }
   ],
-  "description": "`AgentPassport` (A6.6): an agent's credentials and evidence in one document. The outer signature covers integrity only; every inner item is verified on its own.",
+  "description": "`AgentPassport`: an agent's credentials and evidence in one document. The outer signature covers integrity only; every inner item is verified on its own.",
   "properties": {
     "agent": {
       "additionalProperties": false,
@@ -147,7 +147,7 @@
           "constraints": {
             "items": {
               "additionalProperties": false,
-              "description": "A CPL condition on one standard path (A6.6).",
+              "description": "A CPL condition on one standard path.",
               "properties": {
                 "op": {
                   "enum": [

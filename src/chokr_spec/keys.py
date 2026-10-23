@@ -1,4 +1,4 @@
-"""Keys and signature algorithms of the trust vectors (A6.6): JWK thumbprints and raw signature verification.
+"""Keys and signature algorithms of the trust vectors: JWK thumbprints and raw signature verification.
 
 The closed list of algorithms is Ed25519, ES256 (the 64-byte `R || S` form, not DER), RS256 (2048 bits or more,
 exponent 65537) and ML-DSA-44, ML-DSA-65 and ML-DSA-87. Verification pins the algorithm of the **key**; the algorithm

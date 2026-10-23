@@ -1,4 +1,4 @@
-// chokr.service_plugin/1.0: the protocol between a CHOKR checkpoint (or engine) and an out-of-process plugin (A12.7).
+// chokr.service_plugin/1.0: the protocol between a CHOKR checkpoint (or engine) and an out-of-process plugin.
 //
 // A plugin of any kind runs as a separate service, in any language. Every service implements `Plugin` (describe and
 // validate configuration) and the one kind-specific service for its kind. The JSON-over-HTTPS binding carries the same
@@ -40,7 +40,7 @@ enum Kind {
   EVENT_IMPORTER = 6;
 }
 
-// `chokr.plugin_manifest/1.0` (A12.4).
+// `chokr.plugin_manifest/1.0`.
 message Manifest {
   string name = 1;
   repeated string namespace = 2;
@@ -80,7 +80,7 @@ message EnvelopeView {
   string captured_at = 11;                   // RFC 3339, UTC
 }
 
-// A Signal (A6.2). A guard returns findings; it never decides and never edits arguments.
+// A Signal. A guard returns findings; it never decides and never edits arguments.
 message Signal {
   string code = 1;                           // stable, namespaced, for example "acme.pii.passport_number"
   string severity = 2;                       // info, low, medium, high, critical
@@ -174,7 +174,7 @@ service EvidenceVerifier {
 }
 
 message VerifyRequest {
-  google.protobuf.Struct evidence = 1;       // an Evidence document (A6.6) whose signature the caller already checked
+  google.protobuf.Struct evidence = 1;       // an Evidence document whose signature the caller already checked
   string subject = 2;
 }
 
@@ -200,7 +200,7 @@ message HandleResponse {
   string detail = 2;                         // secret-free
 }
 
-// ---- isolation provider (CHK-CNT-01) -----------------------------------------------------------------------------
+// ---- isolation provider ------------------------------------------------------------------------------------------
 
 // Capabilities: middleware.http_request, middleware.http_response, middleware.websocket, policy.live_update,
 // credentials.detach, sandbox.stop, sandbox.freeze, events.stream, attestation.boundary, prover.boundary,

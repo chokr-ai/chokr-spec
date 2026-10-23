@@ -1,4 +1,4 @@
-"""The trust checks of the vectors (A6.6, CHK-TRU-05 to CHK-TRU-12): what the reference checker accepts, and the stable
+"""The trust checks of the vectors: what the reference checker accepts, and the stable
 error code of the first check that fails.
 
 Every function raises `Rejected(code)` for a document it refuses and returns the verified facts otherwise. The order
@@ -178,7 +178,7 @@ def verify_credential(
     subject: str | None = None,
     audience: str | None = None,
 ) -> None:
-    """CHK-TRU-05. The first failing step decides: schema, key owner, signature, issuer trust, validity window,
+    """The first failing step decides: schema, key owner, signature, issuer trust, validity window,
     subject, audience, status."""
     require_schema(schemas, "credential", document)
     verify_signed(document, store, document["issuer"])
@@ -280,7 +280,7 @@ def verify_chain(
     max_depth: int = 1,
     max_chain_depth: int = DEFAULT_MAX_CHAIN_DEPTH,
 ) -> None:
-    """CHK-TRU-06, in the stated order: depth, each link, linkage and cycles, authority, attenuation."""
+    """Checks in the stated order: depth, each link, linkage and cycles, authority, attenuation."""
     for link in chain:
         require_schema(schemas, "delegation", link)
     n = len(chain)
@@ -323,7 +323,7 @@ def verify_evidence(
     subject: str | None = None,
     artifact: str | None = None,
 ) -> dict[str, Any]:
-    """CHK-TRU-07. Authenticity is checked (schema, key owner, signature, issuer trusted for this evidence type,
+    """Authenticity is checked (schema, key owner, signature, issuer trusted for this evidence type,
     subject, issue time, artifact digest, status); freshness is reported, never enforced, so that a policy can tell a
     stale item from a missing one. Returns `{status: fresh | stale}`, with `code: EVIDENCE_EXPIRED` when expired."""
     require_schema(schemas, "evidence", document)
@@ -368,7 +368,7 @@ def verify_passport(
     now: datetime,
     skew: int = DEFAULT_SKEW,
 ) -> dict[str, Any]:
-    """CHK-TRU-08. Every credential and every evidence item is verified on its own and bound to the agent, then the
+    """Every credential and every evidence item is verified on its own and bound to the agent, then the
     outer signature last: a valid outer signature never stands in for an invalid inner one. Stale evidence is reported
     and does not fail the passport; an expired or revoked credential does."""
     require_schema(schemas, "passport", document)
@@ -433,7 +433,7 @@ def verify_pop(
     purpose: str | None = None,
     audience: str | None = None,
 ) -> None:
-    """CHK-TRU-09 V-02. The first failure wins: the challenge is the one that was issued and within its lifetime;
+    """The first failure wins: the challenge is the one that was issued and within its lifetime;
     the time window; purpose and audience; the key is registered for the subject and not revoked; the signature; and
     only then the nonce is consumed."""
     require_schema(schemas, "pop", proof)
@@ -464,7 +464,7 @@ def verify_pop(
 
 
 def bind_key(document: Mapping[str, Any], jwk: Mapping[str, Any]) -> dict[str, Any]:
-    """CHK-TRU-10: stamp `cnf.jkt` onto an unsigned document so the binding is inside the signed bytes."""
+    """Stamp `cnf.jkt` onto an unsigned document so the binding is inside the signed bytes."""
     if any(member in document for member in _SIGNATURE_MEMBERS):
         raise Rejected("SCHEMA_INVALID")
     return {**document, "cnf": {"jkt": thumbprint(jwk)}}
@@ -492,7 +492,7 @@ def verify_epoch(
     now: datetime,
     skew: int = DEFAULT_SKEW,
 ) -> None:
-    """CHK-TRU-12. A signed epoch by the authority, trusted for `*`, within its time window. An older epoch than the
+    """A signed epoch by the authority, trusted for `*`, within its time window. An older epoch than the
     highest one seen is a rollback and is always refused; an equal one changes nothing; a newer one advances the
     high-water mark. Only a verified document ever advances it."""
     require_schema(schemas, "epoch", document)

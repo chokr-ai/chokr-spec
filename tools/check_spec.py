@@ -5,7 +5,7 @@
 - every vector is valid JSON with a unique `id` and `level` that match its path, and an area that the reference checker
   can run;
 - every registry has a schema version and sorted, unique entries;
-- every trust area has a valid vector and, where it has a signed document, a tamper vector (CHK-TRU-14);
+- every trust area has a valid vector and, where it has a signed document, a tamper vector;
 - `proto/service_plugin.proto` declares the package and every service of the plugin protocol;
 - every vector passes the reference checker.
 """
