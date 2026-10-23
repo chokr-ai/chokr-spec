@@ -1,0 +1,45 @@
+{
+  "class": "tamper",
+  "description": "The published credential with its issuer changed.",
+  "expected": {
+    "accepted": false,
+    "code": "SIGNATURE_INVALID"
+  },
+  "id": "vc/w3c_eddsa_jcs_2022_changed_after_signing",
+  "input": {
+    "document": {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/examples/v2"
+      ],
+      "credentialSubject": {
+        "alumniOf": "The School of Examples",
+        "id": "did:example:abcdefgh"
+      },
+      "description": "A minimum viable example of an Alumni Credential.",
+      "id": "urn:uuid:58172aac-d8ba-11ed-83dd-0b3aef56cc33",
+      "issuer": "https://vc.example/issuers/9999",
+      "name": "Alumni Credential",
+      "proof": {
+        "created": "2023-02-24T23:36:38Z",
+        "cryptosuite": "eddsa-jcs-2022",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z2HnFSSPPBzR36zdDgK8PbEHeXbR56YF24jwMpt3R1eHXQzJDMWS93FCzpvJpwTWd3GAVFuUfjoJdcnTMuVor51aX",
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2"
+      },
+      "type": [
+        "VerifiableCredential",
+        "AlumniCredential"
+      ],
+      "validFrom": "2023-01-01T00:00:00Z"
+    },
+    "jwk": {
+      "crv": "Ed25519",
+      "kty": "OKP",
+      "x": "sA2Nk45_dz1RVlqtNqYj9TRPf10ZYPnPPo4SYg6igQ8"
+    },
+    "op": "verify"
+  },
+  "level": "trust"
+}

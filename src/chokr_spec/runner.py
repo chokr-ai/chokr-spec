@@ -15,7 +15,7 @@ from typing import Any
 from chokr_spec import __version__, data_dir
 from chokr_spec.executors import COMPUTE, EXPECTED_KEYS, Context
 
-LEVELS = ("core", "connect")
+LEVELS = ("core", "connect", "trust")
 REPORT_SCHEMA = "1.0"
 IMPLEMENTATION = "chokr-spec reference checker"
 
@@ -84,8 +84,15 @@ class Report:
 def _subset(expected: Any, actual: Any) -> bool:
     """True when every key of `expected` is present in `actual` with the same value, at every depth.
 
-    Keys that only `actual` has are ignored. A boolean equals only a boolean, so `true` never equals `1`.
+    Keys that only `actual` has are ignored. A list matches a list of the same length whose items match one by one.
+    A boolean equals only a boolean, so `true` never equals `1`.
     """
+    if isinstance(expected, list):
+        return (
+            isinstance(actual, list)
+            and len(expected) == len(actual)
+            and all(_subset(e, a) for e, a in zip(expected, actual, strict=True))
+        )
     if isinstance(expected, dict):
         return isinstance(actual, dict) and all(k in actual and _subset(v, actual[k]) for k, v in expected.items())
     if isinstance(expected, bool) or isinstance(actual, bool):

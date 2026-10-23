@@ -1,0 +1,38 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/trust_config_issuer_key_with_a_private_member",
+  "input": {
+    "document": {
+      "issuer_keys": [
+        {
+          "issuer": "org:acme",
+          "key": {
+            "alg": "Ed25519",
+            "crv": "Ed25519",
+            "d": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "kid": "key-1",
+            "kty": "OKP",
+            "x": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        }
+      ],
+      "schema_version": "1.0",
+      "status": {
+        "cred-9": "REVOKED",
+        "urn:chokr:org:acme:agent:old": "SUSPENDED"
+      },
+      "trust": [
+        {
+          "agent_class": "*",
+          "evidence_type": "*",
+          "issuer": "org:acme",
+          "max_age_days": 90
+        }
+      ]
+    },
+    "schema": "trust_config"
+  },
+  "level": "core"
+}

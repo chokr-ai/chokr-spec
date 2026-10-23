@@ -291,7 +291,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "cryptography", specifier = ">=43,<51" },
+    { name = "cryptography", specifier = ">=48,<51" },
     { name = "jsonschema", specifier = ">=4.22,<5" },
     { name = "rfc8785", specifier = ">=0.1.4,<0.2" },
 ]

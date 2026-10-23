@@ -1,0 +1,23 @@
+{
+  "class": "valid",
+  "description": "With a tolerance of 60 s a token 59 s past exp is accepted.",
+  "expected": {
+    "accepted": true
+  },
+  "id": "jws/tolerance_is_configurable",
+  "input": {
+    "clock_skew_seconds": 60,
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJFZERTQSIsImtpZCI6ImFjbWUtMSIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODAzMTUxNDEsImlhdCI6MTc4MDMxNTE0MCwiaXNzIjoib3JnOmFjbWUiLCJuYmYiOjE3ODAzMTUxNDAsInN1YiI6InVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpidXllciJ9.hDsXYIEJUEmrPzmbXgYs5Y3tlU7fEB0wOg0I47egspyZHzzhesX-s2C67boyZftxpxIOtEQx6sQmVL0vN5ZOBg"
+  },
+  "level": "trust"
+}

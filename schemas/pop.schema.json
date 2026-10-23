@@ -1,0 +1,351 @@
+{
+  "$defs": {
+    "Challenge": {
+      "additionalProperties": false,
+      "properties": {
+        "audience": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        },
+        "expires_at": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+          "type": "string"
+        },
+        "issued_at": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+          "type": "string"
+        },
+        "nonce": {
+          "description": "16 random bytes, base64url.",
+          "pattern": "^[A-Za-z0-9_-]{22}$(?!\\n)",
+          "type": "string"
+        },
+        "purpose": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "schema_version": {
+          "description": "MAJOR.MINOR of the contract",
+          "pattern": "^1\\.[0-9]+$(?!\\n)",
+          "type": "string"
+        },
+        "subject": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "PoPChallenge"
+        }
+      },
+      "required": [
+        "schema_version",
+        "type",
+        "subject",
+        "audience",
+        "nonce",
+        "issued_at",
+        "expires_at"
+      ],
+      "type": "object"
+    },
+    "Jwk": {
+      "additionalProperties": false,
+      "description": "A public JWK. Private members (`d`, `priv`, `p`, `q`...) are not part of the contract.",
+      "properties": {
+        "alg": {
+          "enum": [
+            "Ed25519",
+            "EdDSA",
+            "ES256",
+            "RS256",
+            "ML-DSA-44",
+            "ML-DSA-65",
+            "ML-DSA-87"
+          ]
+        },
+        "crv": {
+          "enum": [
+            "Ed25519",
+            "P-256"
+          ]
+        },
+        "e": {
+          "maxLength": 16,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "kid": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kty": {
+          "enum": [
+            "OKP",
+            "EC",
+            "RSA",
+            "AKP"
+          ]
+        },
+        "n": {
+          "maxLength": 4096,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "pub": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "use": {
+          "enum": [
+            "sig"
+          ]
+        },
+        "x": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "y": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kty"
+      ],
+      "type": "object"
+    },
+    "Signature": {
+      "additionalProperties": false,
+      "description": "Detached signature over the RFC 8785 form of the document without its signature members.",
+      "properties": {
+        "alg": {
+          "enum": [
+            "Ed25519",
+            "EdDSA",
+            "ES256",
+            "RS256",
+            "ML-DSA-44",
+            "ML-DSA-65",
+            "ML-DSA-87"
+          ]
+        },
+        "kid": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "alg",
+        "kid",
+        "value"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://spec.chokr.dev/schemas/pop/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "PoPChallenge"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "subject",
+          "audience",
+          "nonce",
+          "issued_at",
+          "expires_at"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "PoPProof"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "challenge",
+          "signature",
+          "key"
+        ]
+      }
+    }
+  ],
+  "description": "A proof-of-possession challenge (`PoPChallenge`), or the proof that answers it (`PoPProof`).",
+  "properties": {
+    "audience": {
+      "maxLength": 2048,
+      "minLength": 1,
+      "type": "string"
+    },
+    "challenge": {
+      "$ref": "#/$defs/Challenge"
+    },
+    "expires_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+      "type": "string"
+    },
+    "issued_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+      "type": "string"
+    },
+    "key": {
+      "additionalProperties": false,
+      "description": "A public JWK. Private members (`d`, `priv`, `p`, `q`...) are not part of the contract.",
+      "properties": {
+        "alg": {
+          "enum": [
+            "Ed25519",
+            "EdDSA",
+            "ES256",
+            "RS256",
+            "ML-DSA-44",
+            "ML-DSA-65",
+            "ML-DSA-87"
+          ]
+        },
+        "crv": {
+          "enum": [
+            "Ed25519",
+            "P-256"
+          ]
+        },
+        "e": {
+          "maxLength": 16,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "kid": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kty": {
+          "enum": [
+            "OKP",
+            "EC",
+            "RSA",
+            "AKP"
+          ]
+        },
+        "n": {
+          "maxLength": 4096,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "pub": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "use": {
+          "enum": [
+            "sig"
+          ]
+        },
+        "x": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "y": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kty"
+      ],
+      "type": "object"
+    },
+    "nonce": {
+      "description": "16 random bytes, base64url.",
+      "pattern": "^[A-Za-z0-9_-]{22}$(?!\\n)",
+      "type": "string"
+    },
+    "purpose": {
+      "maxLength": 256,
+      "minLength": 1,
+      "type": "string"
+    },
+    "schema_version": {
+      "description": "MAJOR.MINOR of the contract",
+      "pattern": "^1\\.[0-9]+$(?!\\n)",
+      "type": "string"
+    },
+    "signature": {
+      "additionalProperties": false,
+      "description": "Detached signature over the RFC 8785 form of the document without its signature members.",
+      "properties": {
+        "alg": {
+          "enum": [
+            "Ed25519",
+            "EdDSA",
+            "ES256",
+            "RS256",
+            "ML-DSA-44",
+            "ML-DSA-65",
+            "ML-DSA-87"
+          ]
+        },
+        "kid": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "alg",
+        "kid",
+        "value"
+      ],
+      "type": "object"
+    },
+    "subject": {
+      "maxLength": 2048,
+      "minLength": 1,
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "PoPChallenge",
+        "PoPProof"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "type"
+  ],
+  "title": "Proof of possession",
+  "type": "object"
+}

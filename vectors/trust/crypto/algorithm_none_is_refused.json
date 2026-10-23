@@ -1,0 +1,31 @@
+{
+  "class": "invalid",
+  "description": "The algorithm name none is never accepted.",
+  "expected": {
+    "code": "SIGNATURE_INVALID",
+    "valid": false
+  },
+  "id": "crypto/algorithm_none_is_refused",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "payload": {
+      "action": "app:transfer",
+      "amount": 100,
+      "to": "acct-2"
+    },
+    "signature": {
+      "alg": "none",
+      "kid": "acme-1",
+      "value": "_5O8UPVvXfgqJn_4NzPG_juX2Zz_4GK_-SXtrCmbjsLSYzfEv7jP1VW7dJsjjPahGSIpyzqqpYwNMiyQMF4oDQ"
+    }
+  },
+  "level": "trust"
+}

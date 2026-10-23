@@ -1,0 +1,22 @@
+{
+  "class": "valid",
+  "description": "nbf is 30 s ahead: valid from nbf minus 30 s, so already valid.",
+  "expected": {
+    "accepted": true
+  },
+  "id": "jws/not_before_30_seconds_ahead",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJFZERTQSIsImtpZCI6ImFjbWUtMSIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODAzMTg4MDAsImlhdCI6MTc4MDMxNTE0MCwiaXNzIjoib3JnOmFjbWUiLCJuYmYiOjE3ODAzMTUyMzAsInN1YiI6InVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpidXllciJ9.OOaEtb-6QPZtHqOTYdHyQ23sl60Pe8SXIjHsYhxc7ntSVun44_B2xtewFg6geJ3dTHjvv-0Sa3-8KYT6EA1xBg"
+  },
+  "level": "trust"
+}

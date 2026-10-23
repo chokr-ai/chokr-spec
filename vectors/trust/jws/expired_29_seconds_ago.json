@@ -1,0 +1,22 @@
+{
+  "class": "valid",
+  "description": "exp passed 29 s ago: valid until exp plus 30 s, so still valid.",
+  "expected": {
+    "accepted": true
+  },
+  "id": "jws/expired_29_seconds_ago",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJFZERTQSIsImtpZCI6ImFjbWUtMSIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODAzMTUxNzEsImlhdCI6MTc4MDMxNTE0MCwiaXNzIjoib3JnOmFjbWUiLCJuYmYiOjE3ODAzMTUxNDAsInN1YiI6InVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpidXllciJ9.JT2JDuALuuTe7R6w2AVSr-8Quj7eFOh1YrIrRDKSALRAUk4ElFcGpVOh71QfVrFd3rsw0jx1zkngTU-zAIl5Aw"
+  },
+  "level": "trust"
+}

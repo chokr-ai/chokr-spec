@@ -1,0 +1,23 @@
+{
+  "class": "invalid",
+  "description": "exp passed 30 s ago: valid until exp plus 30 s, so expired.",
+  "expected": {
+    "accepted": false,
+    "code": "CREDENTIAL_EXPIRED"
+  },
+  "id": "jws/expired_30_seconds_ago",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJFZERTQSIsImtpZCI6ImFjbWUtMSIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODAzMTUxNzAsImlhdCI6MTc4MDMxNTE0MCwiaXNzIjoib3JnOmFjbWUiLCJuYmYiOjE3ODAzMTUxNDAsInN1YiI6InVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpidXllciJ9.HR7UJfgqImXyBOggK13lghZpD5a2M586Uxp1ATlGUPz-jwkCGjxwi_GMlx6pEyKua1b_Ar2zeS6zxM1P6AC5CQ"
+  },
+  "level": "trust"
+}

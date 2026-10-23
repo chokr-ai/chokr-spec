@@ -1,0 +1,23 @@
+{
+  "class": "invalid",
+  "description": "A header with jku is refused: the key never comes from the token.",
+  "expected": {
+    "accepted": false,
+    "code": "SCHEMA_INVALID"
+  },
+  "id": "jws/header_jku_is_refused",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJFZERTQSIsImprdSI6Imh0dHBzOi8va2V5cy5leGFtcGxlL2p3a3MiLCJraWQiOiJhY21lLTEiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3ODAzMTg4MDAsImlhdCI6MTc4MDMxNTE0MCwiaXNzIjoib3JnOmFjbWUiLCJuYmYiOjE3ODAzMTUxNDAsInN1YiI6InVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpidXllciJ9.zYRPqXKfTLORF6Sn1p4A0nOAmR6S_QUlt4Y7GbOuRcTxAam6yP222B5CAGFIKVokxJoK4LailaLl_IUhtwutDQ"
+  },
+  "level": "trust"
+}

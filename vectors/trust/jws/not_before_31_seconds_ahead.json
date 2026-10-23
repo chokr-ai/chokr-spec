@@ -1,0 +1,23 @@
+{
+  "class": "invalid",
+  "description": "nbf is 31 s ahead: valid from nbf minus 30 s, so not yet valid.",
+  "expected": {
+    "accepted": false,
+    "code": "CREDENTIAL_NOT_YET_VALID"
+  },
+  "id": "jws/not_before_31_seconds_ahead",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJFZERTQSIsImtpZCI6ImFjbWUtMSIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODAzMTg4MDAsImlhdCI6MTc4MDMxNTE0MCwiaXNzIjoib3JnOmFjbWUiLCJuYmYiOjE3ODAzMTUyMzEsInN1YiI6InVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpidXllciJ9.1k8acKZgjrbJOo5xRfdnqyDUFYm-QMCl09DGTWmGuqJj9UpI3Nalmw9Xhntiv3UW8O-bMLH03m7oJRAaN0bcAg"
+  },
+  "level": "trust"
+}

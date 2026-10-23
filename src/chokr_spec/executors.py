@@ -6,13 +6,16 @@ from __future__ import annotations
 import json
 from collections.abc import Callable
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft202012Validator
 
+from chokr_spec import interop, trust
 from chokr_spec.canonical import canonicalize, digest_object
 from chokr_spec.errors import SpecError
+from chokr_spec.keys import thumbprint
 from chokr_spec.ledger import ChainState, advance, make_record, verify_chain
 from chokr_spec.signatures import Rejected, verify_document
 from chokr_spec.versioning import check_schema_version
@@ -88,6 +91,199 @@ def verdict_signature(vector: Vector, context: Context) -> dict[str, Any]:
     return {"accepted": True}
 
 
+# ---- trust level ---------------------------------------------------------------------------------------------------
+# Every area takes `input` (documents, the trust config, `now`, optionally `clock_skew_seconds`) and returns what a
+# verifier decides: `accepted` (or `valid`, `confirmed`, `bound`, `ok`) and the `code` of the first failing check.
+
+
+def _outcome(key: str, call: Callable[[], dict[str, Any] | None]) -> dict[str, Any]:
+    try:
+        return {key: True, **(call() or {})}
+    except Rejected as exc:
+        return {key: False, "code": exc.code}
+
+
+def _setup(given: dict[str, Any], context: Context) -> tuple[trust.TrustStore, datetime, int]:
+    store = trust.TrustStore.load(given["trust"], context.schemas)
+    return store, trust.parse_time(given["now"]), trust.check_skew(given.get("clock_skew_seconds", trust.DEFAULT_SKEW))
+
+
+def crypto(vector: Vector, context: Context) -> dict[str, Any]:
+    """Whether the signature, or every hybrid proof, over the canonical form of `payload` verifies with the keys."""
+    given = vector["input"]
+    keys = {k["kid"]: k for k in given["keys"]}
+    message = canonicalize(given["payload"])
+
+    def call() -> None:
+        proofs = given.get("proofs")
+        if proofs is not None and (len(proofs) < 2 or len({p["kid"] for p in proofs}) != len(proofs)):
+            raise Rejected("SCHEMA_INVALID")  # a hybrid signature needs two proofs: removing one fails closed
+        for signature in proofs if proofs is not None else [given["signature"]]:
+            jwk = keys.get(signature["kid"])
+            if jwk is None:
+                raise Rejected("KEY_NOT_FOUND")
+            trust.check_signature(jwk, signature, message)
+
+    return _outcome("valid", call)
+
+
+def jws(vector: Vector, context: Context) -> dict[str, Any]:
+    """Whether a compact JWS verifies, or the code that rejects it."""
+    given = vector["input"]
+
+    def call() -> dict[str, Any]:
+        skew = trust.check_skew(given.get("clock_skew_seconds", trust.DEFAULT_SKEW))
+        return {"claims": interop.verify_compact(given["token"], given["keys"], now=given["now"], skew=skew)}
+
+    return _outcome("accepted", call)
+
+
+def thumbprint_of(vector: Vector, context: Context) -> dict[str, Any]:
+    """The RFC 7638 thumbprint of a public key, as `sha256:` and hex."""
+    return {"thumbprint": thumbprint(vector["input"]["jwk"])}
+
+
+def credential(vector: Vector, context: Context) -> dict[str, Any]:
+    """Whether a credential is accepted for a subject and audience, or the code of the first failing check."""
+    given = vector["input"]
+
+    def call() -> None:
+        store, now, skew = _setup(given, context)
+        trust.verify_credential(
+            given["document"],
+            store,
+            context.schemas,
+            now=now,
+            skew=skew,
+            subject=given.get("subject"),
+            audience=given.get("audience"),
+        )
+
+    return _outcome("accepted", call)
+
+
+def delegation(vector: Vector, context: Context) -> dict[str, Any]:
+    """Whether a delegation chain reaches the leaf subject with attenuated authority, or the code that stops it."""
+    given = vector["input"]
+
+    def call() -> None:
+        store, now, skew = _setup(given, context)
+        trust.verify_chain(
+            given["chain"],
+            given["leaf_subject"],
+            store,
+            context.schemas,
+            now=now,
+            skew=skew,
+            max_depth=given.get("max_depth", 1),
+            max_chain_depth=given.get("max_chain_depth", trust.DEFAULT_MAX_CHAIN_DEPTH),
+        )
+
+    return _outcome("accepted", call)
+
+
+def evidence(vector: Vector, context: Context) -> dict[str, Any]:
+    """Whether an evidence item is authentic, and whether it is fresh or stale."""
+    given = vector["input"]
+
+    def call() -> dict[str, Any]:
+        store, now, skew = _setup(given, context)
+        return trust.verify_evidence(
+            given["document"],
+            store,
+            context.schemas,
+            now=now,
+            skew=skew,
+            subject=given.get("subject"),
+            artifact=given.get("artifact"),
+        )
+
+    return _outcome("accepted", call)
+
+
+def passport(vector: Vector, context: Context) -> dict[str, Any]:
+    """The report of an independent verification of a passport: every inner item, then the outer signature."""
+    given = vector["input"]
+    try:
+        store, now, skew = _setup(given, context)
+        return trust.verify_passport(given["document"], store, context.schemas, now=now, skew=skew)
+    except Rejected as exc:
+        return {"ok": False, "errors": [exc.code]}
+
+
+def pop(vector: Vector, context: Context) -> dict[str, Any]:
+    """The result of each proof of possession, in order, against a verifier that issued the listed challenges."""
+    given = vector["input"]
+    store = trust.TrustStore.load(given["trust"], context.schemas)
+    nonces = trust.NonceStore({c["nonce"]: c for c in given["challenges"]})
+    skew = trust.check_skew(given.get("clock_skew_seconds", trust.DEFAULT_SKEW))
+
+    def one(attempt: dict[str, Any]) -> dict[str, Any]:
+        return _outcome(
+            "accepted",
+            lambda: trust.verify_pop(
+                attempt["proof"],
+                nonces,
+                given["registry"],
+                store,
+                context.schemas,
+                now=trust.parse_time(attempt["now"]),
+                skew=skew,
+                ttl_seconds=given.get("ttl_seconds", trust.DEFAULT_POP_TTL),
+                purpose=attempt.get("purpose"),
+                audience=attempt.get("audience"),
+            ),
+        )
+
+    return {"results": [one(attempt) for attempt in given["attempts"]]}
+
+
+def keybinding(vector: Vector, context: Context) -> dict[str, Any]:
+    """Stamp a document with `cnf.jkt` (`op: bind`), or confirm that a proven key is the one it is bound to."""
+    given = vector["input"]
+    if given["op"] == "bind":
+        return _outcome("bound", lambda: {"document": trust.bind_key(given["document"], given["key"])})
+    return _outcome("confirmed", lambda: trust.confirm_binding(given["document"], given["key"]))
+
+
+def epoch(vector: Vector, context: Context) -> dict[str, Any]:
+    """An authority epoch document against the high-water mark (`op: document`), or a credential's epoch."""
+    given = vector["input"]
+    if given["op"] == "credential":
+        return _outcome(
+            "accepted",
+            lambda: trust.check_credential_epoch(given.get("epoch"), given["high_water"], given["tolerance"]),
+        )
+    high_water = dict(given["high_water"])
+
+    def call() -> None:
+        store, now, skew = _setup(given, context)
+        trust.verify_epoch(given["document"], store, context.schemas, high_water, now=now, skew=skew)
+
+    return {**_outcome("accepted", call), "high_water": high_water}
+
+
+def vc(vector: Vector, context: Context) -> dict[str, Any]:
+    """A W3C Data Integrity proof: verify it (`verify`), or recompute its hashes (`hashes`) or `proofValue` (`sign`)."""
+    given = vector["input"]
+    if given["op"] == "hashes":
+        return interop.integrity_hashes(given["document"])
+    if given["op"] == "sign":
+        return {"proof_value": interop.sign_integrity_eddsa(given["document"], given["secret"])}
+    return _outcome("accepted", lambda: interop.verify_integrity(given["document"], given["jwk"]))
+
+
+def sdjwt(vector: Vector, context: Context) -> dict[str, Any]:
+    """An SD-JWT: the digest of a disclosure (`digest`), or whether a presentation verifies, and what it discloses."""
+    given = vector["input"]
+    if given["op"] == "digest":
+        return {"digest": interop.sd_digest(given["disclosure"])}
+    return _outcome(
+        "accepted",
+        lambda: {"claims": interop.verify_sd_jwt(given["presentation"], given["keys"], now=given["now"])},
+    )
+
+
 COMPUTE: dict[str, Callable[[Vector, Context], dict[str, Any]]] = {
     "envelope": envelope,
     "ledger": ledger,
@@ -95,6 +291,18 @@ COMPUTE: dict[str, Callable[[Vector, Context], dict[str, Any]]] = {
     "schema": schema,
     "version": version,
     "verdict": verdict_signature,
+    "crypto": crypto,
+    "jws": jws,
+    "thumbprint": thumbprint_of,
+    "credential": credential,
+    "delegation": delegation,
+    "evidence": evidence,
+    "passport": passport,
+    "pop": pop,
+    "keybinding": keybinding,
+    "epoch": epoch,
+    "vc": vc,
+    "sdjwt": sdjwt,
 }
 # Areas whose expected values sit under these keys of the vector instead of under `expected`.
 EXPECTED_KEYS = {"tamper": ("expected_error", "expected_seq")}

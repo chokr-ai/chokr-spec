@@ -1,0 +1,19 @@
+{
+  "class": "valid",
+  "description": "EC: the members crv, kty, x, y.",
+  "expected": {
+    "thumbprint": "sha256:096a521c2f00dfa62c88768c9997f21f61267a7074c65f2954cc1885d5f92be4"
+  },
+  "id": "thumbprint/p256",
+  "input": {
+    "jwk": {
+      "alg": "ES256",
+      "crv": "P-256",
+      "kid": "acme-p256",
+      "kty": "EC",
+      "x": "nISs0H_Ieib_cqvwjdYFS4u6iokCos8hjjybBm0p0kE",
+      "y": "EXiCKUJpVvo9HQ2adhcJKRrnUAzKn08DANmKOeG2vx0"
+    }
+  },
+  "level": "trust"
+}

@@ -489,7 +489,7 @@
     },
     "HoldSection": {
       "additionalProperties": false,
-      "description": "`hold:` block (HR-9, HR-11). `callback` needs a function registered in code, checked when the SDK is built.",
+      "description": "`hold:` block. `callback` needs a function registered in code, checked when the SDK is built.",
       "properties": {
         "decision_key_path": {
           "default": ".chokr/holds/.decision_key",

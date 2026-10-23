@@ -1,0 +1,32 @@
+{
+  "class": "tamper",
+  "description": "cnf.jkt was replaced by an attacker's thumbprint.",
+  "expected": {
+    "code": "KEY_BINDING_MISMATCH",
+    "confirmed": false
+  },
+  "id": "keybinding/confirm_binding_changed_to_another_key",
+  "input": {
+    "document": {
+      "cnf": {
+        "jkt": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expires_at": "2026-07-01T00:00:00Z",
+      "id": "cred-1",
+      "issued_at": "2026-05-01T00:00:00Z",
+      "issuer": "org:acme",
+      "schema_version": "1.0",
+      "subject": "urn:chokr:org:acme:agent:buyer",
+      "type": "CapabilityCredential"
+    },
+    "key": {
+      "alg": "Ed25519",
+      "crv": "Ed25519",
+      "kid": "agent-1",
+      "kty": "OKP",
+      "x": "5btpFnQUCW9nP_5NrwTuewx_frmJ-8MzIUHQuHqzsC0"
+    },
+    "op": "confirm"
+  },
+  "level": "trust"
+}

@@ -1,0 +1,294 @@
+{
+  "$defs": {
+    "Entry": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+          "type": "string"
+        },
+        "description_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+          "type": "string"
+        },
+        "executable_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "executable_path": {
+          "maxLength": 4096,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ext": {
+          "description": "Extension members; keys are namespaced and an unknown key is preserved.",
+          "type": "object"
+        },
+        "package": {
+          "maxLength": 4096,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_hash": {
+          "pattern": "^(sha256:[0-9a-f]{64}|sha512:[0-9a-f]{128})$(?!\\n)",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pinned_at": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+          "type": "string"
+        },
+        "schema_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+          "type": "string"
+        },
+        "server": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "scan",
+            "registry"
+          ]
+        },
+        "tool_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "transport": {
+          "enum": [
+            "stdio",
+            "http",
+            "sse",
+            "skill"
+          ]
+        },
+        "version": {
+          "maxLength": 4096,
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "tool_name",
+        "server",
+        "transport",
+        "schema_hash",
+        "description_hash",
+        "pinned_at"
+      ],
+      "type": "object"
+    },
+    "Signature": {
+      "additionalProperties": false,
+      "description": "Detached signature over the RFC 8785 form of the document without its signature members.",
+      "properties": {
+        "alg": {
+          "enum": [
+            "Ed25519",
+            "EdDSA",
+            "ES256",
+            "RS256",
+            "ML-DSA-44",
+            "ML-DSA-65",
+            "ML-DSA-87"
+          ]
+        },
+        "kid": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "alg",
+        "kid",
+        "value"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://spec.chokr.dev/schemas/manifest/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "`chokr.manifest/1.0`: the pinned hashes of every tool, executable, package and tool description (`chokr.lock`).",
+  "properties": {
+    "agent_id": {
+      "maxLength": 2048,
+      "minLength": 1,
+      "type": "string"
+    },
+    "created_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+      "type": "string"
+    },
+    "entries": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "annotations_hash": {
+            "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+            "type": "string"
+          },
+          "description_hash": {
+            "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+            "type": "string"
+          },
+          "executable_hash": {
+            "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "executable_path": {
+            "maxLength": 4096,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ext": {
+            "description": "Extension members; keys are namespaced and an unknown key is preserved.",
+            "type": "object"
+          },
+          "package": {
+            "maxLength": 4096,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "package_hash": {
+            "pattern": "^(sha256:[0-9a-f]{64}|sha512:[0-9a-f]{128})$(?!\\n)",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "pinned_at": {
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+            "type": "string"
+          },
+          "schema_hash": {
+            "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+            "type": "string"
+          },
+          "server": {
+            "maxLength": 2048,
+            "minLength": 1,
+            "type": "string"
+          },
+          "source": {
+            "enum": [
+              "scan",
+              "registry"
+            ]
+          },
+          "tool_name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "transport": {
+            "enum": [
+              "stdio",
+              "http",
+              "sse",
+              "skill"
+            ]
+          },
+          "version": {
+            "maxLength": 4096,
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "tool_name",
+          "server",
+          "transport",
+          "schema_hash",
+          "description_hash",
+          "pinned_at"
+        ],
+        "type": "object"
+      },
+      "maxItems": 10000,
+      "type": "array"
+    },
+    "ext": {
+      "description": "Extension members; keys are namespaced and an unknown key is preserved.",
+      "type": "object"
+    },
+    "manifest_id": {
+      "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+      "type": "string"
+    },
+    "schema": {
+      "const": "chokr.manifest/1.0"
+    },
+    "signature": {
+      "additionalProperties": false,
+      "description": "Detached signature over the RFC 8785 form of the document without its signature members.",
+      "properties": {
+        "alg": {
+          "enum": [
+            "Ed25519",
+            "EdDSA",
+            "ES256",
+            "RS256",
+            "ML-DSA-44",
+            "ML-DSA-65",
+            "ML-DSA-87"
+          ]
+        },
+        "kid": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "alg",
+        "kid",
+        "value"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "created_at",
+    "entries",
+    "manifest_id",
+    "schema"
+  ],
+  "title": "Manifest",
+  "type": "object"
+}

@@ -1,0 +1,29 @@
+{
+  "class": "valid",
+  "description": "A compact JWS signed with Ed25519.",
+  "expected": {
+    "accepted": true,
+    "claims": {
+      "exp": 1780318800,
+      "iat": 1780315140,
+      "iss": "org:acme",
+      "nbf": 1780315140,
+      "sub": "urn:chokr:org:acme:agent:buyer"
+    }
+  },
+  "id": "jws/ed25519_valid",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJFZERTQSIsImtpZCI6ImFjbWUtMSIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODAzMTg4MDAsImlhdCI6MTc4MDMxNTE0MCwiaXNzIjoib3JnOmFjbWUiLCJuYmYiOjE3ODAzMTUxNDAsInN1YiI6InVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpidXllciJ9.zYRPqXKfTLORF6Sn1p4A0nOAmR6S_QUlt4Y7GbOuRcTxAam6yP222B5CAGFIKVokxJoK4LailaLl_IUhtwutDQ"
+  },
+  "level": "trust"
+}

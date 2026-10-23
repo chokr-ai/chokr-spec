@@ -1,0 +1,13 @@
+{
+  "class": "valid",
+  "description": "The same claim with different spacing is a different disclosure string and so a different digest.",
+  "expected": {
+    "digest": "8VHiz7qTXavxvpiTYDCSr_shkUO6qRcVXjkhEnt1os4"
+  },
+  "id": "sdjwt/digest_is_not_a_canonical_json_digest",
+  "input": {
+    "disclosure": "WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwiZ2l2ZW5fbmFtZSIsIkpvaG4iXQ",
+    "op": "digest"
+  },
+  "level": "trust"
+}

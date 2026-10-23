@@ -1,0 +1,24 @@
+{
+  "class": "invalid",
+  "description": "A disclosure may not redefine a claim in the clear.",
+  "expected": {
+    "accepted": false,
+    "code": "SCHEMA_INVALID"
+  },
+  "id": "sdjwt/disclosed_name_collides_with_a_plain_claim",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "now": 1780315200,
+    "op": "verify",
+    "presentation": "eyJhbGciOiJFZERTQSIsImtpZCI6ImFjbWUtMSJ9.eyJfc2QiOlsianN1OXlWdWx3UVFsaEZsTV8zSmx6TWFTRnpnbGhRRzBEcGZheVF3TFVLNCJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImV4cCI6MTc4MDMxODgwMCwiZ2l2ZW5fbmFtZSI6IlBsYWluIiwiaWF0IjoxNzgwMzE1MTQwLCJpc3MiOiJvcmc6YWNtZSIsInN1YiI6InVzZXItMSJ9.z78n6f-pENdT_3Yb0iZOKI3vXu6dA7Gm4Odwrn6YOV1ebGKdSr8vsHqZPI26WlQIpyt32Z8cuhA6M75vqEVxAQ~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~"
+  },
+  "level": "trust"
+}

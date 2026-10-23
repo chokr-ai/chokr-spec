@@ -1,0 +1,31 @@
+{
+  "class": "valid",
+  "description": "A ES256 signature over the canonical payload verifies.",
+  "expected": {
+    "valid": true
+  },
+  "id": "crypto/es256_valid",
+  "input": {
+    "keys": [
+      {
+        "alg": "ES256",
+        "crv": "P-256",
+        "kid": "acme-p256",
+        "kty": "EC",
+        "x": "nISs0H_Ieib_cqvwjdYFS4u6iokCos8hjjybBm0p0kE",
+        "y": "EXiCKUJpVvo9HQ2adhcJKRrnUAzKn08DANmKOeG2vx0"
+      }
+    ],
+    "payload": {
+      "action": "app:transfer",
+      "amount": 100,
+      "to": "acct-2"
+    },
+    "signature": {
+      "alg": "ES256",
+      "kid": "acme-p256",
+      "value": "E4oMOngqvOh0doZstswdz0xsRXKEpX2Vn22qmc4MDmV_AWjpBaQcxuiY4FexGPi1WnkqzYeMaYG52Z2BB1T6fQ"
+    }
+  },
+  "level": "trust"
+}

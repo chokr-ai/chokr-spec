@@ -1,0 +1,29 @@
+{
+  "class": "valid",
+  "description": "The same for an EC key.",
+  "expected": {
+    "bound": true
+  },
+  "id": "keybinding/bind_p256",
+  "input": {
+    "document": {
+      "expires_at": "2026-07-01T00:00:00Z",
+      "id": "cred-1",
+      "issued_at": "2026-05-01T00:00:00Z",
+      "issuer": "org:acme",
+      "schema_version": "1.0",
+      "subject": "urn:chokr:org:acme:agent:buyer",
+      "type": "CapabilityCredential"
+    },
+    "key": {
+      "alg": "ES256",
+      "crv": "P-256",
+      "kid": "acme-p256",
+      "kty": "EC",
+      "x": "nISs0H_Ieib_cqvwjdYFS4u6iokCos8hjjybBm0p0kE",
+      "y": "EXiCKUJpVvo9HQ2adhcJKRrnUAzKn08DANmKOeG2vx0"
+    },
+    "op": "bind"
+  },
+  "level": "trust"
+}

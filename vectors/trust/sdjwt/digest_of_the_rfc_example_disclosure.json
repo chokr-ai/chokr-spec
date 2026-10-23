@@ -1,0 +1,13 @@
+{
+  "class": "valid",
+  "description": "The digest is over the ASCII bytes of the disclosure string, as in the SD-JWT RFC, never over a canonical form.",
+  "expected": {
+    "digest": "jsu9yVulwQQlhFlM_3JlzMaSFzglhQG0DpfayQwLUK4"
+  },
+  "id": "sdjwt/digest_of_the_rfc_example_disclosure",
+  "input": {
+    "disclosure": "WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd",
+    "op": "digest"
+  },
+  "level": "trust"
+}

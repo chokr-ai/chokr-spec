@@ -1,0 +1,24 @@
+{
+  "class": "invalid",
+  "description": "Only sha-256 is accepted.",
+  "expected": {
+    "accepted": false,
+    "code": "UNSUPPORTED_ALGORITHM"
+  },
+  "id": "sdjwt/digest_algorithm_other_than_sha_256",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "now": 1780315200,
+    "op": "verify",
+    "presentation": "eyJhbGciOiJFZERTQSIsImtpZCI6ImFjbWUtMSJ9.eyJfc2QiOlsiSnpZakg0c3ZsaUgwUjNQeUVNZmVadTZKdDY5dTVxZWhabzdGN0VQWWxTRSIsIlRHZjRvTGJnd2Q1SlFhSHlLVlFaVTlVZEdFMHc1cnREc3JaemZVYW9tTG8iLCJqc3U5eVZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sIl9zZF9hbGciOiJzaGEtNTEyIiwiZXhwIjoxNzgwMzE4ODAwLCJpYXQiOjE3ODAzMTUxNDAsImlzcyI6Im9yZzphY21lIiwic3ViIjoidXNlci0xIn0.mWiCkPwaN9c2CwY3L0wppBlZxiEzVo1zFkpSvga4r7VJXJlMA6Gz4qE-jvZ-hj6KWFBhWvdtSsjnU_K63FQYCw~"
+  },
+  "level": "trust"
+}

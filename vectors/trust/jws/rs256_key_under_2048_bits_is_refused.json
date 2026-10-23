@@ -1,0 +1,23 @@
+{
+  "class": "invalid",
+  "description": "An RSA key under 2048 bits.",
+  "expected": {
+    "accepted": false,
+    "code": "UNSUPPORTED_ALGORITHM"
+  },
+  "id": "jws/rs256_key_under_2048_bits_is_refused",
+  "input": {
+    "keys": [
+      {
+        "alg": "RS256",
+        "e": "AQAB",
+        "kid": "small-rsa",
+        "kty": "RSA",
+        "n": "l7vA4n7A1Lpf_WRVCQS8A7FTwx0ZgzAf2lojqk2XksW5yQ_dgkAux5C7VPVA3xMiOkU1R6wT9qGzyLQrJXY1vW0d6F2QKoVLhMenSJUsdWbFOishyYMuVx144dT7G0AzEgE4p7jVMoQKUmi2W-FMm3qmN9dBB2XdDlZ3HVqmW40"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6InNtYWxsLXJzYSJ9.eyJleHAiOjE3ODAzMTg4MDAsImlhdCI6MTc4MDMxNTE0MCwiaXNzIjoib3JnOmFjbWUiLCJuYmYiOjE3ODAzMTUxNDAsInN1YiI6InVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpidXllciJ9.SLBL5W-C20hRk6jBq7npiwDyCdLkw3dmmnTCSI0OyDiDfR2lGOd2IMDFQEbhXPBlFnYRUStQesbsYt5CUwF_Efx7zfNEaiLCvuYB3glgmw8qkejOII8-BEv6bRdH_t1ODvVnc9RyvSneKoiq5KggkIF8_XpJ0sdmtTb6eFwGI4o"
+  },
+  "level": "trust"
+}

@@ -1,0 +1,31 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/pop_proof_without_signature",
+  "input": {
+    "document": {
+      "challenge": {
+        "audience": "urn:chokr:org:acme:agent:seller",
+        "expires_at": "2026-01-01T00:02:00Z",
+        "issued_at": "2026-01-01T00:00:00Z",
+        "nonce": "AAAAAAAAAAAAAAAAAAAAAA",
+        "purpose": "tool:call",
+        "schema_version": "1.0",
+        "subject": "urn:chokr:org:acme:agent:buyer",
+        "type": "PoPChallenge"
+      },
+      "key": {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "key-1",
+        "kty": "OKP",
+        "x": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "schema_version": "1.0",
+      "type": "PoPProof"
+    },
+    "schema": "pop"
+  },
+  "level": "core"
+}

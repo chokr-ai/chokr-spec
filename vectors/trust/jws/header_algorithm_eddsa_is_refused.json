@@ -1,0 +1,23 @@
+{
+  "class": "invalid",
+  "description": "The header says eddsa, but the key is bound to EdDSA.",
+  "expected": {
+    "accepted": false,
+    "code": "JWS_ALG_MISMATCH"
+  },
+  "id": "jws/header_algorithm_eddsa_is_refused",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJlZGRzYSIsImtpZCI6ImFjbWUtMSIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODAzMTg4MDAsImlhdCI6MTc4MDMxNTE0MCwiaXNzIjoib3JnOmFjbWUiLCJuYmYiOjE3ODAzMTUxNDAsInN1YiI6InVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpidXllciJ9.zYRPqXKfTLORF6Sn1p4A0nOAmR6S_QUlt4Y7GbOuRcTxAam6yP222B5CAGFIKVokxJoK4LailaLl_IUhtwutDQ"
+  },
+  "level": "trust"
+}

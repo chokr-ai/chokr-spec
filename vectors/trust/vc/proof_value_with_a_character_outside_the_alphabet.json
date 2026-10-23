@@ -1,0 +1,48 @@
+{
+  "class": "invalid",
+  "description": "0 is not in the base58btc alphabet.",
+  "expected": {
+    "accepted": false,
+    "code": "SIGNATURE_INVALID"
+  },
+  "id": "vc/proof_value_with_a_character_outside_the_alphabet",
+  "input": {
+    "document": {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/examples/v2"
+      ],
+      "credentialSubject": {
+        "alumniOf": "The School of Examples",
+        "id": "did:example:abcdefgh"
+      },
+      "description": "A minimum viable example of an Alumni Credential.",
+      "id": "urn:uuid:58172aac-d8ba-11ed-83dd-0b3aef56cc33",
+      "issuer": "https://vc.example/issuers/5678",
+      "name": "Alumni Credential",
+      "proof": {
+        "created": "2023-02-24T23:36:38Z",
+        "cryptosuite": "ecdsa-jcs-2019",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z0tHXC9VgJA5WsTd3BUfWV3hc4mTPwafTeZu6563sZC5bdnWpEG1TZP4yFJRtAZWppoq8W86ijZigEQ17mxVLa1y",
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:example:acme#key-2"
+      },
+      "type": [
+        "VerifiableCredential",
+        "AlumniCredential"
+      ],
+      "validFrom": "2023-01-01T00:00:00Z"
+    },
+    "jwk": {
+      "alg": "ES256",
+      "crv": "P-256",
+      "kid": "acme-p256",
+      "kty": "EC",
+      "x": "nISs0H_Ieib_cqvwjdYFS4u6iokCos8hjjybBm0p0kE",
+      "y": "EXiCKUJpVvo9HQ2adhcJKRrnUAzKn08DANmKOeG2vx0"
+    },
+    "op": "verify"
+  },
+  "level": "trust"
+}

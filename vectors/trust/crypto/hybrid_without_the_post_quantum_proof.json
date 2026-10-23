@@ -1,0 +1,39 @@
+{
+  "class": "invalid",
+  "description": "Removing the post-quantum proof leaves one proof, and a hybrid signature needs both.",
+  "expected": {
+    "code": "SCHEMA_INVALID",
+    "valid": false
+  },
+  "id": "crypto/hybrid_without_the_post_quantum_proof",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      },
+      {
+        "alg": "ML-DSA-44",
+        "kid": "acme-pq",
+        "kty": "AKP",
+        "pub": "YBY2cYKavrgQEX0MlcmkCmP9mgfi53giGcWPrF7sY7ezBY9gFhskKOE7hoBAGi7dZojHR-BqquDEUcd9AIu9yul6n55Bmtv_5N7eGuNgjREfpE7wLlAvaeA2tjNuDBBWxdP69QrRj1JVD2wMtqnGgFtyRYT3vkbRp5Dc8DLHq0GiotnAUJBijXo0znpNr-BUZoxeZsLEbwI57irLePI-T0V-3dthqSq8Q9csLEIsfjyJTS54vLqoOIxzCscVQDCOgrqAoTCcUcfws6gqsUz--uZKwCIpTaZXrNiHbK2gpnsA96ASISZdtDM8gGYSKUiRxJQpWiX6rvOjPF-xqFsHzhN-r9zeb1R0WLQC5B385y4aSjKWh8bNHuu1NhEhAZhSaQ0G8ZGoPkpGckJtHwmIFzKI6kSLXZqMV6CcFahkKGr4VOHU2w6XJ__Htwj-JLLCvYz8DynZb6Jf2vFWgS9BPbNfYOw-ZrIiwMm-DVD_0jyNGWIdDdCwXvpK6XiXAOOtQ2ZfcpAu5FSM_QZ4pTY4XqvgE0VbZyngplpRaEy3qcbuEeiZ6WKel8ii1GfSRsTaysl0lnhQFL-vAqPkAVNktwYwqvKgKRR2999dduKfD7gh1Inlkxj8JT3T0DINvz2FVwjBA83LBVaYu6VPu389JQA6wUAPeclJu4A92HLObFTQCMNi05VzpV9Wfx5ex-iLdnF5eHQN8IzZiq44bHH93NSJQAz-cc7u0qW2WuC9FLj04-XsNKMF3QahWdYXNPXlbjBaABK-_g5VCGO2AcQtLOpE1lHvnkNNKT_TO6ZWYjoc-HLDMeCOyVlnT6r1hZrFNKEQzlYRaa8vRXCVSQOU9ruPn5nq4LsqeXpmFoFqJMv9l3lTtBwSE_XstgoM3_w97lGZWADUDo3iIjfy-hp7KKD54s5lQexih4gCPD4pnVKAxDTnVoD_vQ5YJlqP-gK8Q3HzxlVWigtRgqKM4zSFMftdsTxmh9oLlCzqAVhqvMFov0fdzE6Ds5QuoV3dgwfED-NXY3GFP_eaolCMCZcLyj1fiBG9-jQn7u0uKieakpV_W-iXjG2ykKlqXvM4FvrHh0SZyAm3VP16-IkAiUegZhfxJJrfis93VGd2oRT5F9GbIkSEH2Wz2sJ4g4GEvxukvHZPV3C58WJiqId19Sjq5a33n9FXclsnPKdGYIdBOhhlMbGGSA6ewNQDdIRgvyLSt9PO_RSEP3W3pSGQT6-RRLNGqvuor9HeSWsYommzmlkemNKIxLaJLzUCs-4hUPhOoGUGdjjur3hvJwELrqmXIvpQ_dGmKNRCijuN6o0HacvNzkeewbiYVwEDFXdryhxnIjaSRfmBEEs3tkgck_wggAWS1pKeBpaq-T2bdX3Pc-f7SmSwEAh_DxENmZ9rzQxRojGmHh4HXDII_wfSBs7_dQSNi3qbCuZIgcMAlYpgVnZEJqP_r2siFtWy_W0J9yxXXMUxjWMTKkWAUhxdcnm-D648YKBiMNI0KGbCIrp1jhLKvjVqGrlwaRbmritTnXDR2Tfq15ILBhmephvrKC5G69uvv2kXPZqU2AHG-9oSR8xTT3f6ZAIN_Xl1qANGJWQOV9dH95mjR2UkCMFYU2ts2Qaqprw0Fx6LIYb8o9sOYNiVXMe_s4wtds-pO39s_ny2uYwgpTPhi_o4X2BFUPXdQI3WuYkP2nOW09R2fZ2zkxVIIJTOixBSOrVBPrR0G2tS9qY2DIXQjL3b7sNPLmwz9w"
+      }
+    ],
+    "payload": {
+      "action": "app:transfer",
+      "amount": 100,
+      "to": "acct-2"
+    },
+    "proofs": [
+      {
+        "alg": "Ed25519",
+        "kid": "acme-1",
+        "value": "_5O8UPVvXfgqJn_4NzPG_juX2Zz_4GK_-SXtrCmbjsLSYzfEv7jP1VW7dJsjjPahGSIpyzqqpYwNMiyQMF4oDQ"
+      }
+    ]
+  },
+  "level": "trust"
+}

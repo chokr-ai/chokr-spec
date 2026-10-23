@@ -1,0 +1,15 @@
+{
+  "expected": {
+    "valid": true
+  },
+  "id": "schema/trust_config_valid_empty",
+  "input": {
+    "document": {
+      "issuer_keys": [],
+      "schema_version": "1.0",
+      "trust": []
+    },
+    "schema": "trust_config"
+  },
+  "level": "core"
+}

@@ -376,6 +376,39 @@ entries:
 - code: tool.blocked
   family: tool
   default: deny (TOOL_BLOCKED), never overridden
+- code: trust.credential_expired
+  family: trust
+  severity: high
+- code: trust.credential_invalid
+  family: trust
+  severity: high
+- code: trust.credential_revoked
+  family: trust
+  severity: high
+- code: trust.delegation_escalation
+  family: trust
+  severity: high
+- code: trust.epoch_rollback
+  family: trust
+  severity: critical
+- code: trust.epoch_stale
+  family: trust
+  severity: medium
+- code: trust.evaluation_error
+  family: trust
+  severity: high
+- code: trust.evidence_invalid
+  family: trust
+  severity: high
+- code: trust.evidence_stale
+  family: trust
+  severity: medium
+- code: trust.pop_invalid
+  family: trust
+  severity: high
+- code: trust.verified
+  family: trust
+  severity: info
 - code: url.malformed
   family: url
   guard: sandbox

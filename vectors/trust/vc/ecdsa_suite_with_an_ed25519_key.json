@@ -1,0 +1,47 @@
+{
+  "class": "invalid",
+  "description": "The suite says ecdsa-jcs-2019 but the key is Ed25519.",
+  "expected": {
+    "accepted": false,
+    "code": "SIGNATURE_INVALID"
+  },
+  "id": "vc/ecdsa_suite_with_an_ed25519_key",
+  "input": {
+    "document": {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/examples/v2"
+      ],
+      "credentialSubject": {
+        "alumniOf": "The School of Examples",
+        "id": "did:example:abcdefgh"
+      },
+      "description": "A minimum viable example of an Alumni Credential.",
+      "id": "urn:uuid:58172aac-d8ba-11ed-83dd-0b3aef56cc33",
+      "issuer": "https://vc.example/issuers/5678",
+      "name": "Alumni Credential",
+      "proof": {
+        "created": "2023-02-24T23:36:38Z",
+        "cryptosuite": "ecdsa-jcs-2019",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "zxtHXC9VgJA5WsTd3BUfWV3hc4mTPwafTeZu6563sZC5bdnWpEG1TZP4yFJRtAZWppoq8W86ijZigEQ17mxVLa1y",
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:example:acme#key-2"
+      },
+      "type": [
+        "VerifiableCredential",
+        "AlumniCredential"
+      ],
+      "validFrom": "2023-01-01T00:00:00Z"
+    },
+    "jwk": {
+      "alg": "Ed25519",
+      "crv": "Ed25519",
+      "kid": "acme-1",
+      "kty": "OKP",
+      "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+    },
+    "op": "verify"
+  },
+  "level": "trust"
+}

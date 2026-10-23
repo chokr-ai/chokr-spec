@@ -1,0 +1,33 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/manifest_hash_ends_with_a_newline",
+  "input": {
+    "document": {
+      "agent_id": "urn:chokr:org:acme:agent:buyer",
+      "created_at": "2026-01-01T00:00:00Z",
+      "entries": [
+        {
+          "annotations_hash": "sha256:abababababababababababababababababababababababababababababababab",
+          "description_hash": "sha256:abababababababababababababababababababababababababababababababab\n",
+          "executable_hash": "sha256:abababababababababababababababababababababababababababababababab",
+          "executable_path": "/usr/bin/node",
+          "package": "@acme/fs-server",
+          "package_hash": "sha512:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+          "pinned_at": "2026-01-01T00:00:00Z",
+          "schema_hash": "sha256:abababababababababababababababababababababababababababababababab",
+          "server": "fs",
+          "source": "scan",
+          "tool_name": "read_file",
+          "transport": "stdio",
+          "version": "1.2.3"
+        }
+      ],
+      "manifest_id": "sha256:abababababababababababababababababababababababababababababababab",
+      "schema": "chokr.manifest/1.0"
+    },
+    "schema": "manifest"
+  },
+  "level": "core"
+}

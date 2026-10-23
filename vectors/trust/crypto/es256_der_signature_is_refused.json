@@ -1,0 +1,32 @@
+{
+  "class": "invalid",
+  "description": "ES256 is the 64-byte R||S form; a DER signature is not.",
+  "expected": {
+    "code": "SIGNATURE_INVALID",
+    "valid": false
+  },
+  "id": "crypto/es256_der_signature_is_refused",
+  "input": {
+    "keys": [
+      {
+        "alg": "ES256",
+        "crv": "P-256",
+        "kid": "acme-p256",
+        "kty": "EC",
+        "x": "nISs0H_Ieib_cqvwjdYFS4u6iokCos8hjjybBm0p0kE",
+        "y": "EXiCKUJpVvo9HQ2adhcJKRrnUAzKn08DANmKOeG2vx0"
+      }
+    ],
+    "payload": {
+      "action": "app:transfer",
+      "amount": 100,
+      "to": "acct-2"
+    },
+    "signature": {
+      "alg": "ES256",
+      "kid": "acme-p256",
+      "value": "MEQCIBOKDDp4KrzodHaGbLbMHc9MbEVyhKV9lZ9tqpnODA5lAiB_AWjpBaQcxuiY4FexGPi1WnkqzYeMaYG52Z2BB1T6fQ"
+    }
+  },
+  "level": "trust"
+}

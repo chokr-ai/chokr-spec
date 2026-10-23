@@ -1,0 +1,40 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/grant_input_hash_is_not_a_digest",
+  "input": {
+    "document": {
+      "act": "urn:chokr:org:acme:agent:buyer",
+      "action_uri": "app:transfer",
+      "approval_id": "apr_1",
+      "aud": "chokr:mcp",
+      "bounded_params": {
+        "amount": {
+          "max": 100,
+          "min": 0
+        }
+      },
+      "cnf": {
+        "jkt": "sha256:abababababababababababababababababababababababababababababababab"
+      },
+      "exp": 1767225900,
+      "iat": 1767225600,
+      "immutable_params": {
+        "account": "a-1"
+      },
+      "input_hash": "deadbeef",
+      "iss": "chokr:checkpoint-1",
+      "jti": "grt_1",
+      "nbf": 1767225600,
+      "org_id": "acme",
+      "policy_fingerprint": "sha256:x",
+      "schema": "chokr.grant/1.0",
+      "sub": "urn:chokr:org:acme:agent:buyer",
+      "tool_name": "transfer",
+      "uses": 1
+    },
+    "schema": "grant"
+  },
+  "level": "core"
+}
