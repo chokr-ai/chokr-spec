@@ -1,0 +1,24 @@
+{
+  "class": "invalid",
+  "description": "A trailing key-binding JWT is not supported in 1b vectors.",
+  "expected": {
+    "accepted": false,
+    "code": "SCHEMA_INVALID"
+  },
+  "id": "sdjwt/presentation_with_a_key_binding_jwt",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "now": 1780315200,
+    "op": "verify",
+    "presentation": "eyJhbGciOiJFZERTQSIsImtpZCI6ImFjbWUtMSIsInR5cCI6ImRjK3NkLWp3dCJ9.eyJfc2QiOlsiSnpZakg0c3ZsaUgwUjNQeUVNZmVadTZKdDY5dTVxZWhabzdGN0VQWWxTRSIsIlRHZjRvTGJnd2Q1SlFhSHlLVlFaVTlVZEdFMHc1cnREc3JaemZVYW9tTG8iLCJqc3U5eVZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sIl9zZF9hbGciOiJzaGEtMjU2IiwiZXhwIjoxNzgwMzE4ODAwLCJpYXQiOjE3ODAzMTUxNDAsImlzcyI6Im9yZzphY21lIiwic3ViIjoidXNlci0xIn0.SVrTCvI_UtAe97_9aZVxPZFUI4gNYpl8zFwBd2WK-SUuNIbJ2b3Q2aSIl1-w11CUdgRkmaDEMavYUSB5QmwCAw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~eyJhbGciOiJFZERTQSIsImtpZCI6ImFjbWUtMSIsInR5cCI6ImRjK3NkLWp3dCJ9.eyJfc2QiOlsiSnpZakg0c3ZsaUgwUjNQeUVNZmVadTZKdDY5dTVxZWhabzdGN0VQWWxTRSIsIlRHZjRvTGJnd2Q1SlFhSHlLVlFaVTlVZEdFMHc1cnREc3JaemZVYW9tTG8iLCJqc3U5eVZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sIl9zZF9hbGciOiJzaGEtMjU2IiwiZXhwIjoxNzgwMzE4ODAwLCJpYXQiOjE3ODAzMTUxNDAsImlzcyI6Im9yZzphY21lIiwic3ViIjoidXNlci0xIn0.SVrTCvI_UtAe97_9aZVxPZFUI4gNYpl8zFwBd2WK-SUuNIbJ2b3Q2aSIl1-w11CUdgRkmaDEMavYUSB5QmwCAw"
+  },
+  "level": "trust"
+}

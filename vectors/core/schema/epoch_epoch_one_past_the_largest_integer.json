@@ -1,0 +1,23 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/epoch_epoch_one_past_the_largest_integer",
+  "input": {
+    "document": {
+      "authority": "org:acme",
+      "epoch": 9007199254740992,
+      "expires_at": "2026-01-02T00:00:00Z",
+      "issued_at": "2026-01-01T00:00:00Z",
+      "schema_version": "1.0",
+      "signature": {
+        "alg": "Ed25519",
+        "kid": "key-1",
+        "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "type": "AuthorityEpoch"
+    },
+    "schema": "epoch"
+  },
+  "level": "core"
+}

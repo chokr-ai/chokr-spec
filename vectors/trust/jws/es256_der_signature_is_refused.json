@@ -1,0 +1,24 @@
+{
+  "class": "invalid",
+  "description": "ES256 signatures are R||S, not DER.",
+  "expected": {
+    "accepted": false,
+    "code": "SIGNATURE_INVALID"
+  },
+  "id": "jws/es256_der_signature_is_refused",
+  "input": {
+    "keys": [
+      {
+        "alg": "ES256",
+        "crv": "P-256",
+        "kid": "acme-p256",
+        "kty": "EC",
+        "x": "nISs0H_Ieib_cqvwjdYFS4u6iokCos8hjjybBm0p0kE",
+        "y": "EXiCKUJpVvo9HQ2adhcJKRrnUAzKn08DANmKOeG2vx0"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJFUzI1NiIsImtpZCI6ImFjbWUtcDI1NiJ9.e30.MEQCIHZ-ZhIG2-sMr7psyeoDezs3SPZ_oCzF8QgTyQ43X_JXAiA4TXYYD-uUVeqN50GCzG8rg3kvhIZG8y3O9kYoPAhf0g"
+  },
+  "level": "trust"
+}

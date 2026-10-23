@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "chokr-spec"
 dynamic = ["version"]
 readme = "README.md"
-description = "CHOKR protocol for AI agent governance: JSON Schemas, registries and conformance vectors, with a reference checker."
+description = "CHOKR protocol for AI agent governance: JSON Schemas, plugin protocol, registries and conformance vectors, with a reference checker."
 requires-python = ">=3.14"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE"]
@@ -29,7 +29,7 @@ classifiers = [
 dependencies = [
   "jsonschema>=4.22,<5",
   "rfc8785>=0.1.4,<0.2",
-  "cryptography>=43,<51",
+  "cryptography>=48,<51",
 ]
 
 [project.urls]
@@ -62,9 +62,10 @@ packages = ["src/chokr_spec"]
 "schemas" = "chokr_spec/data/schemas"
 "registry" = "chokr_spec/data/registry"
 "vectors" = "chokr_spec/data/vectors"
+"proto" = "chokr_spec/data/proto"
 
 [tool.hatch.build.targets.sdist]
-include = ["/src", "/tests", "/schemas", "/registry", "/vectors", "/tools", "/README.md", "/pyproject.toml"]
+include = ["/src", "/tests", "/schemas", "/registry", "/vectors", "/proto", "/tools", "/README.md", "/pyproject.toml"]
 
 [tool.ruff]
 line-length = 120

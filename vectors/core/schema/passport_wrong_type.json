@@ -1,0 +1,53 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/passport_wrong_type",
+  "input": {
+    "document": {
+      "agent": {
+        "id": "urn:chokr:org:acme:agent:buyer",
+        "organization": "acme",
+        "version": "1.0.0"
+      },
+      "capabilities": [
+        {
+          "action": "app:transfer",
+          "constraints": [
+            {
+              "op": "lte",
+              "path": "attributes.quantity.value",
+              "value": 5000
+            }
+          ],
+          "resource_type": "account"
+        }
+      ],
+      "credentials": [
+        {
+          "type": "IdentityCredential"
+        }
+      ],
+      "evidence": [],
+      "identifiers": [
+        "urn:chokr:org:acme:agent:buyer"
+      ],
+      "issued_at": "2026-01-01T00:00:00Z",
+      "issuer": "org:acme",
+      "links": {},
+      "model": {
+        "name": "m"
+      },
+      "schema_version": "1.0",
+      "signature": {
+        "alg": "Ed25519",
+        "kid": "key-1",
+        "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "status": "ACTIVE",
+      "type": "Credential"
+    },
+    "schema": "passport"
+  },
+  "level": "core"
+}

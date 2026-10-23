@@ -1,0 +1,18 @@
+{
+  "class": "valid",
+  "description": "kid, alg and use do not change the thumbprint.",
+  "expected": {
+    "thumbprint": "sha256:5a549dbab04c27e81617250e418dbe5aa13f422a3d5f704093a2920dd8d2cc37"
+  },
+  "id": "thumbprint/members_other_than_the_required_ones_are_ignored",
+  "input": {
+    "jwk": {
+      "crv": "Ed25519",
+      "kid": "other-name",
+      "kty": "OKP",
+      "use": "sig",
+      "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+    }
+  },
+  "level": "trust"
+}

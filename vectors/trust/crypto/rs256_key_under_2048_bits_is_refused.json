@@ -1,0 +1,31 @@
+{
+  "class": "invalid",
+  "description": "An RSA key of 1024 bits is not accepted.",
+  "expected": {
+    "code": "UNSUPPORTED_ALGORITHM",
+    "valid": false
+  },
+  "id": "crypto/rs256_key_under_2048_bits_is_refused",
+  "input": {
+    "keys": [
+      {
+        "alg": "RS256",
+        "e": "AQAB",
+        "kid": "small-rsa",
+        "kty": "RSA",
+        "n": "l7vA4n7A1Lpf_WRVCQS8A7FTwx0ZgzAf2lojqk2XksW5yQ_dgkAux5C7VPVA3xMiOkU1R6wT9qGzyLQrJXY1vW0d6F2QKoVLhMenSJUsdWbFOishyYMuVx144dT7G0AzEgE4p7jVMoQKUmi2W-FMm3qmN9dBB2XdDlZ3HVqmW40"
+      }
+    ],
+    "payload": {
+      "action": "app:transfer",
+      "amount": 100,
+      "to": "acct-2"
+    },
+    "signature": {
+      "alg": "RS256",
+      "kid": "small-rsa",
+      "value": "D7YKPzYDPRnYYUiPPu_YaEAdvLG2c69Ws82a0LpXTyceCIjhrI4Emk-YhVVki9xb2357sm6nfJYEk4umvFNI2gWfi98VpqjRwB56O5ZkxAnT5ANYQn5QJGYD_YhZSGaZtTz2iq7sYR4L1-yl7bw03R1Gif1DJHkgXFCFvGPamxo"
+    }
+  },
+  "level": "trust"
+}

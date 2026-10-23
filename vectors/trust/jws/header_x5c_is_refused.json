@@ -1,0 +1,23 @@
+{
+  "class": "invalid",
+  "description": "A header with x5c is refused: the key never comes from the token.",
+  "expected": {
+    "accepted": false,
+    "code": "SCHEMA_INVALID"
+  },
+  "id": "jws/header_x5c_is_refused",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJFZERTQSIsImtpZCI6ImFjbWUtMSIsInR5cCI6IkpXVCIsIng1YyI6WyJBQUFBIl19.eyJleHAiOjE3ODAzMTg4MDAsImlhdCI6MTc4MDMxNTE0MCwiaXNzIjoib3JnOmFjbWUiLCJuYmYiOjE3ODAzMTUxNDAsInN1YiI6InVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpidXllciJ9.zYRPqXKfTLORF6Sn1p4A0nOAmR6S_QUlt4Y7GbOuRcTxAam6yP222B5CAGFIKVokxJoK4LailaLl_IUhtwutDQ"
+  },
+  "level": "trust"
+}

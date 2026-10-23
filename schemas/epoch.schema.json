@@ -1,0 +1,166 @@
+{
+  "$defs": {
+    "Signature": {
+      "additionalProperties": false,
+      "description": "Detached signature over the RFC 8785 form of the document without its signature members.",
+      "properties": {
+        "alg": {
+          "enum": [
+            "Ed25519",
+            "EdDSA",
+            "ES256",
+            "RS256",
+            "ML-DSA-44",
+            "ML-DSA-65",
+            "ML-DSA-87"
+          ]
+        },
+        "kid": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "alg",
+        "kid",
+        "value"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://spec.chokr.dev/schemas/epoch/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "required": [
+        "signature"
+      ]
+    },
+    {
+      "required": [
+        "proofs"
+      ]
+    }
+  ],
+  "description": "`AuthorityEpoch` (A6.6): a signed, increasing counter that lets a verifier reject rolled-back authority.",
+  "properties": {
+    "authority": {
+      "maxLength": 2048,
+      "minLength": 1,
+      "type": "string"
+    },
+    "epoch": {
+      "maximum": 9007199254740991,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "expires_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+      "type": "string"
+    },
+    "ext": {
+      "description": "Extension members; keys are namespaced and an unknown key is preserved.",
+      "type": "object"
+    },
+    "issued_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+      "type": "string"
+    },
+    "proofs": {
+      "description": "Hybrid proofs (classical and post-quantum); every proof must verify.",
+      "items": {
+        "additionalProperties": false,
+        "description": "Detached signature over the RFC 8785 form of the document without its signature members.",
+        "properties": {
+          "alg": {
+            "enum": [
+              "Ed25519",
+              "EdDSA",
+              "ES256",
+              "RS256",
+              "ML-DSA-44",
+              "ML-DSA-65",
+              "ML-DSA-87"
+            ]
+          },
+          "kid": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "maxLength": 16384,
+            "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "alg",
+          "kid",
+          "value"
+        ],
+        "type": "object"
+      },
+      "maxItems": 8,
+      "minItems": 2,
+      "type": "array"
+    },
+    "schema_version": {
+      "description": "MAJOR.MINOR of the contract",
+      "pattern": "^1\\.[0-9]+$(?!\\n)",
+      "type": "string"
+    },
+    "signature": {
+      "additionalProperties": false,
+      "description": "Detached signature over the RFC 8785 form of the document without its signature members.",
+      "properties": {
+        "alg": {
+          "enum": [
+            "Ed25519",
+            "EdDSA",
+            "ES256",
+            "RS256",
+            "ML-DSA-44",
+            "ML-DSA-65",
+            "ML-DSA-87"
+          ]
+        },
+        "kid": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "alg",
+        "kid",
+        "value"
+      ],
+      "type": "object"
+    },
+    "type": {
+      "const": "AuthorityEpoch"
+    }
+  },
+  "required": [
+    "authority",
+    "epoch",
+    "issued_at",
+    "schema_version",
+    "type"
+  ],
+  "title": "Authority epoch",
+  "type": "object"
+}

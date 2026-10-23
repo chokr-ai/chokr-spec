@@ -1,0 +1,41 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/message_contract_missing_max_bytes",
+  "input": {
+    "document": {
+      "allowed_enums": {
+        "/sku": [
+          "a"
+        ]
+      },
+      "contract_id": "order.request",
+      "free_text_fields": [
+        "/note"
+      ],
+      "from_role": "buyer",
+      "max_messages_per_conversation": 10,
+      "message_type": "order_request",
+      "required_reply_types": [
+        "order_confirmation"
+      ],
+      "schema": {
+        "properties": {
+          "sku": {
+            "enum": [
+              "a",
+              "b"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "schema_version": "1.0",
+      "to_role": "seller",
+      "version": "1.0.0"
+    },
+    "schema": "message_contract"
+  },
+  "level": "core"
+}

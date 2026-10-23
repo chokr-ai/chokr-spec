@@ -1,0 +1,24 @@
+{
+  "expected": {
+    "valid": true
+  },
+  "id": "schema/grant_valid_minimal",
+  "input": {
+    "document": {
+      "action_uri": "app:transfer",
+      "aud": "chokr:mcp",
+      "exp": 1767225900,
+      "iat": 1767225600,
+      "input_hash": "sha256:abababababababababababababababababababababababababababababababab",
+      "iss": "chokr:checkpoint-1",
+      "jti": "grt_1",
+      "nbf": 1767225600,
+      "policy_fingerprint": "sha256:x",
+      "schema": "chokr.grant/1.0",
+      "sub": "urn:chokr:org:acme:agent:buyer",
+      "tool_name": "transfer"
+    },
+    "schema": "grant"
+  },
+  "level": "core"
+}

@@ -1,0 +1,30 @@
+{
+  "class": "valid",
+  "description": "A compact JWS signed with ES256.",
+  "expected": {
+    "accepted": true,
+    "claims": {
+      "exp": 1780318800,
+      "iat": 1780315140,
+      "iss": "org:acme",
+      "nbf": 1780315140,
+      "sub": "urn:chokr:org:acme:agent:buyer"
+    }
+  },
+  "id": "jws/es256_valid",
+  "input": {
+    "keys": [
+      {
+        "alg": "ES256",
+        "crv": "P-256",
+        "kid": "acme-p256",
+        "kty": "EC",
+        "x": "nISs0H_Ieib_cqvwjdYFS4u6iokCos8hjjybBm0p0kE",
+        "y": "EXiCKUJpVvo9HQ2adhcJKRrnUAzKn08DANmKOeG2vx0"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJFUzI1NiIsImtpZCI6ImFjbWUtcDI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODAzMTg4MDAsImlhdCI6MTc4MDMxNTE0MCwiaXNzIjoib3JnOmFjbWUiLCJuYmYiOjE3ODAzMTUxNDAsInN1YiI6InVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpidXllciJ9.XmaHI56Fawz7vDzWpgTD63xLK3VIIInpOJxJOUPgXDQuY-Dm9YOVSmNp-epRh8PY6yv-CNu1sz_FOUPwbC6kMQ"
+  },
+  "level": "trust"
+}

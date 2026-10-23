@@ -1,0 +1,51 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/passport_agent_without_id",
+  "input": {
+    "document": {
+      "agent": {
+        "organization": "acme"
+      },
+      "capabilities": [
+        {
+          "action": "app:transfer",
+          "constraints": [
+            {
+              "op": "lte",
+              "path": "attributes.quantity.value",
+              "value": 5000
+            }
+          ],
+          "resource_type": "account"
+        }
+      ],
+      "credentials": [
+        {
+          "type": "IdentityCredential"
+        }
+      ],
+      "evidence": [],
+      "identifiers": [
+        "urn:chokr:org:acme:agent:buyer"
+      ],
+      "issued_at": "2026-01-01T00:00:00Z",
+      "issuer": "org:acme",
+      "links": {},
+      "model": {
+        "name": "m"
+      },
+      "schema_version": "1.0",
+      "signature": {
+        "alg": "Ed25519",
+        "kid": "key-1",
+        "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "status": "ACTIVE",
+      "type": "AgentPassport"
+    },
+    "schema": "passport"
+  },
+  "level": "core"
+}

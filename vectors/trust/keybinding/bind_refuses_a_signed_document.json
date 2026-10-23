@@ -1,0 +1,34 @@
+{
+  "class": "invalid",
+  "description": "The stamp must be inside the signed bytes.",
+  "expected": {
+    "bound": false,
+    "code": "SCHEMA_INVALID"
+  },
+  "id": "keybinding/bind_refuses_a_signed_document",
+  "input": {
+    "document": {
+      "expires_at": "2026-07-01T00:00:00Z",
+      "id": "cred-1",
+      "issued_at": "2026-05-01T00:00:00Z",
+      "issuer": "org:acme",
+      "schema_version": "1.0",
+      "signature": {
+        "alg": "Ed25519",
+        "kid": "acme-1",
+        "value": "9wOgZFSgMnx_NzwK0ynOYnHXL0k81eYoSke1wFoZx3QWPsNsVmE9hvZ6j7xOPAyLs7i5zK3SkGcu9gbcT4rrBA"
+      },
+      "subject": "urn:chokr:org:acme:agent:buyer",
+      "type": "CapabilityCredential"
+    },
+    "key": {
+      "alg": "Ed25519",
+      "crv": "Ed25519",
+      "kid": "agent-1",
+      "kty": "OKP",
+      "x": "5btpFnQUCW9nP_5NrwTuewx_frmJ-8MzIUHQuHqzsC0"
+    },
+    "op": "bind"
+  },
+  "level": "trust"
+}

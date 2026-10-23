@@ -1,0 +1,27 @@
+{
+  "expected": {
+    "valid": true
+  },
+  "id": "schema/evidence_valid_namespaced_type",
+  "input": {
+    "document": {
+      "artifact_ref": "https://evidence.example/report.pdf",
+      "digest": "sha256:abababababababababababababababababababababababababababababababab",
+      "expires_at": "2026-01-02T00:00:00Z",
+      "id": "ev-1",
+      "issued_at": "2026-01-01T00:00:00Z",
+      "issuer": "org:auditor",
+      "schema_version": "1.0",
+      "signature": {
+        "alg": "Ed25519",
+        "kid": "key-1",
+        "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "status": "ACTIVE",
+      "subject": "urn:chokr:org:acme:agent:buyer",
+      "type": "com.acme/PEN_TEST_REPORT"
+    },
+    "schema": "evidence"
+  },
+  "level": "core"
+}

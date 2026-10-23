@@ -1,0 +1,22 @@
+{
+  "class": "valid",
+  "description": "With one configured key a token without kid uses it.",
+  "expected": {
+    "accepted": true
+  },
+  "id": "jws/single_key_needs_no_kid",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODAzMTg4MDAsImlhdCI6MTc4MDMxNTE0MCwiaXNzIjoib3JnOmFjbWUiLCJuYmYiOjE3ODAzMTUxNDAsInN1YiI6InVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpidXllciJ9.F1XbiBUeW0I07seo0vUY3liH_FYiQY6UH2A_2Q44Z3HL4_WQfy0k8vUnxvaz__w8TtBmRogY9WnMowVAmsOGAQ"
+  },
+  "level": "trust"
+}

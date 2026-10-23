@@ -1,0 +1,31 @@
+{
+  "class": "invalid",
+  "description": "A kid that no key has.",
+  "expected": {
+    "code": "KEY_NOT_FOUND",
+    "valid": false
+  },
+  "id": "crypto/unknown_kid",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "payload": {
+      "action": "app:transfer",
+      "amount": 100,
+      "to": "acct-2"
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "kid": "nobody",
+      "value": "_5O8UPVvXfgqJn_4NzPG_juX2Zz_4GK_-SXtrCmbjsLSYzfEv7jP1VW7dJsjjPahGSIpyzqqpYwNMiyQMF4oDQ"
+    }
+  },
+  "level": "trust"
+}

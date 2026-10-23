@@ -1,0 +1,31 @@
+{
+  "class": "valid",
+  "description": "The proven key is the bound key.",
+  "expected": {
+    "confirmed": true
+  },
+  "id": "keybinding/confirm_matching_key",
+  "input": {
+    "document": {
+      "cnf": {
+        "jkt": "sha256:066b0339f3dc459c885c870367adc3c56b19cd9768be421316da75a5689230de"
+      },
+      "expires_at": "2026-07-01T00:00:00Z",
+      "id": "cred-1",
+      "issued_at": "2026-05-01T00:00:00Z",
+      "issuer": "org:acme",
+      "schema_version": "1.0",
+      "subject": "urn:chokr:org:acme:agent:buyer",
+      "type": "CapabilityCredential"
+    },
+    "key": {
+      "alg": "Ed25519",
+      "crv": "Ed25519",
+      "kid": "agent-1",
+      "kty": "OKP",
+      "x": "5btpFnQUCW9nP_5NrwTuewx_frmJ-8MzIUHQuHqzsC0"
+    },
+    "op": "confirm"
+  },
+  "level": "trust"
+}

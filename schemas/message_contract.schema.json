@@ -1,0 +1,96 @@
+{
+  "$id": "https://spec.chokr.dev/schemas/message_contract/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "`chokr.message_contract/1.0`: a fixed schema for one kind of agent-to-agent message.",
+  "properties": {
+    "allowed_enums": {
+      "additionalProperties": {
+        "maxItems": 1024,
+        "minItems": 1,
+        "type": "array",
+        "uniqueItems": true
+      },
+      "propertyNames": {
+        "maxLength": 512,
+        "pattern": "^(/[^/]*)+$(?!\\n)",
+        "type": "string"
+      },
+      "type": "object"
+    },
+    "contract_id": {
+      "pattern": "^[a-z][a-z0-9_.-]{1,63}$(?!\\n)",
+      "type": "string"
+    },
+    "ext": {
+      "description": "Extension members; keys are namespaced and an unknown key is preserved.",
+      "type": "object"
+    },
+    "free_text_fields": {
+      "default": [],
+      "items": {
+        "maxLength": 512,
+        "pattern": "^(/[^/]*)+$(?!\\n)",
+        "type": "string"
+      },
+      "maxItems": 256,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "from_role": {
+      "pattern": "^[a-z][a-z0-9_.-]{0,63}$(?!\\n)",
+      "type": "string"
+    },
+    "max_bytes": {
+      "maximum": 16777216,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "max_messages_per_conversation": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "message_type": {
+      "pattern": "^[a-z][a-z0-9_.-]{0,63}$(?!\\n)",
+      "type": "string"
+    },
+    "required_reply_types": {
+      "items": {
+        "pattern": "^[a-z][a-z0-9_.-]{0,63}$(?!\\n)",
+        "type": "string"
+      },
+      "maxItems": 64,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "schema": {
+      "description": "A JSON Schema 2020-12 document, or `{proto_file, message}` for a Protocol Buffers contract.",
+      "type": "object"
+    },
+    "schema_version": {
+      "description": "MAJOR.MINOR of the contract",
+      "pattern": "^1\\.[0-9]+$(?!\\n)",
+      "type": "string"
+    },
+    "to_role": {
+      "pattern": "^[a-z][a-z0-9_.-]{0,63}$(?!\\n)",
+      "type": "string"
+    },
+    "version": {
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$(?!\\n)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "contract_id",
+    "from_role",
+    "max_bytes",
+    "message_type",
+    "schema",
+    "schema_version",
+    "to_role",
+    "version"
+  ],
+  "title": "Message contract",
+  "type": "object"
+}

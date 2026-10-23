@@ -1,0 +1,161 @@
+{
+  "$defs": {
+    "Cnf": {
+      "additionalProperties": false,
+      "description": "RFC 7800 confirmation: the RFC 7638 thumbprint of the key that must prove possession.",
+      "properties": {
+        "jkt": {
+          "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "jkt"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://spec.chokr.dev/schemas/grant/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "`chokr.grant/1.0` (A6.7): the claims of an Execution Grant, a compact JWS (EdDSA) that lets one call run once.",
+  "properties": {
+    "act": {
+      "maxLength": 2048,
+      "minLength": 1,
+      "type": "string"
+    },
+    "action_uri": {
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9._:/*-]+$(?!\\n)",
+      "type": "string"
+    },
+    "approval_id": {
+      "pattern": "^apr_(?!\\n)",
+      "type": "string"
+    },
+    "aud": {
+      "enum": [
+        "chokr:mcp",
+        "chokr:a2a",
+        "chokr:http",
+        "chokr:tool"
+      ]
+    },
+    "bounded_params": {
+      "additionalProperties": {
+        "additionalProperties": false,
+        "minProperties": 1,
+        "properties": {
+          "max": {
+            "type": "number"
+          },
+          "min": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "type": "object"
+    },
+    "cnf": {
+      "additionalProperties": false,
+      "description": "RFC 7800 confirmation: the RFC 7638 thumbprint of the key that must prove possession.",
+      "properties": {
+        "jkt": {
+          "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "jkt"
+      ],
+      "type": "object"
+    },
+    "environment_id": {
+      "maxLength": 256,
+      "type": "string"
+    },
+    "exp": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "ext": {
+      "description": "Extension members; keys are namespaced and an unknown key is preserved.",
+      "type": "object"
+    },
+    "iat": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "immutable_params": {
+      "type": "object"
+    },
+    "input_hash": {
+      "pattern": "^sha256:[0-9a-f]{64}$(?!\\n)",
+      "type": "string"
+    },
+    "iss": {
+      "maxLength": 2048,
+      "minLength": 1,
+      "type": "string"
+    },
+    "jti": {
+      "description": "The grant id.",
+      "maxLength": 256,
+      "minLength": 1,
+      "type": "string"
+    },
+    "nbf": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "org_id": {
+      "maxLength": 256,
+      "type": "string"
+    },
+    "policy_fingerprint": {
+      "maxLength": 256,
+      "minLength": 1,
+      "type": "string"
+    },
+    "schema": {
+      "const": "chokr.grant/1.0"
+    },
+    "sub": {
+      "maxLength": 2048,
+      "minLength": 1,
+      "type": "string"
+    },
+    "tool_name": {
+      "maxLength": 256,
+      "minLength": 1,
+      "type": "string"
+    },
+    "uses": {
+      "default": 1,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "workspace_id": {
+      "maxLength": 256,
+      "type": "string"
+    }
+  },
+  "required": [
+    "action_uri",
+    "aud",
+    "exp",
+    "iat",
+    "input_hash",
+    "iss",
+    "jti",
+    "nbf",
+    "policy_fingerprint",
+    "schema",
+    "sub",
+    "tool_name"
+  ],
+  "title": "Execution grant",
+  "type": "object"
+}

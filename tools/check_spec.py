@@ -5,6 +5,8 @@
 - every vector is valid JSON with a unique `id` and `level` that match its path, and an area that the reference checker
   can run;
 - every registry has a schema version and sorted, unique entries;
+- every trust area has a valid vector and, where it has a signed document, a tamper vector (CHK-TRU-14);
+- `proto/service_plugin.proto` declares the package and every service of the plugin protocol;
 - every vector passes the reference checker.
 """
 
@@ -22,6 +24,32 @@ from chokr_spec.runner import run
 
 ID_BASE = "https://spec.chokr.dev/schemas"
 DIALECT = "https://json-schema.org/draft/2020-12/schema"
+# What each trust area must have at least one vector of. `tamper` is a signed document changed after it was signed.
+TRUST_AREAS = {
+    "credential": ("valid", "tamper"),
+    "crypto": ("valid", "tamper"),
+    "delegation": ("valid", "tamper"),
+    "epoch": ("valid", "tamper"),
+    "evidence": ("valid", "tamper"),
+    "jws": ("valid", "tamper"),
+    "keybinding": ("valid", "tamper"),
+    "passport": ("valid", "tamper"),
+    "pop": ("valid", "tamper"),
+    "sdjwt": ("valid", "tamper"),
+    "thumbprint": ("valid",),
+    "vc": ("valid", "tamper"),
+}
+VECTOR_CLASSES = ("valid", "invalid", "tamper")
+PROTO_PACKAGE = "chokr.service_plugin.v1"
+PROTO_SERVICES = (
+    "Plugin",
+    "Guard",
+    "CplFunction",
+    "EvidenceVerifier",
+    "ObligationHandler",
+    "IsolationProvider",
+    "EventImporter",
+)
 
 
 def schema_problems(root: pathlib.Path, referenced: set[str]) -> list[str]:
@@ -96,11 +124,67 @@ def registry_problems(root: pathlib.Path) -> list[str]:
     return problems
 
 
+def trust_counts(root: pathlib.Path) -> dict[str, dict[str, int]]:
+    """How many vectors of each class every trust area has."""
+    counts: dict[str, dict[str, int]] = {}
+    for path in sorted((root / "vectors" / "trust").glob("*/*.json")):
+        try:
+            kind = json.loads(path.read_text("utf-8")).get("class")
+        except ValueError, AttributeError:
+            continue
+        area = counts.setdefault(path.parent.name, {})
+        area[str(kind)] = area.get(str(kind), 0) + 1
+    return counts
+
+
+def trust_problems(root: pathlib.Path) -> list[str]:
+    """Problems in the trust vectors: a class outside the three, an area the lint does not know, and an area that has
+    no valid vector or no tamper vector."""
+    problems: list[str] = []
+    counts = trust_counts(root)
+    for area, classes in sorted(counts.items()):
+        if area not in TRUST_AREAS:
+            problems.append(f"vectors/trust/{area}: not a known trust area")
+        problems.extend(
+            f"vectors/trust/{area}: class {kind!r} is not one of {', '.join(VECTOR_CLASSES)}"
+            for kind in classes
+            if kind not in VECTOR_CLASSES
+        )
+    for area, needed in TRUST_AREAS.items():
+        problems.extend(
+            f"vectors/trust/{area}: no {kind} vector" for kind in needed if counts.get(area, {}).get(kind, 0) == 0
+        )
+    return problems
+
+
+def proto_problems(root: pathlib.Path) -> list[str]:
+    """Problems in the plugin protocol: the file is there and names its package and every service."""
+    path = root / "proto" / "service_plugin.proto"
+    if not path.is_file():
+        return ["proto/service_plugin.proto: missing"]
+    text = path.read_text("utf-8")
+    problems = []
+    if 'syntax = "proto3";' not in text:
+        problems.append("proto/service_plugin.proto: is not proto3")
+    if f"package {PROTO_PACKAGE};" not in text:
+        problems.append(f"proto/service_plugin.proto: package is not {PROTO_PACKAGE}")
+    problems.extend(
+        f"proto/service_plugin.proto: no service {name}" for name in PROTO_SERVICES if f"service {name} {{" not in text
+    )
+    return problems
+
+
 def check(root: pathlib.Path) -> list[str]:
     """Every problem found in the protocol data under `root`."""
     vectors, referenced = vector_problems(root)
-    problems = [*schema_problems(root, referenced), *vectors, *registry_problems(root)]
-    report = run("connect", vectors=root / "vectors")
+    problems = [
+        *schema_problems(root, referenced),
+        *vectors,
+        *registry_problems(root),
+        *trust_problems(root),
+        *proto_problems(root),
+    ]
+    report = run("trust", vectors=root / "vectors")
     problems.extend(f"vector {r.id}: {r.detail}" for r in report.results if r.status != "pass")
     return problems
 
@@ -111,6 +195,9 @@ def main() -> int:
     for problem in problems:
         print(problem, file=sys.stderr)
     if not problems:
+        for area, classes in sorted(trust_counts(data_dir()).items()):
+            shown = ", ".join(f"{count} {kind}" for kind, count in sorted(classes.items()))
+            print(f"trust/{area}: {sum(classes.values())} vectors ({shown})")
         print("protocol data: ok")
     return 1 if problems else 0
 

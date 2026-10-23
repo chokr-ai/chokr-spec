@@ -1,0 +1,45 @@
+{
+  "class": "valid",
+  "description": "The published P-256 credential verifies.",
+  "expected": {
+    "accepted": true
+  },
+  "id": "vc/w3c_ecdsa_jcs_2019_published_proof_verifies",
+  "input": {
+    "document": {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/examples/v2"
+      ],
+      "credentialSubject": {
+        "alumniOf": "The School of Examples",
+        "id": "did:example:abcdefgh"
+      },
+      "description": "A minimum viable example of an Alumni Credential.",
+      "id": "urn:uuid:58172aac-d8ba-11ed-83dd-0b3aef56cc33",
+      "issuer": "https://vc.example/issuers/5678",
+      "name": "Alumni Credential",
+      "proof": {
+        "created": "2023-02-24T23:36:38Z",
+        "cryptosuite": "ecdsa-jcs-2019",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z5ptCet75SaEgzG4v4zJhbJtfNi74Wv7Fq15hhKouJQQjEPQvPZKaYxcMXAMLPQS2FXrkCWokNJkFVkwxNzZfD5oT",
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:key:zDnaepBuvsQ8cpsWrVKw8fbpGpvPeNSjVPTWoq6cRqaYzBKVP#zDnaepBuvsQ8cpsWrVKw8fbpGpvPeNSjVPTWoq6cRqaYzBKVP"
+      },
+      "type": [
+        "VerifiableCredential",
+        "AlumniCredential"
+      ],
+      "validFrom": "2023-01-01T00:00:00Z"
+    },
+    "jwk": {
+      "crv": "P-256",
+      "kty": "EC",
+      "x": "YP7UuiVanTHJYet0xjVtaMBJuJI7Yfps5mliLmDyn7Y",
+      "y": "eQP-EAi4vJmkGunpVii8ZPLxsgwtfp9Rd6PClNRGIpk"
+    },
+    "op": "verify"
+  },
+  "level": "trust"
+}

@@ -1,0 +1,168 @@
+{
+  "$defs": {
+    "Jwk": {
+      "additionalProperties": false,
+      "description": "A public JWK. Private members (`d`, `priv`, `p`, `q`...) are not part of the contract.",
+      "properties": {
+        "alg": {
+          "enum": [
+            "Ed25519",
+            "EdDSA",
+            "ES256",
+            "RS256",
+            "ML-DSA-44",
+            "ML-DSA-65",
+            "ML-DSA-87"
+          ]
+        },
+        "crv": {
+          "enum": [
+            "Ed25519",
+            "P-256"
+          ]
+        },
+        "e": {
+          "maxLength": 16,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "kid": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kty": {
+          "enum": [
+            "OKP",
+            "EC",
+            "RSA",
+            "AKP"
+          ]
+        },
+        "n": {
+          "maxLength": 4096,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "pub": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "use": {
+          "enum": [
+            "sig"
+          ]
+        },
+        "x": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "y": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kty",
+        "kid"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://spec.chokr.dev/schemas/trust_config/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "The trust store file (`.chokr/trust/trust.json`): which issuers' keys are known, what they are trusted for, and which ids are revoked.",
+  "properties": {
+    "ext": {
+      "description": "Extension members; keys are namespaced and an unknown key is preserved.",
+      "type": "object"
+    },
+    "issuer_keys": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "issuer": {
+            "maxLength": 2048,
+            "minLength": 1,
+            "type": "string"
+          },
+          "key": {
+            "$ref": "#/$defs/Jwk"
+          }
+        },
+        "required": [
+          "issuer",
+          "key"
+        ],
+        "type": "object"
+      },
+      "maxItems": 256,
+      "type": "array"
+    },
+    "schema_version": {
+      "description": "MAJOR.MINOR of the contract",
+      "pattern": "^1\\.[0-9]+$(?!\\n)",
+      "type": "string"
+    },
+    "status": {
+      "additionalProperties": {
+        "enum": [
+          "ACTIVE",
+          "REVOKED",
+          "SUSPENDED"
+        ]
+      },
+      "propertyNames": {
+        "maxLength": 2048,
+        "minLength": 1
+      },
+      "type": "object"
+    },
+    "trust": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "agent_class": {
+            "default": "*",
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "evidence_type": {
+            "default": "*",
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "issuer": {
+            "maxLength": 2048,
+            "minLength": 1,
+            "type": "string"
+          },
+          "max_age_days": {
+            "maximum": 36500,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "issuer"
+        ],
+        "type": "object"
+      },
+      "maxItems": 256,
+      "type": "array"
+    }
+  },
+  "required": [
+    "issuer_keys",
+    "schema_version",
+    "trust"
+  ],
+  "title": "Trust config",
+  "type": "object"
+}

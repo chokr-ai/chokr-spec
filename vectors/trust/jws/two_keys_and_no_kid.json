@@ -1,0 +1,30 @@
+{
+  "class": "invalid",
+  "description": "Without a kid the key is only chosen when there is exactly one.",
+  "expected": {
+    "accepted": false,
+    "code": "JWS_KID_UNKNOWN"
+  },
+  "id": "jws/two_keys_and_no_kid",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      },
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "other-1",
+        "kty": "OKP",
+        "x": "UJou7utdy5WW-SI1DH87y-qDkKs3vyu0ARnAQu7XgP8"
+      }
+    ],
+    "now": 1780315200,
+    "token": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODAzMTg4MDAsImlhdCI6MTc4MDMxNTE0MCwiaXNzIjoib3JnOmFjbWUiLCJuYmYiOjE3ODAzMTUxNDAsInN1YiI6InVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpidXllciJ9.F1XbiBUeW0I07seo0vUY3liH_FYiQY6UH2A_2Q44Z3HL4_WQfy0k8vUnxvaz__w8TtBmRogY9WnMowVAmsOGAQ"
+  },
+  "level": "trust"
+}

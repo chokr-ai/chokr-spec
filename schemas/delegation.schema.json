@@ -1,0 +1,458 @@
+{
+  "$defs": {
+    "Capability": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "maxLength": 256,
+          "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9._:/*-]+$(?!\\n)",
+          "type": "string"
+        },
+        "constraints": {
+          "items": {
+            "additionalProperties": false,
+            "description": "A CPL condition on one standard path (A6.6).",
+            "properties": {
+              "op": {
+                "enum": [
+                  "eq",
+                  "ne",
+                  "gt",
+                  "gte",
+                  "lt",
+                  "lte",
+                  "between",
+                  "in",
+                  "nin",
+                  "contains",
+                  "starts_with",
+                  "len_gt",
+                  "len_lt",
+                  "regex",
+                  "exists"
+                ]
+              },
+              "path": {
+                "maxLength": 512,
+                "pattern": "^(audience|purpose|resource\\.id|resource\\.count|attributes\\.[A-Za-z_][A-Za-z0-9_.-]*|arguments\\..+)$(?!\\n)",
+                "type": "string"
+              },
+              "value": {}
+            },
+            "required": [
+              "path",
+              "op",
+              "value"
+            ],
+            "type": "object"
+          },
+          "maxItems": 256,
+          "type": "array"
+        },
+        "resource_type": {
+          "maxLength": 128,
+          "pattern": "^(\\*|[a-z0-9][a-z0-9._-]*)$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action",
+        "resource_type"
+      ],
+      "type": "object"
+    },
+    "Jwk": {
+      "additionalProperties": false,
+      "description": "A public JWK. Private members (`d`, `priv`, `p`, `q`...) are not part of the contract.",
+      "properties": {
+        "alg": {
+          "enum": [
+            "Ed25519",
+            "EdDSA",
+            "ES256",
+            "RS256",
+            "ML-DSA-44",
+            "ML-DSA-65",
+            "ML-DSA-87"
+          ]
+        },
+        "crv": {
+          "enum": [
+            "Ed25519",
+            "P-256"
+          ]
+        },
+        "e": {
+          "maxLength": 16,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "kid": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kty": {
+          "enum": [
+            "OKP",
+            "EC",
+            "RSA",
+            "AKP"
+          ]
+        },
+        "n": {
+          "maxLength": 4096,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "pub": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "use": {
+          "enum": [
+            "sig"
+          ]
+        },
+        "x": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        },
+        "y": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kty"
+      ],
+      "type": "object"
+    },
+    "Signature": {
+      "additionalProperties": false,
+      "description": "Detached signature over the RFC 8785 form of the document without its signature members.",
+      "properties": {
+        "alg": {
+          "enum": [
+            "Ed25519",
+            "EdDSA",
+            "ES256",
+            "RS256",
+            "ML-DSA-44",
+            "ML-DSA-65",
+            "ML-DSA-87"
+          ]
+        },
+        "kid": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "alg",
+        "kid",
+        "value"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://spec.chokr.dev/schemas/delegation/1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "required": [
+        "signature"
+      ]
+    },
+    {
+      "required": [
+        "proofs"
+      ]
+    }
+  ],
+  "description": "`Delegation` (A6.6): authority passed from a delegator to a delegatee, attenuated at every link.",
+  "properties": {
+    "delegatee": {
+      "maxLength": 2048,
+      "minLength": 1,
+      "type": "string"
+    },
+    "delegator": {
+      "maxLength": 2048,
+      "minLength": 1,
+      "type": "string"
+    },
+    "expires_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+      "type": "string"
+    },
+    "ext": {
+      "description": "Extension members; keys are namespaced and an unknown key is preserved.",
+      "type": "object"
+    },
+    "grant": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "maxLength": 256,
+            "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9._:/*-]+$(?!\\n)",
+            "type": "string"
+          },
+          "constraints": {
+            "items": {
+              "additionalProperties": false,
+              "description": "A CPL condition on one standard path (A6.6).",
+              "properties": {
+                "op": {
+                  "enum": [
+                    "eq",
+                    "ne",
+                    "gt",
+                    "gte",
+                    "lt",
+                    "lte",
+                    "between",
+                    "in",
+                    "nin",
+                    "contains",
+                    "starts_with",
+                    "len_gt",
+                    "len_lt",
+                    "regex",
+                    "exists"
+                  ]
+                },
+                "path": {
+                  "maxLength": 512,
+                  "pattern": "^(audience|purpose|resource\\.id|resource\\.count|attributes\\.[A-Za-z_][A-Za-z0-9_.-]*|arguments\\..+)$(?!\\n)",
+                  "type": "string"
+                },
+                "value": {}
+              },
+              "required": [
+                "path",
+                "op",
+                "value"
+              ],
+              "type": "object"
+            },
+            "maxItems": 256,
+            "type": "array"
+          },
+          "resource_type": {
+            "maxLength": 128,
+            "pattern": "^(\\*|[a-z0-9][a-z0-9._-]*)$(?!\\n)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "action",
+          "resource_type"
+        ],
+        "type": "object"
+      },
+      "maxItems": 256,
+      "minItems": 1,
+      "type": "array"
+    },
+    "id": {
+      "maxLength": 2048,
+      "minLength": 1,
+      "type": "string"
+    },
+    "issued_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$(?!\\n)",
+      "type": "string"
+    },
+    "issuer": {
+      "maxLength": 2048,
+      "minLength": 1,
+      "type": "string"
+    },
+    "keys": {
+      "description": "Embedded public keys for the self-verifying path.",
+      "items": {
+        "additionalProperties": false,
+        "description": "A public JWK. Private members (`d`, `priv`, `p`, `q`...) are not part of the contract.",
+        "properties": {
+          "alg": {
+            "enum": [
+              "Ed25519",
+              "EdDSA",
+              "ES256",
+              "RS256",
+              "ML-DSA-44",
+              "ML-DSA-65",
+              "ML-DSA-87"
+            ]
+          },
+          "crv": {
+            "enum": [
+              "Ed25519",
+              "P-256"
+            ]
+          },
+          "e": {
+            "maxLength": 16,
+            "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+            "type": "string"
+          },
+          "kid": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "kty": {
+            "enum": [
+              "OKP",
+              "EC",
+              "RSA",
+              "AKP"
+            ]
+          },
+          "n": {
+            "maxLength": 4096,
+            "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+            "type": "string"
+          },
+          "pub": {
+            "maxLength": 16384,
+            "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+            "type": "string"
+          },
+          "use": {
+            "enum": [
+              "sig"
+            ]
+          },
+          "x": {
+            "maxLength": 16384,
+            "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+            "type": "string"
+          },
+          "y": {
+            "maxLength": 16384,
+            "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "kty"
+        ],
+        "type": "object"
+      },
+      "maxItems": 8,
+      "type": "array"
+    },
+    "max_depth": {
+      "default": 1,
+      "maximum": 32,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "proofs": {
+      "description": "Hybrid proofs (classical and post-quantum); every proof must verify.",
+      "items": {
+        "additionalProperties": false,
+        "description": "Detached signature over the RFC 8785 form of the document without its signature members.",
+        "properties": {
+          "alg": {
+            "enum": [
+              "Ed25519",
+              "EdDSA",
+              "ES256",
+              "RS256",
+              "ML-DSA-44",
+              "ML-DSA-65",
+              "ML-DSA-87"
+            ]
+          },
+          "kid": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "maxLength": 16384,
+            "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "alg",
+          "kid",
+          "value"
+        ],
+        "type": "object"
+      },
+      "maxItems": 8,
+      "minItems": 2,
+      "type": "array"
+    },
+    "schema_version": {
+      "description": "MAJOR.MINOR of the contract",
+      "pattern": "^1\\.[0-9]+$(?!\\n)",
+      "type": "string"
+    },
+    "signature": {
+      "additionalProperties": false,
+      "description": "Detached signature over the RFC 8785 form of the document without its signature members.",
+      "properties": {
+        "alg": {
+          "enum": [
+            "Ed25519",
+            "EdDSA",
+            "ES256",
+            "RS256",
+            "ML-DSA-44",
+            "ML-DSA-65",
+            "ML-DSA-87"
+          ]
+        },
+        "kid": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 16384,
+          "pattern": "^[A-Za-z0-9_-]+$(?!\\n)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "alg",
+        "kid",
+        "value"
+      ],
+      "type": "object"
+    },
+    "type": {
+      "const": "Delegation"
+    }
+  },
+  "required": [
+    "delegatee",
+    "delegator",
+    "expires_at",
+    "grant",
+    "id",
+    "issued_at",
+    "issuer",
+    "schema_version",
+    "type"
+  ],
+  "title": "Delegation",
+  "type": "object"
+}

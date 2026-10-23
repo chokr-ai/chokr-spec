@@ -1,0 +1,367 @@
+// chokr.service_plugin/1.0: the protocol between a CHOKR checkpoint (or engine) and an out-of-process plugin (A12.7).
+//
+// A plugin of any kind runs as a separate service, in any language. Every service implements `Plugin` (describe and
+// validate configuration) and the one kind-specific service for its kind. The JSON-over-HTTPS binding carries the same
+// messages in their canonical protobuf JSON form, one POST per RPC at `/chokr.service_plugin.v1.<Service>/<Rpc>`.
+//
+// Authentication is outside the messages. Every call carries a short-lived JWT (`typ = chokr-ext+jwt`, `alg = EdDSA`,
+// pinned by the receiver) in the `authorization: Bearer <jwt>` metadata or header. Its claims are `iss`, `aud`,
+// `caller_kind`, `org_id`, `workspace_id`, `jti`, `exp` (at most 60 s) and `rd`, the digest of the request body, so a
+// captured token cannot be replayed with another payload.
+//
+// Compatibility: a field is never renumbered or reused. A minor version only adds fields, services or enum values. A
+// different major version is a different package (`chokr.service_plugin.v2`) and the peers refuse to register.
+
+syntax = "proto3";
+
+package chokr.service_plugin.v1;
+
+import "google/protobuf/struct.proto";
+
+option go_package = "github.com/chokr-ai/chokr-spec/proto/service_plugin/v1;serviceplugin";
+
+// ---- shared types ---------------------------------------------------------------------------------------------
+
+// What each peer sends at startup. Minor versions are compatible when every required capability is met.
+message PeerMetadata {
+  string protocol_version = 1;               // "1.0"
+  string implementation = 2;                 // for example "chokr-checkpoint/1.0.0" or "acme-guard/2.3.1"
+  repeated string capabilities = 3;          // what this peer can do
+  repeated string required_capabilities = 4; // what this peer needs from the other one
+}
+
+enum Kind {
+  KIND_UNSPECIFIED = 0;
+  GUARD = 1;
+  CPL_FUNCTION = 2;
+  EVIDENCE_VERIFIER = 3;
+  OBLIGATION_HANDLER = 4;
+  ISOLATION_PROVIDER = 5;
+  EVENT_IMPORTER = 6;
+}
+
+// `chokr.plugin_manifest/1.0` (A12.4).
+message Manifest {
+  string name = 1;
+  repeated string namespace = 2;
+  string version = 3;
+  string api_version = 4;
+  Kind kind = 5;
+  bool deterministic = 6;
+  repeated string stages = 7;
+  Emits emits = 8;
+  google.protobuf.Struct config_schema = 9;  // JSON Schema of the plugin's configuration
+  optional uint64 latency_budget_us = 10;
+  bool requires_network = 11;
+  optional string signature = 12;
+
+  message Emits {
+    repeated string signal_codes = 1;
+    repeated string reason_codes = 2;
+    repeated string obligation_types = 3;
+    repeated string record_types = 4;
+  }
+}
+
+// A redacted view of the Envelope. Arguments are as they are after `scrub`; attributes whose declared sensitivity is in
+// `plugins.service.omit_sensitivity` (default `secret`) are removed. A view never carries credentials, keys or
+// ledger internals.
+message EnvelopeView {
+  string envelope_id = 1;
+  string kind = 2;                           // tool_call, model_call, mcp_call, ...
+  string action_uri = 3;
+  google.protobuf.Struct target = 4;
+  google.protobuf.Struct actor = 5;
+  google.protobuf.Struct resource = 6;
+  google.protobuf.Struct attributes = 7;
+  google.protobuf.Struct arguments = 8;
+  google.protobuf.Struct environment = 9;
+  string arguments_digest = 10;              // sha256:<hex> of the RFC 8785 form of the full arguments
+  string captured_at = 11;                   // RFC 3339, UTC
+}
+
+// A Signal (A6.2). A guard returns findings; it never decides and never edits arguments.
+message Signal {
+  string code = 1;                           // stable, namespaced, for example "acme.pii.passport_number"
+  string severity = 2;                       // info, low, medium, high, critical
+  double confidence = 3;                     // 0..1; 1.0 for a deterministic guard
+  google.protobuf.Struct evidence = 4;
+  google.protobuf.Struct facts = 5;
+  google.protobuf.Struct suggested_modification = 6;
+}
+
+// A redacted view of the Verdict an obligation handler acts on.
+message VerdictView {
+  string verdict_id = 1;
+  string envelope_id = 2;
+  string outcome = 3;
+  repeated string reason_codes = 4;
+  google.protobuf.Struct policy = 5;
+}
+
+message Obligation {
+  string type = 1;
+  google.protobuf.Struct params = 2;
+}
+
+// ---- common service: every plugin implements it ------------------------------------------------------------------
+
+service Plugin {
+  rpc Describe(DescribeRequest) returns (DescribeResponse);
+  rpc ValidateConfig(ValidateConfigRequest) returns (ValidateConfigResponse);
+}
+
+message DescribeRequest {
+  PeerMetadata peer = 1;                     // the caller's metadata
+}
+
+message DescribeResponse {
+  Manifest manifest = 1;
+  PeerMetadata peer = 2;                     // the plugin's metadata
+  string expected_audience = 3;              // must equal the registration's audience, or registration stops
+}
+
+message ValidateConfigRequest {
+  google.protobuf.Struct config = 1;
+}
+
+message ValidateConfigResponse {
+  bool valid = 1;
+  string reason = 2;                         // secret-free, empty when valid
+}
+
+// ---- guard ------------------------------------------------------------------------------------------------------
+
+service Guard {
+  rpc Inspect(InspectRequest) returns (InspectResponse);
+  rpc InspectResult(InspectResultRequest) returns (InspectResponse);
+}
+
+message InspectRequest {
+  EnvelopeView envelope = 1;
+  google.protobuf.Struct config = 2;
+}
+
+message InspectResultRequest {
+  EnvelopeView envelope = 1;
+  google.protobuf.Struct result = 2;         // the tool or model result, as it is after `scrub`
+  google.protobuf.Struct config = 3;
+}
+
+message InspectResponse {
+  repeated Signal signals = 1;               // at most 64 per call
+}
+
+// ---- CPL function ------------------------------------------------------------------------------------------------
+
+service CplFunction {
+  rpc Call(CallRequest) returns (CallResponse);
+}
+
+message CallRequest {
+  string name = 1;                           // the function name inside the plugin's namespace
+  repeated google.protobuf.Value args = 2;
+}
+
+message CallResponse {
+  google.protobuf.Value value = 1;           // deterministic: the same arguments give the same value
+}
+
+// ---- evidence verifier -------------------------------------------------------------------------------------------
+
+service EvidenceVerifier {
+  rpc Verify(VerifyRequest) returns (VerifyResponse);
+}
+
+message VerifyRequest {
+  google.protobuf.Struct evidence = 1;       // an Evidence document (A6.6) whose signature the caller already checked
+  string subject = 2;
+}
+
+message VerifyResponse {
+  bool ok = 1;
+  string code = 2;                           // a stable error code when not ok, for example EVIDENCE_INVALID
+  string status = 3;                         // fresh, stale or missing, as the verifier sees it
+}
+
+// ---- obligation handler ------------------------------------------------------------------------------------------
+
+service ObligationHandler {
+  rpc Handle(HandleRequest) returns (HandleResponse);
+}
+
+message HandleRequest {
+  Obligation obligation = 1;
+  VerdictView verdict = 2;
+}
+
+message HandleResponse {
+  bool fulfilled = 1;
+  string detail = 2;                         // secret-free
+}
+
+// ---- isolation provider (CHK-CNT-01) -----------------------------------------------------------------------------
+
+// Capabilities: middleware.http_request, middleware.http_response, middleware.websocket, policy.live_update,
+// credentials.detach, sandbox.stop, sandbox.freeze, events.stream, attestation.boundary, prover.boundary,
+// proposals.read, proposals.decide. A field a runtime cannot observe is UNKNOWN, never ENFORCED.
+service IsolationProvider {
+  rpc GetProviderInfo(GetProviderInfoRequest) returns (ProviderInfo);
+  rpc GetSandbox(GetSandboxRequest) returns (SandboxInfo);
+  rpc ListSandboxes(ListSandboxesRequest) returns (ListSandboxesResponse);
+  rpc EffectivePolicy(GetSandboxRequest) returns (NativePolicy);
+  rpc ApplyPolicy(ApplyPolicyRequest) returns (ApplyResult);
+  rpc Stop(GetSandboxRequest) returns (StopResponse);
+  rpc DetachCredentials(DetachCredentialsRequest) returns (StopResponse);
+  rpc Events(EventsRequest) returns (stream RuntimeEvent);
+  rpc BoundaryCheck(BoundaryCheckRequest) returns (ProofResult);
+  rpc Proposals(ProposalsRequest) returns (ProposalsResponse);
+  rpc DecideProposal(DecideProposalRequest) returns (StopResponse);
+}
+
+enum Enforcement {
+  ENFORCEMENT_UNSPECIFIED = 0;
+  UNKNOWN = 1;
+  ABSENT = 2;
+  BEST_EFFORT = 3;
+  ENFORCED = 4;
+}
+
+enum ProcessIdentity {
+  PROCESS_IDENTITY_UNSPECIFIED = 0;
+  PROCESS_IDENTITY_UNKNOWN = 1;
+  NON_ROOT = 2;
+  ROOT = 3;
+}
+
+message ProviderInfo {
+  string runtime = 1;
+  string version = 2;
+  string protocol_version = 3;
+  repeated string capabilities = 4;
+}
+
+message BoundaryStatement {
+  Enforcement filesystem = 1;
+  ProcessIdentity process_identity = 2;
+  Enforcement syscall_filter = 3;
+  Enforcement network_fence = 4;
+  Enforcement credential_substitution = 5;
+  string policy_digest = 6;
+  string supervisor_version = 7;
+  string observed_at = 8;                    // RFC 3339, UTC
+}
+
+message SandboxInfo {
+  string id = 1;
+  string name = 2;
+  string workspace = 3;
+  uint64 generation = 4;
+  string state = 5;
+  map<string, string> labels = 6;
+  repeated string credentials = 7;
+  string policy_digest = 8;
+  BoundaryStatement boundary = 9;
+}
+
+// A runtime's own policy format, opaque to CHOKR.
+message NativePolicy {
+  string media_type = 1;
+  bytes content = 2;
+}
+
+message GetProviderInfoRequest {}
+
+message GetSandboxRequest {
+  string sandbox_id = 1;
+}
+
+message ListSandboxesRequest {
+  map<string, string> filters = 1;
+}
+
+message ListSandboxesResponse {
+  repeated SandboxInfo sandboxes = 1;
+}
+
+message ApplyPolicyRequest {
+  string sandbox_id = 1;
+  NativePolicy policy = 2;
+  bool wait = 3;
+}
+
+message ApplyResult {
+  bool applied = 1;
+  string policy_digest = 2;
+  uint64 generation = 3;
+  string detail = 4;
+}
+
+message StopResponse {}
+
+message DetachCredentialsRequest {
+  string sandbox_id = 1;
+  string credential_ref = 2;
+}
+
+message EventsRequest {
+  map<string, string> filters = 1;
+}
+
+// A security event of the runtime, an OCSF-shaped document.
+message RuntimeEvent {
+  google.protobuf.Struct event = 1;
+}
+
+message BoundaryCheckRequest {
+  NativePolicy candidate = 1;
+  NativePolicy boundary = 2;
+}
+
+enum ProofStatus {
+  PROOF_STATUS_UNSPECIFIED = 0;
+  WITHIN_BOUNDARY = 1;
+  EXCEEDS_BOUNDARY = 2;
+  UNSUPPORTED = 3;
+  INCONCLUSIVE = 4;
+}
+
+message ProofResult {
+  ProofStatus status = 1;
+  google.protobuf.Struct counterexample = 2; // set for EXCEEDS_BOUNDARY
+  repeated string findings = 3;
+}
+
+message ProposalsRequest {
+  string sandbox_id = 1;
+  string status = 2;                         // pending by default
+}
+
+message RuntimeProposal {
+  string id = 1;
+  string sandbox_id = 2;
+  string status = 3;
+  NativePolicy rule = 4;
+  repeated string risk_findings = 5;
+}
+
+message ProposalsResponse {
+  repeated RuntimeProposal proposals = 1;
+}
+
+message DecideProposalRequest {
+  string proposal_id = 1;
+  bool approve = 2;
+  string reason = 3;
+}
+
+// ---- event importer ----------------------------------------------------------------------------------------------
+
+service EventImporter {
+  rpc Import(ImportRequest) returns (InspectResponse);
+}
+
+message ImportRequest {
+  google.protobuf.Struct event = 1;          // an external security event, for example OCSF
+  google.protobuf.Struct config = 2;
+}

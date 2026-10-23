@@ -1,0 +1,47 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/delegation_missing_delegatee",
+  "input": {
+    "document": {
+      "delegator": "urn:chokr:org:acme:agent:buyer",
+      "expires_at": "2026-01-02T00:00:00Z",
+      "grant": [
+        {
+          "action": "app:transfer",
+          "constraints": [
+            {
+              "op": "lte",
+              "path": "attributes.quantity.value",
+              "value": 5000
+            }
+          ],
+          "resource_type": "account"
+        }
+      ],
+      "id": "del-1",
+      "issued_at": "2026-01-01T00:00:00Z",
+      "issuer": "org:acme",
+      "keys": [
+        {
+          "alg": "Ed25519",
+          "crv": "Ed25519",
+          "kid": "key-1",
+          "kty": "OKP",
+          "x": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "max_depth": 2,
+      "schema_version": "1.0",
+      "signature": {
+        "alg": "Ed25519",
+        "kid": "key-1",
+        "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "type": "Delegation"
+    },
+    "schema": "delegation"
+  },
+  "level": "core"
+}

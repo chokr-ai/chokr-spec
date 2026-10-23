@@ -1,0 +1,30 @@
+{
+  "class": "valid",
+  "description": "A Ed25519 signature over the canonical payload verifies.",
+  "expected": {
+    "valid": true
+  },
+  "id": "crypto/ed25519_valid",
+  "input": {
+    "keys": [
+      {
+        "alg": "Ed25519",
+        "crv": "Ed25519",
+        "kid": "acme-1",
+        "kty": "OKP",
+        "x": "UNETR7fMKmhuvMgiQA2e0dGoOMjg7x7FFK7zKg9cnnQ"
+      }
+    ],
+    "payload": {
+      "action": "app:transfer",
+      "amount": 100,
+      "to": "acct-2"
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "kid": "acme-1",
+      "value": "_5O8UPVvXfgqJn_4NzPG_juX2Zz_4GK_-SXtrCmbjsLSYzfEv7jP1VW7dJsjjPahGSIpyzqqpYwNMiyQMF4oDQ"
+    }
+  },
+  "level": "trust"
+}

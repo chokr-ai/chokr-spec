@@ -1,0 +1,31 @@
+{
+  "class": "invalid",
+  "description": "An RSA key with e = 3 is not accepted.",
+  "expected": {
+    "code": "UNSUPPORTED_ALGORITHM",
+    "valid": false
+  },
+  "id": "crypto/rs256_exponent_other_than_65537_is_refused",
+  "input": {
+    "keys": [
+      {
+        "alg": "RS256",
+        "e": "Aw",
+        "kid": "acme-rsa",
+        "kty": "RSA",
+        "n": "s8D57p5gk-GFjWPnt_p5ECj4uxqCqTlJO4Hg5S05ZBnnCTII9tzU2OereKED6rODXhLA8pbPw-hQKiPT1qRh-cOB9gWQQUAZaFydQWMfydLlXNZF0GuKP2QJsksElS9vwg_3pYi4aGdFIyILZXNkC9Qnm8HfbirCCtQtnXb5AcMRcFSQK0h0Z8YTZu0kazn4yzPcEfiHNJmULDXHhsTZIB8KVU33wrEKFU3i8Jm9t1nWpIUWafOvUZnMeDeS3MbNjRa9jZG8MM_3Wi_h_z5_HLhgjSgfyoH-3I8q0_V7sBEuNlL31POKvNcpU2wTDmMxbsSMFoojlhNdZwFFy_0mXw"
+      }
+    ],
+    "payload": {
+      "action": "app:transfer",
+      "amount": 100,
+      "to": "acct-2"
+    },
+    "signature": {
+      "alg": "RS256",
+      "kid": "acme-rsa",
+      "value": "c6z6BHcZKlUqEihg1OTVMR-nvR7DGNT8Fw6Zy01jBc75vI-3o24WmEZeqN2ElJES85D01obcW9Rg59n7jiSrdyO1fn37ml8o9W7I7dTJY-42EGf_At0_Ae60nY0ynAAfAh0iV7zsXyi0UXJG9LHyxJhflgddBXeqaT3Y_EXx7GC7X0r-CKy1nul0gEb8XGrJ_imlQYzabtN346OxPz4vdZbcOLTeL1rPxIsXGhrESM8d61B4nWtKOzZHPTs_7Nv_ndNkXUA9hYbZxnefFAnCO_u0eFxbU9i3KsbGiEnycINdkD5FgQQgDgWquWM_1hCKAuYBk0QlP1feqVAQE7lYrA"
+    }
+  },
+  "level": "trust"
+}

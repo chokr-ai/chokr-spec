@@ -1,0 +1,29 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/trust_config_missing_trust_list",
+  "input": {
+    "document": {
+      "issuer_keys": [
+        {
+          "issuer": "org:acme",
+          "key": {
+            "alg": "Ed25519",
+            "crv": "Ed25519",
+            "kid": "key-1",
+            "kty": "OKP",
+            "x": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        }
+      ],
+      "schema_version": "1.0",
+      "status": {
+        "cred-9": "REVOKED",
+        "urn:chokr:org:acme:agent:old": "SUSPENDED"
+      }
+    },
+    "schema": "trust_config"
+  },
+  "level": "core"
+}

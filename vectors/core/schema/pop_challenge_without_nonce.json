@@ -1,0 +1,19 @@
+{
+  "expected": {
+    "valid": false
+  },
+  "id": "schema/pop_challenge_without_nonce",
+  "input": {
+    "document": {
+      "audience": "urn:chokr:org:acme:agent:seller",
+      "expires_at": "2026-01-01T00:02:00Z",
+      "issued_at": "2026-01-01T00:00:00Z",
+      "purpose": "tool:call",
+      "schema_version": "1.0",
+      "subject": "urn:chokr:org:acme:agent:buyer",
+      "type": "PoPChallenge"
+    },
+    "schema": "pop"
+  },
+  "level": "core"
+}

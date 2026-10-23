@@ -1,0 +1,39 @@
+{
+  "class": "valid",
+  "description": "The published hashes of the W3C eddsa-jcs-2022 example.",
+  "expected": {
+    "document_hash": "59b7cb6251b8991add1ce0bc83107e3db9dbbab5bd2c28f687db1a03abc92f19",
+    "proof_config_hash": "66ab154f5c2890a140cb8388a22a160454f80575f6eae09e5a097cabe539a1db"
+  },
+  "id": "vc/w3c_eddsa_jcs_2022_hashes",
+  "input": {
+    "document": {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/examples/v2"
+      ],
+      "credentialSubject": {
+        "alumniOf": "The School of Examples",
+        "id": "did:example:abcdefgh"
+      },
+      "description": "A minimum viable example of an Alumni Credential.",
+      "id": "urn:uuid:58172aac-d8ba-11ed-83dd-0b3aef56cc33",
+      "issuer": "https://vc.example/issuers/5678",
+      "name": "Alumni Credential",
+      "proof": {
+        "created": "2023-02-24T23:36:38Z",
+        "cryptosuite": "eddsa-jcs-2022",
+        "proofPurpose": "assertionMethod",
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2"
+      },
+      "type": [
+        "VerifiableCredential",
+        "AlumniCredential"
+      ],
+      "validFrom": "2023-01-01T00:00:00Z"
+    },
+    "op": "hashes"
+  },
+  "level": "trust"
+}
