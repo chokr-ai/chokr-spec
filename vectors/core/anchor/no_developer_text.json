@@ -1,0 +1,14 @@
+{
+  "id": "anchor/no_developer_text",
+  "level": "core",
+  "input": {
+    "system": [
+      "You are a helpful agent."
+    ],
+    "developer": []
+  },
+  "expected": {
+    "hash": "sha256:7cf981ec119904be66cd3a072427d2f194b0a0e05c9469d0a5c51a0cb6ef407f",
+    "length": 24
+  }
+}

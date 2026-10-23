@@ -1,0 +1,14 @@
+{
+  "id": "anchor/decomposed_letter",
+  "level": "core",
+  "input": {
+    "system": [
+      "café"
+    ],
+    "developer": []
+  },
+  "expected": {
+    "hash": "sha256:6f41084691737b7b0c018b305f4c30f95e5122d2e93da384a895355f8265c3e8",
+    "length": 6
+  }
+}

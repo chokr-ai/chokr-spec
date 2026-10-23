@@ -2,6 +2,36 @@
 # live in the language registry. This file is edited by hand and kept sorted by tools/check_spec.py.
 schema_version: '1.0'
 entries:
+- code: anchor.class_escalation
+  family: anchor
+  guard: anchor
+  severity: high
+- code: anchor.dominance_low
+  family: anchor
+  guard: anchor
+- code: anchor.drift_flag
+  family: anchor
+  guard: anchor
+  severity: low
+- code: anchor.injection_in_context
+  family: anchor
+  guard: anchor
+  severity: high
+- code: anchor.instruction_changed
+  family: anchor
+  guard: anchor
+  severity: high
+- code: anchor.new_tool_mid_session
+  family: anchor
+  guard: anchor
+- code: anchor.no_instructions
+  family: anchor
+  guard: anchor
+  severity: info
+- code: anchor.untrusted_burst
+  family: anchor
+  guard: anchor
+  severity: medium
 - code: argrule.violation
   family: argrule
   guard: sandbox
@@ -175,8 +205,29 @@ entries:
   default: deny (GUARD_ERROR) unless a rule says otherwise
 - code: guard.skipped
   family: guard
+- code: honeytoken.burst
+  family: honeytoken
+  guard: shield
+  severity: high
 - code: honeytoken.triggered
   family: honeytoken
+- code: injection.exfil_marker
+  family: injection
+  guard: shield
+- code: injection.imperative_density
+  family: injection
+  guard: shield
+  severity: low
+- code: injection.obfuscated
+  family: injection
+  guard: shield
+- code: injection.override_phrase
+  family: injection
+  guard: shield
+- code: injection.structural
+  family: injection
+  guard: shield
+  severity: medium
 - code: lock.hash_mismatch
   family: lock
   default: deny (TOOL_DRIFT), never overridden
@@ -315,6 +366,13 @@ entries:
   guard: sandbox
   severity: high
   default: deny (SIGNAL_CRITICAL) unless a rule says otherwise
+- code: shield.scan_incomplete
+  family: shield
+  guard: shield
+  severity: high
+- code: shield.session_threat
+  family: shield
+  guard: shield
 - code: sql.bulk_export
   family: sql
   guard: sandbox
@@ -371,6 +429,14 @@ entries:
 - code: stream.reassembly_match
   family: stream
   default: deny (SIGNAL_CRITICAL) unless a rule says otherwise
+- code: text.heavily_normalized
+  family: text
+  guard: shield
+  severity: low
+- code: text.zalgo_detected
+  family: text
+  guard: shield
+  severity: low
 - code: tool.approval_required
   family: tool
 - code: tool.blocked

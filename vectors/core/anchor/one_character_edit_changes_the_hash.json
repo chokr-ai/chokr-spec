@@ -1,0 +1,16 @@
+{
+  "id": "anchor/one_character_edit_changes_the_hash",
+  "level": "core",
+  "input": {
+    "system": [
+      "You are a helpful agent!"
+    ],
+    "developer": [
+      "Use the tools carefully."
+    ]
+  },
+  "expected": {
+    "hash": "sha256:07ccbe01d52b368205ae859d471bfbd81edfb90c7e124e524e73616b3024c58f",
+    "length": 48
+  }
+}

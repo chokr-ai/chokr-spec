@@ -62,6 +62,46 @@ def envelope_vectors() -> None:
         )
 
 
+def anchor_vectors() -> None:
+    """The hash of locked instructions. Expected values are computed here with `hashlib` and `json` only."""
+
+    def lf(text: str) -> str:
+        return text.replace("\r\n", "\n").replace("\r", "\n")
+
+    def expected(system: list[str], developer: list[str]) -> dict[str, Any]:
+        s, d = "\n".join(lf(x) for x in system), "\n".join(lf(x) for x in developer)
+        return {"hash": digest({"v": 1, "system": s, "developer": d}), "length": len(s.encode()) + len(d.encode())}
+
+    cases: dict[str, tuple[list[str], list[str]]] = {
+        "basic": (["You are a helpful agent."], ["Use the tools carefully."]),
+        "no_developer_text": (["You are a helpful agent."], []),
+        "no_instructions": ([], []),
+        "two_system_segments_are_joined_by_one_lf": (["First rule.", "Second rule."], []),
+        "crlf_hashes_like_lf": (["line one\r\nline two"], []),
+        "lf_hashes_like_crlf": (["line one\nline two"], []),
+        "lone_cr_is_a_line_ending": (["line one\rline two"], []),
+        "a_cr_that_ends_a_segment_is_converted_before_the_join": (["rule\r", "next"], []),
+        "trailing_space_changes_the_hash": (["You are a helpful agent. "], ["Use the tools carefully."]),
+        "one_character_edit_changes_the_hash": (["You are a helpful agent!"], ["Use the tools carefully."]),
+        "system_and_developer_are_not_interchangeable": ([], ["You are a helpful agent."]),
+        "composed_letter": (["café"], []),
+        "decomposed_letter": (["café"], []),
+        "non_ascii_and_control_characters": (["naïve — 日本語 \U0001f600 \u0001 \u007f"], ["\u2028"]),
+        "quotes_and_backslashes": (['say "hi" \\ done'], []),
+    }
+    for name, (system, developer) in cases.items():
+        write(
+            "anchor",
+            name,
+            {
+                "id": f"anchor/{name}",
+                "level": "core",
+                "input": {"system": system, "developer": developer},
+                "expected": expected(system, developer),
+            },
+        )
+
+
 def chain(chain_id: str, records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """The stored records of a chain that starts at the genesis hash."""
     out: list[dict[str, Any]] = []
@@ -338,6 +378,7 @@ def pattern_vectors() -> None:
 
 if __name__ == "__main__":
     envelope_vectors()
+    anchor_vectors()
     tamper_vectors(ledger_vectors())
     redacted_ledger_vector()
     version_vectors()

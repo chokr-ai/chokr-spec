@@ -1,0 +1,15 @@
+{
+  "id": "anchor/two_system_segments_are_joined_by_one_lf",
+  "level": "core",
+  "input": {
+    "system": [
+      "First rule.",
+      "Second rule."
+    ],
+    "developer": []
+  },
+  "expected": {
+    "hash": "sha256:c7e7eeb58adeed3e1b595cc0b0c4cc4dc1e16d9b66ad62c5f0df2b1f11692b9f",
+    "length": 24
+  }
+}

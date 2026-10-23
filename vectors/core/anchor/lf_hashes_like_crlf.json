@@ -1,0 +1,14 @@
+{
+  "id": "anchor/lf_hashes_like_crlf",
+  "level": "core",
+  "input": {
+    "system": [
+      "line one\nline two"
+    ],
+    "developer": []
+  },
+  "expected": {
+    "hash": "sha256:76b9f92c0f5088d09c4763f793393559b4cbf1a14dcab719c2d7bdae95c48ae4",
+    "length": 17
+  }
+}
