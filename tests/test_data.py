@@ -72,6 +72,7 @@ def test_registries_are_checked(data_copy):
 def test_the_generated_vectors_match_the_committed_ones(tmp_path, monkeypatch):
     monkeypatch.setattr(gen_vectors, "ROOT", tmp_path / "core")
     gen_vectors.envelope_vectors()
+    gen_vectors.anchor_vectors()
     gen_vectors.tamper_vectors(gen_vectors.ledger_vectors())
     gen_vectors.redacted_ledger_vector()
     gen_vectors.version_vectors()
@@ -79,7 +80,7 @@ def test_the_generated_vectors_match_the_committed_ones(tmp_path, monkeypatch):
     gen_vectors.pattern_vectors()
     committed = data_dir() / "vectors"
     written = sorted(p.relative_to(tmp_path) for p in tmp_path.rglob("*.json"))
-    assert len(written) == 54
+    assert len(written) == 69
     for relative in written:
         assert (tmp_path / relative).read_bytes() == (committed / relative).read_bytes(), relative
 

@@ -1,0 +1,14 @@
+{
+  "id": "anchor/quotes_and_backslashes",
+  "level": "core",
+  "input": {
+    "system": [
+      "say \"hi\" \\ done"
+    ],
+    "developer": []
+  },
+  "expected": {
+    "hash": "sha256:9a1fdf7ffe4257ee6dccdc237ac6c9cf563050e10703f9a498fab7dcdd1842f8",
+    "length": 15
+  }
+}

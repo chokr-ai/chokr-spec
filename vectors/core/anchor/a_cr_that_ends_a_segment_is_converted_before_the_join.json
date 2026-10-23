@@ -1,0 +1,15 @@
+{
+  "id": "anchor/a_cr_that_ends_a_segment_is_converted_before_the_join",
+  "level": "core",
+  "input": {
+    "system": [
+      "rule\r",
+      "next"
+    ],
+    "developer": []
+  },
+  "expected": {
+    "hash": "sha256:deca7d73c6b333bc7d178c045a933ef6732c50feef67b8cfc2bf4c521b6eb087",
+    "length": 10
+  }
+}

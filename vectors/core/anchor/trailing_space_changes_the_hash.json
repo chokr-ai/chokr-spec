@@ -1,0 +1,16 @@
+{
+  "id": "anchor/trailing_space_changes_the_hash",
+  "level": "core",
+  "input": {
+    "system": [
+      "You are a helpful agent. "
+    ],
+    "developer": [
+      "Use the tools carefully."
+    ]
+  },
+  "expected": {
+    "hash": "sha256:56c740572a4762acf846436b11894ecaa4663cfb21515102d077ce90bcc5024a",
+    "length": 49
+  }
+}

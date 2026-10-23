@@ -63,6 +63,24 @@ def tamper(vector: Vector, context: Context) -> dict[str, Any]:
     return {"expected_error": kind, "expected_seq": int(rest.split(" ", 1)[0])}
 
 
+def _lf(text: str) -> str:
+    return text.replace("\r\n", "\n").replace("\r", "\n")
+
+
+def anchor(vector: Vector, context: Context) -> dict[str, Any]:
+    """The hash of an agent's locked instructions: the system and the developer segments, each with its
+    line endings turned into LF and joined by one LF, hashed as the canonical form of
+    `{"v": 1, "system": S, "developer": D}`. Nothing else is changed (no trimming, no Unicode normalization), so any
+    real edit changes the hash."""
+    given = vector["input"]
+    system = "\n".join(_lf(text) for text in given["system"])
+    developer = "\n".join(_lf(text) for text in given["developer"])
+    return {
+        "hash": digest_object({"v": 1, "system": system, "developer": developer}),
+        "length": len(system.encode()) + len(developer.encode()),
+    }
+
+
 def schema(vector: Vector, context: Context) -> dict[str, Any]:
     """Whether a document is valid under the named schema."""
     document = json.loads((context.schemas / f"{vector['input']['schema']}.schema.json").read_text("utf-8"))
@@ -286,6 +304,7 @@ def sdjwt(vector: Vector, context: Context) -> dict[str, Any]:
 
 COMPUTE: dict[str, Callable[[Vector, Context], dict[str, Any]]] = {
     "envelope": envelope,
+    "anchor": anchor,
     "ledger": ledger,
     "tamper": tamper,
     "schema": schema,

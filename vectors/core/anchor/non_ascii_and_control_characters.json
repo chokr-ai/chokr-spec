@@ -1,0 +1,16 @@
+{
+  "id": "anchor/non_ascii_and_control_characters",
+  "level": "core",
+  "input": {
+    "system": [
+      "naïve — 日本語 😀 \u0001 "
+    ],
+    "developer": [
+      " "
+    ]
+  },
+  "expected": {
+    "hash": "sha256:9b89c631913da1da7796278685be4d0b89eb74c6946ec6abe71cd3c6164a2304",
+    "length": 32
+  }
+}

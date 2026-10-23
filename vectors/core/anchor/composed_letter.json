@@ -1,0 +1,14 @@
+{
+  "id": "anchor/composed_letter",
+  "level": "core",
+  "input": {
+    "system": [
+      "café"
+    ],
+    "developer": []
+  },
+  "expected": {
+    "hash": "sha256:da903698754b78c7513d464864d3732ba67b7754e8aa264d403d34bb6d5859f4",
+    "length": 5
+  }
+}

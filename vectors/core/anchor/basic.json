@@ -1,0 +1,16 @@
+{
+  "id": "anchor/basic",
+  "level": "core",
+  "input": {
+    "system": [
+      "You are a helpful agent."
+    ],
+    "developer": [
+      "Use the tools carefully."
+    ]
+  },
+  "expected": {
+    "hash": "sha256:aaa3c28c80124a34db01166267a63d3269c8f3bb5d50c8454cfd0fda5037d62f",
+    "length": 48
+  }
+}

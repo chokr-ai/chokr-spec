@@ -1,0 +1,14 @@
+{
+  "id": "anchor/system_and_developer_are_not_interchangeable",
+  "level": "core",
+  "input": {
+    "system": [],
+    "developer": [
+      "You are a helpful agent."
+    ]
+  },
+  "expected": {
+    "hash": "sha256:35919b37e307ad783155b67d74083b7afa309eaee1e6b07dc18293aeba5359c1",
+    "length": 24
+  }
+}

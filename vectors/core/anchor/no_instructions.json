@@ -1,0 +1,12 @@
+{
+  "id": "anchor/no_instructions",
+  "level": "core",
+  "input": {
+    "system": [],
+    "developer": []
+  },
+  "expected": {
+    "hash": "sha256:0428a431cf3706b2b4393bd874181252416b8e2473f4821813784ffa345207df",
+    "length": 0
+  }
+}
