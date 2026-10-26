@@ -1,0 +1,26 @@
+{
+  "id": "lockhash/description_composed_letter",
+  "level": "core",
+  "input": {
+    "tool": {
+      "name": "read_file",
+      "description": "café",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "expected": {
+    "description_hash": "sha256:850f7dc43910ff890f8879c0ed26fe697c93a067ad93a7d50f466a7028a9bf4e",
+    "schema_hash": "sha256:c8426890bd3630c712323cde19c4a6c5971851a9b5cb1bf51405d6fa3f9f62e9",
+    "annotations_hash": "sha256:f1b04599faf7455ad70f1a6f96ca07f99d7b8810a02f12eb56d3c8407d825ca5"
+  }
+}

@@ -3,7 +3,9 @@ vector's `expected` object, and the runner compares the two. Another implementat
 
 from __future__ import annotations
 
+import hashlib
 import json
+import re
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import datetime
@@ -17,7 +19,7 @@ from chokr_spec.canonical import canonicalize, digest_object
 from chokr_spec.errors import SpecError
 from chokr_spec.keys import thumbprint
 from chokr_spec.ledger import ChainState, advance, make_record, verify_chain
-from chokr_spec.signatures import Rejected, verify_document
+from chokr_spec.signatures import Rejected, b64url_decode, b64url_encode, verify_document
 from chokr_spec.versioning import check_schema_version
 
 Vector = dict[str, Any]
@@ -79,6 +81,108 @@ def anchor(vector: Vector, context: Context) -> dict[str, Any]:
         "hash": digest_object({"v": 1, "system": system, "developer": developer}),
         "length": len(system.encode()) + len(developer.encode()),
     }
+
+
+def lockhash(vector: Vector, context: Context) -> dict[str, Any]:
+    """The three hashes that pin a tool definition. The description is hashed as received (no
+    trimming, no Unicode normalization, a missing one is the empty string); the schema is the canonical form of
+    `inputSchema`; the annotations hash covers the annotations, the output schema and the title together."""
+    tool = vector["input"]["tool"]
+    description = tool.get("description") or ""
+    return {
+        "description_hash": "sha256:" + hashlib.sha256(description.encode()).hexdigest(),
+        "schema_hash": digest_object(tool.get("inputSchema")),
+        "annotations_hash": digest_object(
+            {
+                "annotations": tool.get("annotations") or {},
+                "outputSchema": tool.get("outputSchema"),
+                "title": tool.get("title"),
+            }
+        ),
+    }
+
+
+_MESH_AGENT = re.compile(r"[a-z0-9][a-z0-9._:@-]{0,127}")
+_MESH_RUN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:@_-]{0,127}")
+_MESH_SCOPE = re.compile(r"[a-z0-9][a-z0-9._:/@*-]{0,127}")
+_MESH_TRACEPARENT = re.compile(r"00-([0-9a-f]{32})-[0-9a-f]{16}-[0-9a-f]{2}")
+_MESH_PAYLOAD_KEYS = {"call_chain", "depth", "root_run_id", "restrictions"}
+MESH_MAX_HEADER = 4096
+
+
+def _mesh_scopes(restrictions: Any) -> list[str] | None:
+    """The sorted scope set of a `restrictions` member, or `None` for none. Anything else is malformed."""
+    if not isinstance(restrictions, dict) or set(restrictions) - {"scopes"}:
+        raise ValueError("malformed")
+    scopes = restrictions.get("scopes")
+    if scopes is None:
+        return None
+    ok = isinstance(scopes, list) and len(scopes) <= 256
+    if not ok or any(not isinstance(s, str) or _MESH_SCOPE.fullmatch(s) is None for s in scopes):
+        raise ValueError("malformed")
+    return sorted(set(scopes))
+
+
+def _mesh_parse(headers: dict[str, str]) -> dict[str, Any]:
+    lowered = {str(k).lower(): v for k, v in headers.items()}
+    raw, parent = lowered.get("chokr-chain"), lowered.get("traceparent")
+    if not isinstance(raw, str) or not isinstance(parent, str):
+        return {"error": "malformed"}
+    if len(raw) > MESH_MAX_HEADER:
+        return {"error": "header_too_large"}
+    matched = _MESH_TRACEPARENT.fullmatch(parent)
+    if matched is None or matched.group(1) == "0" * 32:
+        return {"error": "malformed"}
+    try:
+        payload = json.loads(b64url_decode(raw).decode("utf-8"))
+        if not isinstance(payload, dict) or set(payload) != _MESH_PAYLOAD_KEYS:
+            raise ValueError("malformed")
+        chain, depth, root = payload["call_chain"], payload["depth"], payload["root_run_id"]
+        bad_chain = not isinstance(chain, list) or not chain or len(chain) > 256
+        if bad_chain or any(not isinstance(a, str) or _MESH_AGENT.fullmatch(a) is None for a in chain):
+            raise ValueError("malformed")
+        if isinstance(depth, bool) or not isinstance(depth, int):
+            raise ValueError("malformed")
+        if not isinstance(root, str) or _MESH_RUN.fullmatch(root) is None:
+            raise ValueError("malformed")
+        scopes = _mesh_scopes(payload["restrictions"])
+    except ValueError, RecursionError:
+        return {"error": "malformed"}
+    return {
+        "ok": True,
+        "call_chain": chain,
+        "depth": depth,
+        "root_run_id": root,
+        "scopes": scopes,
+        "trace_id": matched.group(1),
+    }
+
+
+def meshchain(vector: Vector, context: Context) -> dict[str, Any]:
+    """The `Chokr-Chain` header of the call chain. With `call_chain` in the input: the header is
+    the unpadded base64url of the canonical JSON of `{call_chain, depth, root_run_id, restrictions}`, and `traceparent`
+    is kept as given or made as `00-<trace_id>-<first 16 hex of sha256(trace_id + header)>-01`. With `headers`: the
+    chain the headers carry, or the reason they are refused (`malformed`, `header_too_large`)."""
+    given = vector["input"]
+    if "headers" in given:
+        return _mesh_parse(given["headers"])
+    payload = {
+        "call_chain": given["call_chain"],
+        "depth": given["depth"],
+        "root_run_id": given["root_run_id"],
+        "restrictions": given["restrictions"],
+    }
+    canonical = canonicalize(payload)
+    header = b64url_encode(canonical)
+    made = hashlib.sha256((given["trace_id"] + header).encode("ascii")).hexdigest()[:16]
+    out = {
+        "jcs": canonical.decode(),
+        "chokr_chain": header,
+        "traceparent": given.get("traceparent") or f"00-{given['trace_id']}-{made}-01",
+    }
+    if given.get("tracestate"):
+        out["tracestate"] = given["tracestate"]
+    return out
 
 
 def schema(vector: Vector, context: Context) -> dict[str, Any]:
@@ -305,6 +409,8 @@ def sdjwt(vector: Vector, context: Context) -> dict[str, Any]:
 COMPUTE: dict[str, Callable[[Vector, Context], dict[str, Any]]] = {
     "envelope": envelope,
     "anchor": anchor,
+    "lockhash": lockhash,
+    "meshchain": meshchain,
     "ledger": ledger,
     "tamper": tamper,
     "schema": schema,

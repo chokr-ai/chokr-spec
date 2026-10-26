@@ -1,0 +1,49 @@
+{
+  "expected": {
+    "chokr_chain": "eyJjYWxsX2NoYWluIjpbIm4wIiwibjEiLCJuMiIsIm4zIiwibjQiLCJuNSIsIm42IiwibjciLCJuOCIsIm45IiwibjEwIiwibjExIiwibjEyIiwibjEzIiwibjE0IiwibjE1IiwibjE2IiwibjE3IiwibjE4IiwibjE5IiwibjIwIiwibjIxIiwibjIyIiwibjIzIiwibjI0IiwibjI1IiwibjI2IiwibjI3IiwibjI4IiwibjI5IiwibjMwIiwiYWdlbnQteiJdLCJkZXB0aCI6MzEsInJlc3RyaWN0aW9ucyI6e30sInJvb3RfcnVuX2lkIjoicnVuXzAxSjAwMDAwMDAwMDAwMDAwMDAwMDAwUjAwIn0",
+    "jcs": "{\"call_chain\":[\"n0\",\"n1\",\"n2\",\"n3\",\"n4\",\"n5\",\"n6\",\"n7\",\"n8\",\"n9\",\"n10\",\"n11\",\"n12\",\"n13\",\"n14\",\"n15\",\"n16\",\"n17\",\"n18\",\"n19\",\"n20\",\"n21\",\"n22\",\"n23\",\"n24\",\"n25\",\"n26\",\"n27\",\"n28\",\"n29\",\"n30\",\"agent-z\"],\"depth\":31,\"restrictions\":{},\"root_run_id\":\"run_01J00000000000000000000R00\"}",
+    "traceparent": "00-0af7651916cd43dd8448eb211c80319c-d2cf23a330078dc2-01"
+  },
+  "id": "meshchain/max_chain_32",
+  "input": {
+    "call_chain": [
+      "n0",
+      "n1",
+      "n2",
+      "n3",
+      "n4",
+      "n5",
+      "n6",
+      "n7",
+      "n8",
+      "n9",
+      "n10",
+      "n11",
+      "n12",
+      "n13",
+      "n14",
+      "n15",
+      "n16",
+      "n17",
+      "n18",
+      "n19",
+      "n20",
+      "n21",
+      "n22",
+      "n23",
+      "n24",
+      "n25",
+      "n26",
+      "n27",
+      "n28",
+      "n29",
+      "n30",
+      "agent-z"
+    ],
+    "depth": 31,
+    "restrictions": {},
+    "root_run_id": "run_01J00000000000000000000R00",
+    "trace_id": "0af7651916cd43dd8448eb211c80319c"
+  },
+  "level": "core"
+}

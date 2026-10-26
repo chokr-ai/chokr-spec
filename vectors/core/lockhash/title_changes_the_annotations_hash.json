@@ -1,0 +1,27 @@
+{
+  "id": "lockhash/title_changes_the_annotations_hash",
+  "level": "core",
+  "input": {
+    "tool": {
+      "name": "read_file",
+      "description": "Read a file.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer"
+          }
+        }
+      },
+      "title": "Read file"
+    }
+  },
+  "expected": {
+    "description_hash": "sha256:a8542ed639927832f0cdd485e8735095c8e023b602ec5692f84fed925a2a39d7",
+    "schema_hash": "sha256:c8426890bd3630c712323cde19c4a6c5971851a9b5cb1bf51405d6fa3f9f62e9",
+    "annotations_hash": "sha256:11a4d29559a9705f63d49a9b20b9ee94a822fa312a701d787fd48fdc7361da4e"
+  }
+}
