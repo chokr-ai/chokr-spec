@@ -1,0 +1,22 @@
+{
+  "id": "lockhash/unicode_schema",
+  "level": "core",
+  "input": {
+    "tool": {
+      "name": "read_file",
+      "description": "Read a file.",
+      "inputSchema": {
+        "type": "object",
+        "description": "café — 日本語",
+        "required": [
+          "path"
+        ]
+      }
+    }
+  },
+  "expected": {
+    "description_hash": "sha256:a8542ed639927832f0cdd485e8735095c8e023b602ec5692f84fed925a2a39d7",
+    "schema_hash": "sha256:2ff7a352cc60cf0dfc15e846ebb58f5c39d71604e500df501b8426d82e4c326f",
+    "annotations_hash": "sha256:f1b04599faf7455ad70f1a6f96ca07f99d7b8810a02f12eb56d3c8407d825ca5"
+  }
+}

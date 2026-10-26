@@ -211,6 +211,14 @@ entries:
   severity: high
 - code: honeytoken.triggered
   family: honeytoken
+- code: hook.repaired
+  family: hook
+  guard: lock
+  severity: info
+- code: hook.tampered
+  family: hook
+  guard: lock
+  severity: critical
 - code: injection.exfil_marker
   family: injection
   guard: shield
@@ -228,9 +236,41 @@ entries:
   family: injection
   guard: shield
   severity: medium
+- code: lock.description_changed
+  family: lock
+  guard: lock
+  severity: high
+- code: lock.executable_outside_allowlist
+  family: lock
+  guard: lock
+  severity: medium
 - code: lock.hash_mismatch
   family: lock
   default: deny (TOOL_DRIFT), never overridden
+- code: lock.instruction_in_description
+  family: lock
+  guard: lock
+  severity: high
+- code: lock.scan_limit
+  family: lock
+  guard: lock
+  severity: medium
+- code: lock.secret_in_config
+  family: lock
+  guard: lock
+  severity: high
+- code: lock.unknown_tool
+  family: lock
+  guard: lock
+  severity: high
+- code: lock.unpinned
+  family: lock
+  guard: lock
+  severity: medium
+- code: lock.unverified
+  family: lock
+  guard: lock
+  severity: high
 - code: loop.no_progress
   family: loop
   guard: fuse
@@ -243,6 +283,41 @@ entries:
   family: loop
   guard: fuse
   severity: high
+- code: mesh.chain_tamper
+  family: mesh
+  guard: mesh
+  severity: critical
+- code: mesh.extra_fields_stripped
+  family: mesh
+  guard: mesh
+  severity: medium
+- code: mesh.free_text_injection
+  family: mesh
+  guard: mesh
+  severity: high
+- code: mesh.peer_admitted
+  family: mesh
+  guard: mesh
+  severity: info
+- code: mesh.peer_not_admitted
+  family: mesh
+  guard: mesh
+  severity: high
+- code: mesh.peer_pending
+  family: mesh
+  guard: mesh
+  severity: info
+- code: mesh.reverse_channel_violation
+  family: mesh
+  guard: mesh
+  severity: high
+- code: mesh.schema_violation
+  family: mesh
+  guard: mesh
+  severity: high
+- code: mesh.workflow_anomaly
+  family: mesh
+  guard: mesh
 - code: path.not_literal
   family: path
   guard: sandbox
@@ -284,6 +359,10 @@ entries:
   family: rate
   guard: fuse
   severity: low
+- code: replay.nonce_reuse
+  family: replay
+  guard: mesh
+  severity: high
 - code: risk.class
   family: risk
   guard: sandbox
@@ -483,4 +562,8 @@ entries:
 - code: url.scheme_denied
   family: url
   guard: sandbox
+  severity: high
+- code: vuln.found
+  family: vuln
+  guard: lock
   severity: high

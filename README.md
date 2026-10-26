@@ -65,7 +65,7 @@ tools/      gen_vectors.py and gen_trust_vectors.py rewrite the vectors that are
 
 A vector is a JSON file with an `id`, a `level`, an `input` and an `expected` result. The `id` is `<area>/<file name>` and
 the `level` is the folder it sits in. The areas are `envelope` (canonical form and digest), `ledger` (the hash chain),
-`anchor` (the hash of an agent's locked instructions), `tamper` (a changed chain), `schema` (a document against a schema), `version` (version compatibility) and `verdict`
+`anchor` (the hash of an agent's locked instructions), `lockhash` (the hashes that pin a tool definition), `meshchain` (the `Chokr-Chain` header of a call chain), `tamper` (a changed chain), `schema` (a document against a schema), `version` (version compatibility) and `verdict`
 (signature verification). The `trust` level has the areas `crypto` (four algorithm families and hybrid proofs), `jws`,
 `thumbprint`, `credential`, `delegation` (attenuation), `evidence` (freshness), `passport`, `pop` (proof of possession,
 replay), `keybinding`, `epoch` (rollback), `vc` (W3C Data Integrity `eddsa-jcs-2022` and `ecdsa-jcs-2019`, with the values

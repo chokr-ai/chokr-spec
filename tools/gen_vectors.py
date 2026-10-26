@@ -102,6 +102,59 @@ def anchor_vectors() -> None:
         )
 
 
+def lockhash_vectors() -> None:
+    """The hashes that pin a tool definition. Expected values are computed here with `hashlib` and `json` only."""
+
+    def sha(text: str) -> str:
+        return "sha256:" + hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+    def expected(tool: dict[str, Any]) -> dict[str, str]:
+        return {
+            "description_hash": sha(tool.get("description") or ""),
+            "schema_hash": digest(tool.get("inputSchema")),
+            "annotations_hash": digest(
+                {
+                    "annotations": tool.get("annotations") or {},
+                    "outputSchema": tool.get("outputSchema"),
+                    "title": tool.get("title"),
+                }
+            ),
+        }
+
+    schema = {"type": "object", "properties": {"path": {"type": "string"}, "limit": {"type": "integer"}}}
+    reordered = {"properties": {"limit": {"type": "integer"}, "path": {"type": "string"}}, "type": "object"}
+    unicode_schema = {"type": "object", "description": "café — 日本語", "required": ["path"]}
+    base = {"name": "read_file", "description": "Read a file.", "inputSchema": schema}
+    cases: dict[str, dict[str, Any]] = {
+        "basic": base,
+        "schema_key_order_does_not_matter": {**base, "inputSchema": reordered},
+        "unicode_schema": {**base, "inputSchema": unicode_schema},
+        "description_with_a_trailing_space": {**base, "description": "Read a file. "},
+        "description_composed_letter": {**base, "description": "café"},
+        "description_decomposed_letter": {**base, "description": "café"},
+        "description_with_a_crlf": {**base, "description": "line one\r\nline two"},
+        "description_with_an_lf": {**base, "description": "line one\nline two"},
+        "no_description_is_the_empty_string": {"name": "t", "inputSchema": schema},
+        "annotations_absent": base,
+        "annotations_present_but_empty": {**base, "annotations": {}},
+        "annotations_with_a_hint": {**base, "annotations": {"readOnlyHint": True}},
+        "annotations_key_order_does_not_matter": {
+            **base,
+            "annotations": {"idempotentHint": True, "readOnlyHint": True},
+        },
+        "annotations_key_order_reversed": {**base, "annotations": {"readOnlyHint": True, "idempotentHint": True}},
+        "title_changes_the_annotations_hash": {**base, "title": "Read file"},
+        "output_schema_changes_the_annotations_hash": {**base, "outputSchema": {"type": "string"}},
+        "empty_schema": {"name": "t", "description": "d", "inputSchema": {}},
+    }
+    for name, tool in cases.items():
+        write(
+            "lockhash",
+            name,
+            {"id": f"lockhash/{name}", "level": "core", "input": {"tool": tool}, "expected": expected(tool)},
+        )
+
+
 def chain(chain_id: str, records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """The stored records of a chain that starts at the genesis hash."""
     out: list[dict[str, Any]] = []
@@ -379,6 +432,7 @@ def pattern_vectors() -> None:
 if __name__ == "__main__":
     envelope_vectors()
     anchor_vectors()
+    lockhash_vectors()
     tamper_vectors(ledger_vectors())
     redacted_ledger_vector()
     version_vectors()

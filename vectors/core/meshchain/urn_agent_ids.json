@@ -1,0 +1,19 @@
+{
+  "expected": {
+    "chokr_chain": "eyJjYWxsX2NoYWluIjpbInVybjpjaG9rcjpvcmc6YWNtZTphZ2VudDpwbGFubmVyIiwidXJuOmNob2tyOm9yZzphY21lOmFnZW50OndvcmtlciJdLCJkZXB0aCI6MSwicmVzdHJpY3Rpb25zIjp7fSwicm9vdF9ydW5faWQiOiJydW5fMDFKMDAwMDAwMDAwMDAwMDAwMDAwMDBSMDAifQ",
+    "jcs": "{\"call_chain\":[\"urn:chokr:org:acme:agent:planner\",\"urn:chokr:org:acme:agent:worker\"],\"depth\":1,\"restrictions\":{},\"root_run_id\":\"run_01J00000000000000000000R00\"}",
+    "traceparent": "00-0af7651916cd43dd8448eb211c80319c-15e47488005b47f6-01"
+  },
+  "id": "meshchain/urn_agent_ids",
+  "input": {
+    "call_chain": [
+      "urn:chokr:org:acme:agent:planner",
+      "urn:chokr:org:acme:agent:worker"
+    ],
+    "depth": 1,
+    "restrictions": {},
+    "root_run_id": "run_01J00000000000000000000R00",
+    "trace_id": "0af7651916cd43dd8448eb211c80319c"
+  },
+  "level": "core"
+}

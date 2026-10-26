@@ -1,0 +1,13 @@
+{
+  "expected": {
+    "error": "malformed"
+  },
+  "id": "meshchain/not_json",
+  "input": {
+    "headers": {
+      "Chokr-Chain": "bm90IGpzb24",
+      "traceparent": "00-0af7651916cd43dd8448eb211c80319c-00f067aa0ba902b7-01"
+    }
+  },
+  "level": "core"
+}

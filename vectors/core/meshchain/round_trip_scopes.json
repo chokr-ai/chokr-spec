@@ -1,0 +1,26 @@
+{
+  "expected": {
+    "call_chain": [
+      "root-agent",
+      "agent-a",
+      "agent-b",
+      "agent-c"
+    ],
+    "depth": 3,
+    "ok": true,
+    "root_run_id": "run_01J00000000000000000000R00",
+    "scopes": [
+      "a:read",
+      "b:write"
+    ],
+    "trace_id": "0af7651916cd43dd8448eb211c80319c"
+  },
+  "id": "meshchain/round_trip_scopes",
+  "input": {
+    "headers": {
+      "Chokr-Chain": "eyJjYWxsX2NoYWluIjpbInJvb3QtYWdlbnQiLCJhZ2VudC1hIiwiYWdlbnQtYiIsImFnZW50LWMiXSwiZGVwdGgiOjMsInJlc3RyaWN0aW9ucyI6eyJzY29wZXMiOlsiYTpyZWFkIiwiYjp3cml0ZSJdfSwicm9vdF9ydW5faWQiOiJydW5fMDFKMDAwMDAwMDAwMDAwMDAwMDAwMDBSMDAifQ",
+      "traceparent": "00-0af7651916cd43dd8448eb211c80319c-e87e20db902f13cc-01"
+    }
+  },
+  "level": "core"
+}

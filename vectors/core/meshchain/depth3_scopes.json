@@ -1,0 +1,26 @@
+{
+  "expected": {
+    "chokr_chain": "eyJjYWxsX2NoYWluIjpbInJvb3QtYWdlbnQiLCJhZ2VudC1hIiwiYWdlbnQtYiIsImFnZW50LWMiXSwiZGVwdGgiOjMsInJlc3RyaWN0aW9ucyI6eyJzY29wZXMiOlsiYTpyZWFkIiwiYjp3cml0ZSJdfSwicm9vdF9ydW5faWQiOiJydW5fMDFKMDAwMDAwMDAwMDAwMDAwMDAwMDBSMDAifQ",
+    "jcs": "{\"call_chain\":[\"root-agent\",\"agent-a\",\"agent-b\",\"agent-c\"],\"depth\":3,\"restrictions\":{\"scopes\":[\"a:read\",\"b:write\"]},\"root_run_id\":\"run_01J00000000000000000000R00\"}",
+    "traceparent": "00-0af7651916cd43dd8448eb211c80319c-e87e20db902f13cc-01"
+  },
+  "id": "meshchain/depth3_scopes",
+  "input": {
+    "call_chain": [
+      "root-agent",
+      "agent-a",
+      "agent-b",
+      "agent-c"
+    ],
+    "depth": 3,
+    "restrictions": {
+      "scopes": [
+        "a:read",
+        "b:write"
+      ]
+    },
+    "root_run_id": "run_01J00000000000000000000R00",
+    "trace_id": "0af7651916cd43dd8448eb211c80319c"
+  },
+  "level": "core"
+}

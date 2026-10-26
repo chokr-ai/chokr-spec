@@ -1,0 +1,12 @@
+{
+  "expected": {
+    "error": "malformed"
+  },
+  "id": "meshchain/missing_traceparent",
+  "input": {
+    "headers": {
+      "Chokr-Chain": "eyJjYWxsX2NoYWluIjpbInJvb3QtYWdlbnQiLCJhZ2VudC1hIl0sImRlcHRoIjoxLCJyZXN0cmljdGlvbnMiOnt9LCJyb290X3J1bl9pZCI6InJ1bl8wMUowMDAwMDAwMDAwMDAwMDAwMDAwMFIwMCJ9"
+    }
+  },
+  "level": "core"
+}
