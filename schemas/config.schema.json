@@ -433,6 +433,16 @@
           ],
           "default": null
         },
+        "mcp_proxy": {
+          "$ref": "#/$defs/McpProxySection",
+          "default": {
+            "ask_timeout_seconds": 45,
+            "max_message_bytes": 16777216,
+            "progress_keepalive_seconds": 10,
+            "shutdown_grace_seconds": 5,
+            "tool_classify": "keyword"
+          }
+        },
         "proxy": {
           "$ref": "#/$defs/ProxySection",
           "default": {
@@ -653,6 +663,23 @@
         }
       },
       "title": "HooksSection",
+      "type": "object"
+    },
+    "IdentitySection": {
+      "additionalProperties": false,
+      "description": "`identity.accepted_urn_prefixes[]`: extra URN prefixes that parse like `urn:chokr:` (migration from an in-house\nsystem). CHOKR itself always emits `urn:chokr:*`.",
+      "properties": {
+        "accepted_urn_prefixes": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 64,
+          "title": "Accepted Urn Prefixes",
+          "type": "array"
+        }
+      },
+      "title": "IdentitySection",
       "type": "object"
     },
     "JsonlExporterSection": {
@@ -880,6 +907,52 @@
       "title": "ListFilterSection",
       "type": "object"
     },
+    "McpProxySection": {
+      "additionalProperties": false,
+      "description": "`gate.mcp_proxy`: limits and defaults of `chokr proxy -- <server>`. `tool_classify` is `keyword`\n(the tool name split into tokens, also written `name`) or `manifest` (the class pinned in `chokr.lock`).",
+      "properties": {
+        "ask_timeout_seconds": {
+          "default": 45,
+          "maximum": 3600,
+          "minimum": 1,
+          "title": "Ask Timeout Seconds",
+          "type": "integer"
+        },
+        "max_message_bytes": {
+          "default": 16777216,
+          "maximum": 1073741824,
+          "minimum": 1024,
+          "title": "Max Message Bytes",
+          "type": "integer"
+        },
+        "progress_keepalive_seconds": {
+          "default": 10,
+          "maximum": 3600,
+          "minimum": 1,
+          "title": "Progress Keepalive Seconds",
+          "type": "integer"
+        },
+        "shutdown_grace_seconds": {
+          "default": 5,
+          "maximum": 300,
+          "minimum": 0,
+          "title": "Shutdown Grace Seconds",
+          "type": "integer"
+        },
+        "tool_classify": {
+          "default": "keyword",
+          "enum": [
+            "keyword",
+            "name",
+            "manifest"
+          ],
+          "title": "Tool Classify",
+          "type": "string"
+        }
+      },
+      "title": "McpProxySection",
+      "type": "object"
+    },
     "OfflineBufferSection": {
       "additionalProperties": false,
       "properties": {
@@ -1101,6 +1174,35 @@
         }
       },
       "title": "PluginsSection",
+      "type": "object"
+    },
+    "ProveSection": {
+      "additionalProperties": false,
+      "description": "The CPL prover: `chokr policy prove` and `chokr.prover`.",
+      "properties": {
+        "max_collection_size": {
+          "default": 8,
+          "maximum": 1024,
+          "minimum": 1,
+          "title": "Max Collection Size",
+          "type": "integer"
+        },
+        "max_rules": {
+          "default": 1024,
+          "maximum": 100000,
+          "minimum": 1,
+          "title": "Max Rules",
+          "type": "integer"
+        },
+        "timeout_ms": {
+          "default": 10000,
+          "maximum": 3600000,
+          "minimum": 1,
+          "title": "Timeout Ms",
+          "type": "integer"
+        }
+      },
+      "title": "ProveSection",
       "type": "object"
     },
     "ProxySection": {
@@ -1394,15 +1496,251 @@
       "title": "StreamSection",
       "type": "object"
     },
-    "TrustSection": {
+    "TrustAlgorithmsSection": {
       "additionalProperties": false,
       "properties": {
+        "allow": {
+          "default": [
+            "Ed25519",
+            "ES256",
+            "RS256"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Allow",
+          "type": "array"
+        }
+      },
+      "title": "TrustAlgorithmsSection",
+      "type": "object"
+    },
+    "TrustDelegationSection": {
+      "additionalProperties": false,
+      "properties": {
+        "max_chain_depth": {
+          "default": 32,
+          "maximum": 256,
+          "minimum": 1,
+          "title": "Max Chain Depth",
+          "type": "integer"
+        }
+      },
+      "title": "TrustDelegationSection",
+      "type": "object"
+    },
+    "TrustEpochSection": {
+      "additionalProperties": false,
+      "properties": {
+        "stale_tolerance": {
+          "default": "reject",
+          "enum": [
+            "reject",
+            "allow_with_signal"
+          ],
+          "title": "Stale Tolerance",
+          "type": "string"
+        }
+      },
+      "title": "TrustEpochSection",
+      "type": "object"
+    },
+    "TrustEvidenceSection": {
+      "additionalProperties": false,
+      "properties": {
+        "resolver": {
+          "$ref": "#/$defs/TrustResolverSection",
+          "default": {
+            "allowed_hosts": [],
+            "enabled": false,
+            "max_bytes": 5242880,
+            "timeout_seconds": 5
+          }
+        }
+      },
+      "title": "TrustEvidenceSection",
+      "type": "object"
+    },
+    "TrustLimitsSection": {
+      "additionalProperties": false,
+      "properties": {
+        "max_document_bytes": {
+          "default": 262144,
+          "maximum": 16777216,
+          "minimum": 1024,
+          "title": "Max Document Bytes",
+          "type": "integer"
+        },
+        "max_list_items": {
+          "default": 256,
+          "maximum": 4096,
+          "minimum": 1,
+          "title": "Max List Items",
+          "type": "integer"
+        }
+      },
+      "title": "TrustLimitsSection",
+      "type": "object"
+    },
+    "TrustNonceStoreSection": {
+      "additionalProperties": false,
+      "properties": {
+        "max_entries": {
+          "default": 100000,
+          "maximum": 10000000,
+          "minimum": 1,
+          "title": "Max Entries",
+          "type": "integer"
+        }
+      },
+      "title": "TrustNonceStoreSection",
+      "type": "object"
+    },
+    "TrustResolverSection": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_hosts": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 256,
+          "title": "Allowed Hosts",
+          "type": "array"
+        },
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "max_bytes": {
+          "default": 5242880,
+          "maximum": 104857600,
+          "minimum": 1,
+          "title": "Max Bytes",
+          "type": "integer"
+        },
+        "timeout_seconds": {
+          "default": 5,
+          "maximum": 60,
+          "minimum": 1,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        }
+      },
+      "title": "TrustResolverSection",
+      "type": "object"
+    },
+    "TrustSection": {
+      "additionalProperties": false,
+      "description": "The `trust:` block. Out-of-range or wrongly typed values fail the load naming the key.",
+      "properties": {
+        "algorithms": {
+          "$ref": "#/$defs/TrustAlgorithmsSection",
+          "default": {
+            "allow": [
+              "Ed25519",
+              "ES256",
+              "RS256"
+            ]
+          }
+        },
         "clock_skew_seconds": {
           "default": 30,
           "maximum": 300,
           "minimum": 0,
           "title": "Clock Skew Seconds",
           "type": "integer"
+        },
+        "delegation": {
+          "$ref": "#/$defs/TrustDelegationSection",
+          "default": {
+            "max_chain_depth": 32
+          }
+        },
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "epoch": {
+          "$ref": "#/$defs/TrustEpochSection",
+          "default": {
+            "stale_tolerance": "reject"
+          }
+        },
+        "epoch_store_path": {
+          "default": ".chokr/trust/epochs.json",
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Epoch Store Path",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/TrustEvidenceSection",
+          "default": {
+            "resolver": {
+              "allowed_hosts": [],
+              "enabled": false,
+              "max_bytes": 5242880,
+              "timeout_seconds": 5
+            }
+          }
+        },
+        "key_provider": {
+          "default": "file",
+          "enum": [
+            "file",
+            "envelope",
+            "kms",
+            "vault",
+            "hsm"
+          ],
+          "title": "Key Provider",
+          "type": "string"
+        },
+        "limits": {
+          "$ref": "#/$defs/TrustLimitsSection",
+          "default": {
+            "max_document_bytes": 262144,
+            "max_list_items": 256
+          }
+        },
+        "mode": {
+          "default": "enforce",
+          "enum": [
+            "enforce",
+            "monitor"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "nonce_store": {
+          "$ref": "#/$defs/TrustNonceStoreSection",
+          "default": {
+            "max_entries": 100000
+          }
+        },
+        "pop_registration_ttl_seconds": {
+          "default": 300,
+          "maximum": 3600,
+          "minimum": 1,
+          "title": "Pop Registration Ttl Seconds",
+          "type": "integer"
+        },
+        "pop_ttl_seconds": {
+          "default": 120,
+          "maximum": 3600,
+          "minimum": 1,
+          "title": "Pop Ttl Seconds",
+          "type": "integer"
+        },
+        "trust_store_path": {
+          "default": ".chokr/trust/trust.json",
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Trust Store Path",
+          "type": "string"
         }
       },
       "title": "TrustSection",
@@ -1658,6 +1996,13 @@
           ]
         },
         "list_filter": null,
+        "mcp_proxy": {
+          "ask_timeout_seconds": 45,
+          "max_message_bytes": 16777216,
+          "progress_keepalive_seconds": 10,
+          "shutdown_grace_seconds": 5,
+          "tool_classify": "keyword"
+        },
         "proxy": {
           "pins": [],
           "require_pin": false
@@ -1716,6 +2061,12 @@
       "minimum": 100,
       "title": "Hot Reload Interval Ms",
       "type": "integer"
+    },
+    "identity": {
+      "$ref": "#/$defs/IdentitySection",
+      "default": {
+        "accepted_urn_prefixes": []
+      }
     },
     "ledger": {
       "$ref": "#/$defs/LedgerSection",
@@ -1813,6 +2164,14 @@
       "default": null,
       "title": "Profile"
     },
+    "prove": {
+      "$ref": "#/$defs/ProveSection",
+      "default": {
+        "max_collection_size": 8,
+        "max_rules": 1024,
+        "timeout_ms": 10000
+      }
+    },
     "rules": {
       "$ref": "#/$defs/RulesSection",
       "default": {
@@ -1845,7 +2204,42 @@
     "trust": {
       "$ref": "#/$defs/TrustSection",
       "default": {
-        "clock_skew_seconds": 30
+        "algorithms": {
+          "allow": [
+            "Ed25519",
+            "ES256",
+            "RS256"
+          ]
+        },
+        "clock_skew_seconds": 30,
+        "delegation": {
+          "max_chain_depth": 32
+        },
+        "enabled": true,
+        "epoch": {
+          "stale_tolerance": "reject"
+        },
+        "epoch_store_path": ".chokr/trust/epochs.json",
+        "evidence": {
+          "resolver": {
+            "allowed_hosts": [],
+            "enabled": false,
+            "max_bytes": 5242880,
+            "timeout_seconds": 5
+          }
+        },
+        "key_provider": "file",
+        "limits": {
+          "max_document_bytes": 262144,
+          "max_list_items": 256
+        },
+        "mode": "enforce",
+        "nonce_store": {
+          "max_entries": 100000
+        },
+        "pop_registration_ttl_seconds": 300,
+        "pop_ttl_seconds": 120,
+        "trust_store_path": ".chokr/trust/trust.json"
       }
     },
     "vocabulary": {
